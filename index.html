@@ -1,484 +1,451 @@
-<!-- FE Civil Mastery v4.0 — Clean Stable Build 2026 -->
+<!-- FE Civil Mastery v5.0 -->
 
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="FE Civil"/>
-<meta name="theme-color" content="#0a0a0a"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FE Civil">
 <title>FE Civil Mastery</title>
 <style>
-:root{--bg:#0f0f0f;--bg2:#1a1a1a;--bg3:#111;--brd:#2a2a2a;--tx:#e5e5e5;--tx2:#888;--tx3:#555;--acc:#f5c518;--acc2:#1a1600;--acc3:#3a3000;--card:rgba(20,20,20,0.96);--green:#22c55e;--red:#ef4444;}
-.light{--bg:#f0f0e8;--bg2:#fff;--bg3:#f5f5f0;--brd:#ddd;--tx:#1a1a1a;--tx2:#888;--tx3:#aaa;--acc:#d4a200;--acc2:#fffbe6;--acc3:#f5d060;--card:rgba(255,255,255,0.96);--green:#16a34a;--red:#dc2626;}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
-.app{padding:20px 16px 80px;max-width:520px;margin:0 auto;position:relative;z-index:1;}
-.bg-svg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
-h1{font-size:21px;font-weight:600;color:var(--tx);}
-.sub{font-size:13px;color:var(--tx2);margin-top:3px;}
-.card{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:18px;margin-bottom:12px;backdrop-filter:blur(8px);}
-.lbl{font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;display:block;}
-select{width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--brd);background:var(--bg3);color:var(--tx);font-size:14px;outline:none;appearance:none;font-family:inherit;}
-select:focus{border-color:var(--acc);}
-.seg{display:flex;background:var(--bg3);border:1px solid var(--brd);border-radius:12px;padding:4px;margin-bottom:12px;}
-.seg-btn{flex:1;padding:9px 8px;border-radius:9px;border:none;background:transparent;color:var(--tx2);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;}
-.seg-btn.active{background:var(--acc);color:#0a0a0a;}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
-.sm-btn{padding:9px 0;border-radius:10px;border:1px solid var(--brd);background:var(--bg3);color:var(--tx2);font-size:13px;font-weight:500;cursor:pointer;text-align:center;font-family:inherit;}
-.sm-btn.active{border-color:var(--acc);background:var(--acc2);color:var(--acc);}
-.btn{width:100%;padding:13px;border-radius:12px;border:none;background:var(--acc);color:#0a0a0a;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:8px;}
-.btn:active{opacity:.85;}
-.btn-sec{flex:1;padding:11px;border-radius:12px;border:1px solid var(--brd);background:var(--bg2);color:var(--tx2);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;}
-.tab-bar{display:flex;background:var(--bg3);border:1px solid var(--brd);border-radius:12px;padding:4px;margin-bottom:14px;}
-.tab{flex:1;padding:9px 4px;border-radius:9px;border:none;background:transparent;color:var(--tx3);font-size:11px;font-weight:500;cursor:pointer;font-family:inherit;}
-.tab.active{background:var(--acc);color:#0a0a0a;}
-.opt{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--brd);background:var(--bg3);color:var(--tx);font-size:14px;text-align:left;cursor:pointer;margin-bottom:7px;line-height:1.4;display:block;font-family:inherit;}
-.opt.correct{border-color:var(--green);background:#0d2b1d;color:#86efac;}
-.opt.wrong{border-color:var(--red);background:#2b0d0d;color:#fca5a5;}
-.opt.selected{border-color:var(--acc);background:var(--acc2);color:var(--acc);}
-.light .opt.correct{background:#dcfce7;color:#14532d;}
-.light .opt.wrong{background:#fee2e2;color:#991b1b;}
-.light .opt.selected{background:#fffbe6;color:#78570a;}
-.bar-bg{height:4px;background:var(--brd);border-radius:99px;margin-bottom:16px;}
-.bar-fill{height:4px;background:var(--acc);border-radius:99px;transition:width .3s;}
-.badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:600;}
-.badge-y{background:var(--acc2);color:var(--acc);border:1px solid var(--acc3);}
-.badge-g{background:#0d2b1d;color:#86efac;}
-.badge-r{background:#2b0d0d;color:#fca5a5;}
-.light .badge-g{background:#dcfce7;color:#14532d;}
-.light .badge-r{background:#fee2e2;color:#991b1b;}
-.explain{background:var(--acc2);border:1px solid var(--acc3);border-left:3px solid var(--acc);border-radius:10px;padding:11px 13px;margin-bottom:12px;}
-.explain p{font-size:13px;color:var(--acc);line-height:1.6;}
-.light .explain p{color:#78570a;}
-.formula-box{background:var(--bg3);border:1px solid var(--acc3);border-left:3px solid var(--acc);border-radius:10px;padding:9px 13px;margin-bottom:10px;font-family:'Courier New',monospace;font-size:13px;color:var(--acc);line-height:1.7;}
-.formula-card{background:var(--bg3);border:1px solid var(--brd);border-radius:12px;padding:12px 14px;margin-bottom:7px;}
-.err{background:#2b0d0d;border:1px solid #7f1d1d;border-radius:10px;padding:11px 13px;margin-bottom:12px;color:#fca5a5;font-size:13px;}
-.spin{width:38px;height:38px;border:3px solid var(--brd);border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.score-big{font-size:52px;font-weight:600;color:var(--acc);line-height:1;}
-.review-ok{border-radius:12px;padding:13px;margin-bottom:8px;border:1px solid #14532d;background:#0a1f15;}
-.review-ng{border-radius:12px;padding:13px;margin-bottom:8px;border:1px solid #7f1d1d;background:#1f0a0a;}
-.light .review-ok{background:#f0fdf4;border-color:#bbf7d0;}
-.light .review-ng{background:#fff1f2;border-color:#fecdd3;}
-.divider{height:1px;background:var(--brd);margin:12px 0;}
-.weak-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bg2);}
-.weak-bar-bg{width:70px;height:4px;background:var(--brd);border-radius:99px;overflow:hidden;}
-.conf-row{display:flex;gap:7px;margin-bottom:10px;}
-.conf-btn{flex:1;padding:9px 4px;border-radius:10px;border:1px solid;font-size:12px;font-weight:600;cursor:pointer;background:transparent;text-align:center;font-family:inherit;}
-.timer-num{font-size:15px;font-weight:600;color:var(--acc);}
-.timer-warn{color:var(--red)!important;}
-.streak{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;background:var(--acc2);border:1px solid var(--acc3);font-size:12px;font-weight:600;color:var(--acc);}
-.icon-wrap{width:50px;height:50px;border-radius:14px;background:var(--acc2);border:1px solid var(--acc3);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:20px;}
-.theme-btn{position:fixed;top:14px;right:14px;z-index:100;padding:7px 13px;border-radius:99px;border:1px solid var(--brd);background:var(--card);color:var(--tx2);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;}
-.modal{background:var(--bg2);border:1px solid var(--brd);border-radius:20px;padding:24px;width:100%;max-width:340px;}
-.session-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bg3);}
-.note-input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--brd);background:var(--bg3);color:var(--tx);font-size:13px;font-family:inherit;resize:none;outline:none;min-height:80px;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0f0f0f;color:#e5e5e5;min-height:100vh}
+body.light{background:#f0f0e8;color:#1a1a1a}
+.app{padding:20px 16px 80px;max-width:520px;margin:0 auto;position:relative;z-index:1}
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0}
+.card{background:rgba(22,22,22,0.96);border:1px solid #2a2a2a;border-radius:16px;padding:18px;margin-bottom:12px}
+body.light .card{background:rgba(255,255,255,0.96);border-color:#ddd}
+.lbl{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;display:block}
+body.light .lbl{color:#aaa}
+select{width:100%;padding:10px 14px;border-radius:10px;border:1px solid #2a2a2a;background:#111;color:#e5e5e5;font-size:14px;outline:none;appearance:none;font-family:inherit}
+body.light select{background:#fafafa;color:#1a1a1a;border-color:#ddd}
+.seg{display:flex;background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:4px;margin-bottom:12px}
+body.light .seg{background:#f0f0f0;border-color:#ddd}
+.seg button{flex:1;padding:9px 8px;border-radius:9px;border:none;background:transparent;color:#666;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit}
+.seg button.on{background:#f5c518;color:#000}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.sb{padding:9px 0;border-radius:10px;border:1px solid #2a2a2a;background:#111;color:#888;font-size:13px;cursor:pointer;text-align:center;font-family:inherit}
+body.light .sb{background:#fafafa;border-color:#ddd;color:#999}
+.sb.on{border-color:#f5c518;background:#1a1600;color:#f5c518}
+body.light .sb.on{background:#fffbe6;color:#9a7800}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;background:#f5c518;color:#000;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:8px}
+.btn2{padding:11px;border-radius:12px;border:1px solid #2a2a2a;background:#1a1a1a;color:#888;font-size:13px;cursor:pointer;font-family:inherit}
+body.light .btn2{background:#fff;border-color:#ddd;color:#888}
+.tabs{display:flex;background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:4px;margin-bottom:14px}
+body.light .tabs{background:#f0f0f0;border-color:#ddd}
+.tabs button{flex:1;padding:9px 4px;border-radius:9px;border:none;background:transparent;color:#555;font-size:11px;font-weight:500;cursor:pointer;font-family:inherit}
+body.light .tabs button{color:#aaa}
+.tabs button.on{background:#f5c518;color:#000}
+.opt{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #2a2a2a;background:#111;color:#ccc;font-size:14px;text-align:left;cursor:pointer;margin-bottom:7px;line-height:1.4;display:block;font-family:inherit}
+body.light .opt{background:#fafafa;border-color:#ddd;color:#333}
+.opt.ok{border-color:#22c55e;background:#0d2b1d;color:#86efac}
+.opt.ng{border-color:#ef4444;background:#2b0d0d;color:#fca5a5}
+.opt.sel{border-color:#f5c518;background:#1a1600;color:#f5c518}
+body.light .opt.ok{background:#dcfce7;color:#14532d}
+body.light .opt.ng{background:#fee2e2;color:#991b1b}
+body.light .opt.sel{background:#fffbe6;color:#78570a}
+.bar{height:4px;background:#2a2a2a;border-radius:99px;margin-bottom:16px}
+body.light .bar{background:#e0e0e0}
+.barfill{height:4px;background:#f5c518;border-radius:99px;transition:width .3s}
+.explain{background:#131100;border:1px solid #3a3000;border-left:3px solid #f5c518;border-radius:10px;padding:11px 13px;margin-bottom:12px;font-size:13px;color:#d4a800;line-height:1.6}
+body.light .explain{background:#fffbe6;border-color:#f5d060;color:#78570a}
+.fbox{background:#111;border:1px solid #3a3000;border-left:3px solid #f5c518;border-radius:10px;padding:9px 13px;margin-bottom:10px;font-family:monospace;font-size:13px;color:#f5c518;line-height:1.7}
+body.light .fbox{background:#fafafa;color:#8a6800}
+.spin{width:38px;height:38px;border:3px solid #2a2a2a;border-top-color:#f5c518;border-radius:50%;animation:sp .7s linear infinite;margin:0 auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.big{font-size:52px;font-weight:600;color:#f5c518;line-height:1}
+.rok{border-radius:12px;padding:13px;margin-bottom:8px;border:1px solid #14532d;background:#0a1f15}
+.rng{border-radius:12px;padding:13px;margin-bottom:8px;border:1px solid #7f1d1d;background:#1f0a0a}
+body.light .rok{background:#f0fdf4;border-color:#bbf7d0}
+body.light .rng{background:#fff1f2;border-color:#fecdd3}
+.hr{height:1px;background:#2a2a2a;margin:12px 0}
+body.light .hr{background:#e0e0e0}
+.wr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #1a1a1a}
+body.light .wr{border-bottom-color:#eee}
+.wbar{width:70px;height:4px;background:#2a2a2a;border-radius:99px;overflow:hidden}
+body.light .wbar{background:#e0e0e0}
+.conf{display:flex;gap:7px;margin-bottom:10px}
+.conf button{flex:1;padding:9px 4px;border-radius:10px;border:1px solid;font-size:12px;font-weight:600;cursor:pointer;background:transparent;font-family:inherit}
+.fcard{background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:12px 14px;margin-bottom:7px}
+body.light .fcard{background:#fafafa;border-color:#ddd}
+.streak{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;background:#1a1600;border:1px solid #3a3000;font-size:12px;font-weight:600;color:#f5c518}
+.tmr{font-size:15px;font-weight:600;color:#f5c518}
+.tmr.red{color:#ef4444}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.mbox{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:20px;padding:24px;width:100%;max-width:340px}
+body.light .mbox{background:#fff;border-color:#ddd}
+.tbtn{position:fixed;top:14px;right:14px;z-index:100;padding:7px 13px;border-radius:99px;border:1px solid #2a2a2a;background:rgba(20,20,20,.95);color:#888;font-size:12px;cursor:pointer;font-family:inherit}
+body.light .tbtn{background:rgba(255,255,255,.95);border-color:#ddd}
 </style>
 </head>
 <body>
-<div id="bg-wrap"></div>
-<button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☀ Light</button>
+<div class="bg" id="bg"></div>
+<button class="tbtn" id="tbtn" onclick="toggleTheme()">☀ Light</button>
 <div class="app" id="app">
-  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;gap:16px;">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;gap:16px">
     <div class="spin"></div>
-    <p style="color:var(--tx2);font-size:14px;">Loading FE Civil Mastery…</p>
+    <p style="color:#666;font-size:14px">Loading FE Civil Mastery…</p>
   </div>
 </div>
 <script>
 // ── THEME ─────────────────────────────────────────────────────────────────────
-var isDark = true;
-try { isDark = localStorage.getItem('theme') !== 'light'; } catch(e){}
-function applyTheme(){
-  document.body.classList.toggle('light', !isDark);
-  var btn = document.getElementById('theme-btn');
-  if(btn) btn.textContent = isDark ? '☀ Light' : '● Dark';
+var dark = true;
+try { dark = localStorage.getItem('theme') !== 'light'; } catch(e){}
+function applyTheme() {
+  document.body.classList.toggle('light', !dark);
+  var b = document.getElementById('tbtn');
+  if (b) b.textContent = dark ? '☀ Light' : '● Dark';
   drawBG();
 }
-function toggleTheme(){
-  isDark = !isDark;
-  try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(e){}
+function toggleTheme() {
+  dark = !dark;
+  try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch(e){}
   applyTheme();
   render();
 }
 applyTheme();
 
 // ── BACKGROUND ────────────────────────────────────────────────────────────────
-function drawBG(){
-var s  = isDark ? ‘#2a2a2a’ : ‘#c0c0c0’;
-var s2 = isDark ? ‘#222’    : ‘#cecece’;
-var h = [];
+function drawBG() {
+var el = document.getElementById(‘bg’);
+if (!el) return;
+var s = dark ? ‘#2a2a2a’ : ‘#c0c0c0’;
+var s2 = dark ? ‘#222’ : ‘#d0d0d0’;
+var p = [];
 // ground
-h.push(’<line x1="0" y1="622" x2="1000" y2="622" stroke="'+s2+'" stroke-width="2"/>’);
-[0,80,160,240,320,400,480,560,640,720,800,880].forEach(function(x){
-h.push(’<line x1="'+(x+10)+'" y1="626" x2="'+(x+55)+'" y2="626" stroke="'+s2+'" stroke-width="1.2" stroke-dasharray="35,45"/>’);
-});
+p.push(’<line x1="0" y1="625" x2="1000" y2="625" stroke="'+s2+'" stroke-width="2"/>’);
+for (var x = 0; x < 1000; x += 80) p.push(’<line x1="'+(x+10)+'" y1="630" x2="'+(x+50)+'" y2="630" stroke="'+s2+'" stroke-width="1.2" stroke-dasharray="30,50"/>’);
 // left building
-h.push(’<rect x="30" y="300" width="110" height="322" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
-for(var r=0;r<10;r++) for(var c=0;c<4;c++) h.push(’<rect x="'+(42+c*24)+'" y="'+(312+r*28)+'" width="16" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>’);
-h.push(’<rect x="55" y="582" width="60" height="40" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
-h.push(’<line x1="85" y1="300" x2="85" y2="260" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<rect x="30" y="300" width="110" height="325" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
+for (var r = 0; r < 10; r++) for (var c = 0; c < 4; c++) p.push(’<rect x="'+(42+c*24)+'" y="'+(312+r*28)+'" width="16" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>’);
+p.push(’<rect x="55" y="585" width="60" height="40" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<line x1="85" y1="300" x2="85" y2="260" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<line x1="78" y1="270" x2="92" y2="270" stroke="'+s+'" stroke-width="1"/>’);
 // mid building
-h.push(’<rect x="150" y="430" width="75" height="192" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
-for(var r=0;r<6;r++) for(var c=0;c<3;c++) h.push(’<rect x="'+(158+c*22)+'" y="'+(442+r*28)+'" width="14" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>’);
+p.push(’<rect x="150" y="435" width="75" height="190" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
+for (var r = 0; r < 6; r++) for (var c = 0; c < 3; c++) p.push(’<rect x="'+(158+c*22)+'" y="'+(445+r*28)+'" width="14" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>’);
 // crane left
-h.push(’<line x1="248" y1="622" x2="248" y2="180" stroke="'+s+'" stroke-width="2"/>’);
-[230,280,330,380,430,480,530,580].forEach(function(y,i){
-if(i%2===0) h.push(’<line x1="242" y1="'+y+'" x2="254" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>’);
-else h.push(’<line x1="254" y1="'+y+'" x2="242" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>’);
-});
-h.push(’<rect x="240" y="188" width="24" height="18" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
-h.push(’<line x1="248" y1="192" x2="430" y2="192" stroke="'+s+'" stroke-width="2"/>’);
-h.push(’<line x1="248" y1="192" x2="190" y2="192" stroke="'+s+'" stroke-width="1.8"/>’);
-h.push(’<rect x="178" y="188" width="18" height="12" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
-h.push(’<line x1="248" y1="175" x2="430" y2="192" stroke="'+s+'" stroke-width="0.8"/>’);
-h.push(’<line x1="248" y1="175" x2="190" y2="192" stroke="'+s+'" stroke-width="0.8"/>’);
-h.push(’<rect x="368" y="190" width="12" height="8" fill="none" stroke="'+s+'" stroke-width="1"/>’);
-h.push(’<line x1="374" y1="198" x2="374" y2="250" stroke="'+s+'" stroke-width="0.8"/>’);
-h.push(’<path d="M369 250 Q374 260 379 250" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<line x1="248" y1="625" x2="248" y2="180" stroke="'+s+'" stroke-width="2"/>’);
+for (var i = 0; i < 8; i++) { var y = 230+i*50; if(i%2===0) p.push(’<line x1="242" y1="'+y+'" x2="254" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>’); else p.push(’<line x1="254" y1="'+y+'" x2="242" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>’); }
+p.push(’<rect x="240" y="188" width="24" height="18" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<line x1="248" y1="192" x2="430" y2="192" stroke="'+s+'" stroke-width="2"/>’);
+p.push(’<line x1="248" y1="192" x2="190" y2="192" stroke="'+s+'" stroke-width="1.8"/>’);
+p.push(’<rect x="178" y="188" width="18" height="12" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<line x1="248" y1="175" x2="430" y2="192" stroke="'+s+'" stroke-width="0.8"/>’);
+p.push(’<line x1="248" y1="175" x2="190" y2="192" stroke="'+s+'" stroke-width="0.8"/>’);
+p.push(’<line x1="390" y1="192" x2="390" y2="250" stroke="'+s+'" stroke-width="0.8"/>’);
+p.push(’<path d="M385 250 Q390 260 395 250" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
 // suspension bridge
-h.push(’<rect x="350" y="616" width="300" height="8" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
-h.push(’<rect x="372" y="530" width="12" height="90" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
-h.push(’<rect x="616" y="530" width="12" height="90" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
-h.push(’<path d="M350 560 Q500 500 650 560" fill="none" stroke="'+s+'" stroke-width="2"/>’);
-for(var i=0;i<13;i++){var x=380+i*20,t=(x-380)/240,cy=530-90*(1-(2*t-1)*(2*t-1));h.push(’<line x1="'+x+'" y1="620" x2="'+x+'" y2="'+cy+'" stroke="'+s+'" stroke-width="0.8"/>’);}
-h.push(’<rect x="340" y="610" width="22" height="14" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
-h.push(’<rect x="638" y="610" width="22" height="14" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<rect x="350" y="618" width="300" height="8" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
+p.push(’<rect x="372" y="535" width="12" height="88" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
+p.push(’<rect x="616" y="535" width="12" height="88" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
+p.push(’<path d="M350 562 Q500 502 650 562" fill="none" stroke="'+s+'" stroke-width="2"/>’);
+for (var i = 0; i < 13; i++) { var hx = 380+i*20; var t = (hx-380)/240; var hy = 560-90*(1-(2*t-1)*(2*t-1)); p.push(’<line x1="'+hx+'" y1="622" x2="'+hx+'" y2="'+hy+'" stroke="'+s+'" stroke-width="0.8"/>’); }
+p.push(’<rect x="340" y="612" width="22" height="12" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<rect x="638" y="612" width="22" height="12" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
 // crane right
-h.push(’<line x1="740" y1="622" x2="740" y2="195" stroke="'+s+'" stroke-width="2"/>’);
-[230,280,330,380,430,480,530,580].forEach(function(y,i){
-if(i%2===0) h.push(’<line x1="734" y1="'+y+'" x2="746" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>’);
-else h.push(’<line x1="746" y1="'+y+'" x2="734" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>’);
-});
-h.push(’<rect x="732" y="203" width="24" height="18" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
-h.push(’<line x1="740" y1="207" x2="580" y2="207" stroke="'+s+'" stroke-width="2"/>’);
-h.push(’<line x1="740" y1="207" x2="800" y2="207" stroke="'+s+'" stroke-width="1.8"/>’);
-h.push(’<rect x="800" y="203" width="18" height="12" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
-h.push(’<line x1="740" y1="190" x2="580" y2="207" stroke="'+s+'" stroke-width="0.8"/>’);
-h.push(’<line x1="740" y1="190" x2="800" y2="207" stroke="'+s+'" stroke-width="0.8"/>’);
-h.push(’<line x1="618" y1="213" x2="618" y2="270" stroke="'+s+'" stroke-width="0.8"/>’);
-h.push(’<path d="M613 270 Q618 280 623 270" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<line x1="740" y1="625" x2="740" y2="195" stroke="'+s+'" stroke-width="2"/>’);
+for (var i = 0; i < 8; i++) { var y = 230+i*50; if(i%2===0) p.push(’<line x1="734" y1="'+y+'" x2="746" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>’); else p.push(’<line x1="746" y1="'+y+'" x2="734" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>’); }
+p.push(’<rect x="732" y="203" width="24" height="18" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<line x1="740" y1="207" x2="580" y2="207" stroke="'+s+'" stroke-width="2"/>’);
+p.push(’<line x1="740" y1="207" x2="800" y2="207" stroke="'+s+'" stroke-width="1.8"/>’);
+p.push(’<rect x="800" y="203" width="18" height="12" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<line x1="740" y1="190" x2="580" y2="207" stroke="'+s+'" stroke-width="0.8"/>’);
+p.push(’<line x1="740" y1="190" x2="800" y2="207" stroke="'+s+'" stroke-width="0.8"/>’);
+p.push(’<line x1="612" y1="207" x2="612" y2="265" stroke="'+s+'" stroke-width="0.8"/>’);
+p.push(’<path d="M607 265 Q612 275 617 265" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
 // right building
-h.push(’<rect x="790" y="340" width="95" height="282" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
-for(var r=0;r<9;r++) for(var c=0;c<3;c++) h.push(’<rect x="'+(800+c*26)+'" y="'+(352+r*28)+'" width="18" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>’);
-h.push(’<rect x="895" y="460" width="70" height="162" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
-for(var r=0;r<5;r++) for(var c=0;c<2;c++) h.push(’<rect x="'+(904+c*28)+'" y="'+(472+r*28)+'" width="18" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>’);
-// retaining wall
-h.push(’<rect x="0" y="560" width="30" height="62" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
-// beam diagram
-h.push(’<line x1="30" y1="130" x2="200" y2="130" stroke="'+s+'" stroke-width="2"/>’);
-h.push(’<polygon points="30,130 20,148 40,148" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
-h.push(’<polygon points="200,130 190,148 210,148" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
-[50,70,90,110,130,150,170,190].forEach(function(x){
-h.push(’<line x1="'+x+'" y1="108" x2="'+x+'" y2="128" stroke="'+s+'" stroke-width="0.9"/>’);
-h.push(’<polygon points="'+x+',130 '+(x-3)+',120 '+(x+3)+',120" fill="'+s+'"/>’);
-});
-h.push(’<line x1="50" y1="108" x2="190" y2="108" stroke="'+s+'" stroke-width="1"/>’);
+p.push(’<rect x="790" y="345" width="95" height="280" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
+for (var r = 0; r < 9; r++) for (var c = 0; c < 3; c++) p.push(’<rect x="'+(800+c*26)+'" y="'+(355+r*28)+'" width="18" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>’);
+p.push(’<line x1="837" y1="345" x2="837" y2="305" stroke="'+s+'" stroke-width="1.2"/>’);
+// far right building
+p.push(’<rect x="895" y="465" width="70" height="160" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
+for (var r = 0; r < 5; r++) for (var c = 0; c < 2; c++) p.push(’<rect x="'+(904+c*28)+'" y="'+(475+r*28)+'" width="18" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>’);
+// beam diagram top left
+p.push(’<line x1="30" y1="130" x2="200" y2="130" stroke="'+s+'" stroke-width="2"/>’);
+p.push(’<polygon points="30,130 20,148 40,148" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<polygon points="200,130 190,148 210,148" fill="none" stroke="'+s+'" stroke-width="1.2"/>’);
+for (var bx = 50; bx <= 190; bx += 20) { p.push(’<line x1="'+bx+'" y1="110" x2="'+bx+'" y2="128" stroke="'+s+'" stroke-width="0.9"/>’); p.push(’<polygon points="'+bx+',130 '+(bx-3)+',122 '+(bx+3)+',122" fill="'+s+'"/>’); }
+p.push(’<line x1="50" y1="110" x2="190" y2="110" stroke="'+s+'" stroke-width="1"/>’);
 // survey instrument
-h.push(’<rect x="30" y="52" width="66" height="26" fill="none" stroke="'+s+'" stroke-width="1.4" rx="4"/>’);
-h.push(’<circle cx="63" cy="65" r="7" fill="none" stroke="'+s+'" stroke-width="1"/>’);
-h.push(’<line x1="63" y1="78" x2="63" y2="100" stroke="'+s+'" stroke-width="1.4"/>’);
-h.push(’<line x1="45" y1="100" x2="81" y2="100" stroke="'+s+'" stroke-width="1.4"/>’);
-h.push(’<line x1="63" y1="100" x2="40" y2="132" stroke="'+s+'" stroke-width="1.2"/>’);
-h.push(’<line x1="63" y1="100" x2="63" y2="135" stroke="'+s+'" stroke-width="1.2"/>’);
-h.push(’<line x1="63" y1="100" x2="86" y2="132" stroke="'+s+'" stroke-width="1.2"/>’);
-// topo lines
-[‘M820 80 Q840 70 860 78 Q880 86 900 74 Q920 62 940 70’,
-‘M820 95 Q840 84 865 93 Q888 102 910 90 Q930 78 940 85’,
-‘M820 110 Q845 98 868 108 Q892 118 915 106 Q932 96 940 100’].forEach(function(d){
-h.push(’<path d="'+d+'" fill="none" stroke="'+s+'" stroke-width="0.9"/>’);
-});
-// boring log
-h.push(’<rect x="955" y="300" width="40" height="200" fill="none" stroke="'+s+'" stroke-width="1"/>’);
-[340,390,450].forEach(function(y){ h.push(’<line x1="955" y1="'+y+'" x2="995" y2="'+y+'" stroke="'+s+'" stroke-width="0.8"/>’); });
-
-var wrap = document.getElementById(‘bg-wrap’);
-if(wrap) wrap.innerHTML = ‘<svg class="bg-svg" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">’+h.join(’’)+’</svg>’;
+p.push(’<rect x="28" y="50" width="66" height="26" fill="none" stroke="'+s+'" stroke-width="1.4" rx="4"/>’);
+p.push(’<circle cx="61" cy="63" r="7" fill="none" stroke="'+s+'" stroke-width="1"/>’);
+p.push(’<line x1="61" y1="76" x2="61" y2="98" stroke="'+s+'" stroke-width="1.4"/>’);
+p.push(’<line x1="43" y1="98" x2="79" y2="98" stroke="'+s+'" stroke-width="1.4"/>’);
+p.push(’<line x1="61" y1="98" x2="38" y2="130" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<line x1="61" y1="98" x2="61" y2="133" stroke="'+s+'" stroke-width="1.2"/>’);
+p.push(’<line x1="61" y1="98" x2="84" y2="130" stroke="'+s+'" stroke-width="1.2"/>’);
+// topo lines top right
+var tlines = [‘M820 75 Q840 65 865 73 Q888 81 908 70 Q928 59 945 67’,‘M820 90 Q842 79 867 88 Q890 97 912 85 Q932 74 945 82’,‘M820 105 Q844 94 869 103 Q893 113 915 101 Q935 91 945 97’];
+for (var ti = 0; ti < tlines.length; ti++) p.push(’<path d="'+tlines[ti]+'" fill="none" stroke="'+s+'" stroke-width="0.9"/>’);
+// boring log far right
+p.push(’<rect x="955" y="300" width="38" height="195" fill="none" stroke="'+s+'" stroke-width="1"/>’);
+p.push(’<text x="974" y="295" text-anchor="middle" font-size="8" fill="'+s+'" font-family="monospace">B-1</text>’);
+for (var bl of [340,385,445]) p.push(’<line x1="955" y1="'+bl+'" x2="993" y2="'+bl+'" stroke="'+s+'" stroke-width="0.8"/>’);
+// retaining wall bottom left
+p.push(’<rect x="0" y="562" width="28" height="63" fill="none" stroke="'+s+'" stroke-width="1.5"/>’);
+for (var pi = 0; pi < 4; pi++) { var py = 570+pi*16; p.push(’<line x1="28" y1="'+py+'" x2="46" y2="'+py+'" stroke="'+s+'" stroke-width="0.9"/>’); }
+el.innerHTML = ‘<svg width="100%" height="100%" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">’+p.join(’’)+’</svg>’;
 }
-drawBG();
 
-// ── DATA ──────────────────────────────────────────────────────────────────────
-var CATS = [“All Topics”,“Ethics”,“Geotechnical”,“Structural”,“Transportation”,“Water Resources”,“Construction”,“Environmental”,“Surveying”,“Project Management”,“Units & Conversions”,“Statics”,“Mechanics of Materials”,“Probability & Statistics”];
+// ── QUESTION BANK ─────────────────────────────────────────────────────────────
+var QB = [
+// ETHICS
+[“e1”,“Ethics”,“c”,“E”,“Under NSPE Code of Ethics, an engineer’s paramount obligation is to:”,“A. Serve client finances|B. Hold public safety paramount|C. Keep all data confidential|D. Minimize project costs”,“B”,“First canon of NSPE: hold public safety, health, and welfare paramount.”,””],
+[“e2”,“Ethics”,“c”,“E”,“An engineer discovers a design flaw after construction begins. The MOST ethical action:”,“A. Correct in next phase|B. Notify client and stop if dangerous|C. Document and proceed|D. Tell contractor only”,“B”,“Engineers must notify responsible parties and halt work posing safety risks.”,””],
+[“e3”,“Ethics”,“c”,“M”,“An engineer can seal plans prepared by another when:”,“A. Both hold PE in same state|B. Engineer reviews and takes full responsibility|C. Client authorizes it|D. Plans are minor”,“B”,“A PE may seal work they reviewed and took professional responsibility for — not rubber-stamp.”,””],
+[“e4”,“Ethics”,“c”,“M”,“Which is NOT a conflict of interest requiring disclosure?”,“A. Stock in specified supplier|B. Related to bidding contractor|C. Same university as client|D. On board regulating project”,“C”,“Attending the same school is not a financial or fiduciary conflict.”,””],
+[“e5”,“Ethics”,“c”,“E”,“Advertising engineering services falsely or misleadingly is:”,“A. Permitted if it attracts clients|B. A violation of professional ethics|C. Prohibited only for public work|D. Allowed with client consent”,“B”,“NSPE prohibits false, misleading, or deceptive advertising.”,””],
+[“e6”,“Ethics”,“c”,“M”,”‘Responsible charge’ means:”,“A. Financial liability|B. Direct control and personal supervision|C. Reviewing drawings before sealing|D. Signing contracts”,“B”,“Responsible charge = direct control and supervision — not just reviewing final product.”,””],
+[“e7”,“Ethics”,“c”,“E”,“An engineer shall not reveal confidential client info without:”,“A. Payment|B. Client consent unless required by law|C. State board approval|D. Senior review”,“B”,“Confidentiality maintained unless client consents or law requires disclosure.”,””],
+[“e8”,“Ethics”,“c”,“M”,“A PE allowing a non-licensed person to use their seal faces:”,“A. Written warning only|B. License revocation and legal penalties|C. OK if person is EIT|D. OK for small projects”,“B”,“Seal misuse: revocation, fines, and criminal charges.”,””],
+[“e9”,“Ethics”,“c”,“M”,”‘Sustainable development’ in engineering ethics means:”,“A. Minimizing cost|B. Meeting present needs without compromising future generations|C. Using only recycled materials|D. Designing for 100-year life”,“B”,“Brundtland definition: present needs without compromising future generations.”,””],
+[“e10”,“Ethics”,“c”,“H”,“If engineer believes project violates safety but employer disagrees, first action:”,“A. Report to authorities|B. Resign|C. Notify employer in writing|D. Proceed and note objection”,“C”,“Document formally with employer first; escalate only if unresolved.”,””],
+// GEOTECHNICAL
+[“g1”,“Geotechnical”,“c”,“E”,“Effective stress in soil equals:”,“A. Total stress minus pore pressure|B. Total stress plus pore pressure|C. Stress at failure|D. Stress at surface”,“A”,“σ’ = σ − u. Controls shear strength and consolidation.”,””],
+[“g2”,“Geotechnical”,“c”,“E”,“USCS: soil with more than 50% passing No. 200 sieve is:”,“A. Gravel|B. Sand|C. Fine-grained|D. Organic”,“C”,“USCS: >50% passing #200 = fine-grained (silt or clay).”,””],
+[“g3”,“Geotechnical”,“c”,“M”,“Active earth pressure develops when retaining wall:”,“A. Pushed into soil|B. Moves away from backfill|C. Completely rigid|D. Founded on rock”,“B”,“Active pressure forms when wall moves away, allowing lateral soil expansion.”,””],
+[“g4”,“Geotechnical”,“c”,“E”,“Proctor compaction test determines:”,“A. Shear strength vs depth|B. Dry unit weight vs moisture content|C. Permeability vs void ratio|D. Settlement vs time”,“B”,“Proctor finds optimum moisture content for maximum dry unit weight.”,””],
+[“g5”,“Geotechnical”,“c”,“M”,“OCR > 1 means the soil:”,“A. Never been loaded|B. Previously subjected to greater effective stress|C. At maximum past pressure|D. Has high liquid limit”,“B”,“OCR = σ’p/σ’v0 > 1 → overconsolidated.”,””],
+[“g6”,“Geotechnical”,“c”,“H”,“Critical hydraulic gradient in soil occurs when:”,“A. Flow exceeds erosion velocity|B. Effective stress equals zero — piping/heave|C. Permeability > 10⁻² cm/s|D. Pore pressure = atmospheric”,“B”,“ic = γ’/γw. Upward gradient = ic → effective stress → 0 → piping.”,””],
+[“g7”,“Geotechnical”,“c”,“E”,“PI = 0 means the soil is:”,“A. Highly plastic clay|B. Non-plastic|C. Expansive clay|D. Organic”,“B”,“PI = LL − PL = 0 → no plastic range.”,””],
+[“g8”,“Geotechnical”,“c”,“M”,“Liquefaction risk is highest in:”,“A. Dense gravel|B. Loose saturated sand under seismic loading|C. Stiff clay|D. Dry cohesionless soil”,“B”,“Liquefaction: loose, saturated, cohesionless soils under cyclic loading.”,””],
+[“g9”,“Geotechnical”,“n”,“E”,“Total unit weight = 120 pcf, water content = 20%. Dry unit weight:”,“A. 96 pcf|B. 100 pcf|C. 110 pcf|D. 144 pcf”,“B”,“γd = γ/(1+w) = 120/1.20 = 100 pcf”,“γd = γ/(1+w)”],
+[“g10”,“Geotechnical”,“n”,“M”,“Ka for φ = 30°:”,“A. 0.17|B. 0.33|C. 0.50|D. 0.67”,“B”,“Ka = tan²(45−15) = tan²(30) = 0.333”,“Ka = tan²(45 − φ/2)”],
+[“g11”,“Geotechnical”,“n”,“M”,“Effective vertical stress: top 5 ft γ=110 pcf (above WT), bottom 5 ft γsat=125 pcf, γw=62.4 pcf:”,“A. 312 psf|B. 550 psf|C. 862 psf|D. 1093 psf”,“C”,“σv=1175, u=312, σ’=863 psf”,“σ’v = σv − u”],
+[“g12”,“Geotechnical”,“n”,“H”,“Footing: c=500 psf, φ=0, γ=115 pcf, D=2 ft, Nc=5.7, Nq=1. Ultimate bearing capacity:”,“A. 2850 psf|B. 3080 psf|C. 4000 psf|D. 5700 psf”,“B”,“qu = 500×5.7 + 115×2 = 3080 psf”,“qu = cNc + γDNq”],
+[“g13”,“Geotechnical”,“c”,“M”,“SPT N-value measures:”,“A. Unconfined strength|B. Blow count as measure of soil resistance|C. Permeability|D. Moisture content”,“B”,“SPT N-value = blows per foot — estimates relative density and strength.”,””],
+[“g14”,“Geotechnical”,“c”,“M”,“A flow net is used to determine:”,“A. Bearing capacity|B. Seepage quantity and pore pressures|C. Consolidation rate|D. Slope stability”,“B”,“Flow nets graphically solve seepage — find flow quantity and pore pressures.”,””],
+// STRUCTURAL
+[“s1”,“Structural”,“c”,“E”,“Max moment in simply supported beam with UDL at:”,“A. Supports|B. Quarter points|C. Midspan|D. Third points”,“C”,“M_max = wL²/8 at midspan.”,””],
+[“s2”,“Structural”,“c”,“M”,“Stirrups in RC beams resist:”,“A. Flexure|B. Diagonal tension (shear)|C. Deflection|D. Corrosion”,“B”,“Stirrups = transverse reinforcement resisting shear (diagonal tension).”,””],
+[“s3”,“Structural”,“c”,“E”,“Hooke’s Law σ = Eε means:”,“A. Stress inversely proportional to strain|B. Stress proportional to strain within elastic range|C. Stress equals yield stress|D. Stress independent of modulus”,“B”,“Linear elastic behavior within proportional limit.”,””],
+[“s4”,“Structural”,“c”,“E”,“E for structural steel is approximately:”,“A. 10000 ksi|B. 15000 ksi|C. 29000 ksi|D. 57000 ksi”,“C”,“E_steel = 29,000 ksi (200 GPa).”,””],
+[“s5”,“Structural”,“c”,“M”,“Truss members carry only:”,“A. Shear and bending|B. Axial forces|C. Torsion|D. All of the above”,“B”,“Ideal truss members: pinned ends, axial only.”,””],
+[“s6”,“Structural”,“c”,“E”,“Factor of safety (FS) is:”,“A. Design load / applied load|B. Resistance / demand|C. Ultimate / elastic limit|D. Yield / ultimate stress”,“B”,“FS = Resistance/Demand. FS > 1 means capacity exceeds demand.”,””],
+[“s7”,“Structural”,“c”,“M”,“Creep in concrete is:”,“A. Sudden failure|B. Long-term deformation under sustained load|C. Thermal cracking|D. Foundation settlement”,“B”,“Creep = time-dependent deformation under sustained compressive stress.”,””],
+[“s8”,“Structural”,“n”,“E”,“SS beam: L=20 ft, w=2 kip/ft. Max moment:”,“A. 50 kip-ft|B. 100 kip-ft|C. 200 kip-ft|D. 400 kip-ft”,“B”,“M = wL²/8 = 2×400/8 = 100 kip-ft”,“M = wL²/8”],
+[“s9”,“Structural”,“n”,“M”,“Beam b=10 in, h=18 in. Moment of inertia:”,“A. 2430 in⁴|B. 4860 in⁴|C. 8748 in⁴|D. 1215 in⁴”,“B”,“I = bh³/12 = 10×18³/12 = 4860 in⁴”,“I = bh³/12”],
+[“s10”,“Structural”,“n”,“M”,“M=100 kip-ft, I=4860 in⁴, c=9 in. Bending stress:”,“A. 1.1 ksi|B. 2.2 ksi|C. 4.4 ksi|D. 0.55 ksi”,“B”,“σ = Mc/I = (100×12×9)/4860 ≈ 2.22 ksi”,“σ = Mc/I”],
+[“s11”,“Structural”,“c”,“H”,“Fixed-end beam carries higher loads than SS beam because:”,“A. Fixed ends increase span|B. Negative moments at ends reduce midspan moment|C. Fixed ends prevent all deflection|D. Material strengthens at connections”,“B”,“Fixed ends develop negative moments reducing midspan moment from wL²/8 to wL²/24.”,””],
+[“s12”,“Structural”,“c”,“M”,“Pin support provides:”,“A. H + V + moment|B. H + V only|C. V only|D. Moment only”,“B”,“Pin: Rx and Ry, no moment. Roller: Ry only. Fixed: Rx, Ry, and moment.”,””],
+// TRANSPORTATION
+[“t1”,“Transportation”,“c”,“E”,“Stopping Sight Distance (SSD) is the distance to:”,“A. Change lanes|B. Perceive hazard and stop before reaching it|C. Complete U-turn|D. Accelerate to speed”,“B”,“SSD = perception-reaction distance + braking distance.”,””],
+[“t2”,“Transportation”,“c”,“M”,“Superelevation on a horizontal curve counteracts:”,“A. Increases thickness|B. Centrifugal force|C. Reduces drainage|D. Minimizes earthwork”,“B”,“Superelevation (banking) tilts roadway to counter centripetal acceleration.”,””],
+[“t3”,“Transportation”,“c”,“E”,“AASHTO Green Book covers:”,“A. Pavement materials|B. Geometric design of highways|C. Signal timing|D. Structural pavement design”,“B”,“AASHTO Green Book = geometric design of highways and streets.”,””],
+[“t4”,“Transportation”,“c”,“M”,“LOS F represents:”,“A. Free flow|B. Stable flow at capacity|C. Forced flow — breakdown/stop-and-go|D. Unstable flow near capacity”,“C”,“LOS F = forced or breakdown flow — demand exceeds capacity.”,””],
+[“t5”,“Transportation”,“n”,“E”,“Speed = 60 mph, reaction time = 2.5 s. Reaction distance:”,“A. 88 ft|B. 132 ft|C. 176 ft|D. 220 ft”,“D”,“d = 88 fps × 2.5 s = 220 ft  (60 mph = 88 ft/s)”,“d = v × t”],
+[“t6”,“Transportation”,“n”,“M”,“V=60 mph, e=0.08, f=0.12. Minimum radius R:”,“A. 500 ft|B. 1000 ft|C. 1200 ft|D. 2000 ft”,“C”,“R = V²/[15(e+f)] = 3600/3 = 1200 ft”,“R = V²/[15(e+f)]”],
+[“t7”,“Transportation”,“n”,“M”,“Flow=1200 veh/hr, speed=40 mph. Traffic density:”,“A. 15 veh/mi|B. 30 veh/mi|C. 48000 veh/mi|D. 1 veh/mi”,“B”,“k = q/u = 1200/40 = 30 veh/mi”,“k = q/u”],
+[“t8”,“Transportation”,“c”,“M”,“AADT is:”,“A. Peak hour volume|B. Total annual volume / 365|C. Design hour volume|D. Max monthly volume”,“B”,“AADT = total annual two-directional traffic / 365 days.”,””],
+// WATER RESOURCES
+[“w1”,“Water Resources”,“c”,“E”,“Manning’s equation calculates:”,“A. Groundwater flow|B. Open channel flow velocity|C. Pipe pressure loss|D. Wave height”,“B”,“Manning’s V=(1/n)R^(2/3)S^(1/2) applies to open channel flow.”,””],
+[“w2”,“Water Resources”,“c”,“E”,“Q = VA (continuity) states:”,“A. Pressure × area = constant|B. Flow rate = velocity × area|C. Energy conserved|D. Head loss ∝ velocity”,“B”,“Q = VA: volume flow rate = velocity × cross-sectional area.”,””],
+[“w3”,“Water Resources”,“c”,“M”,“Rational Method Q = CiA estimates:”,“A. Groundwater recharge|B. Peak stormwater runoff|C. Evapotranspiration|D. Base flow”,“B”,“C=runoff coeff, i=intensity, A=area — peak runoff for small watersheds.”,””],
+[“w4”,“Water Resources”,“c”,“H”,“A hydraulic jump transitions flow from:”,“A. Subcritical to supercritical|B. Supercritical to subcritical|C. Laminar to turbulent|D. Pressurized to open channel”,“B”,“Hydraulic jump: abrupt Fr>1 to Fr<1 transition with energy loss.”,””],
+[“w5”,“Water Resources”,“c”,“E”,“100-year storm annual probability of exceedance:”,“A. 1%|B. 10%|C. 0.1%|D. 100%”,“A”,“T=1/P → 100-yr storm: P=1% annual probability.”,””],
+[“w6”,“Water Resources”,“c”,“E”,“BOD measures:”,“A. Dissolved oxygen in stream|B. Oxygen consumed by biological activity|C. Water hardness|D. pH”,“B”,“BOD = oxygen consumed by microorganisms decomposing organic matter.”,””],
+[“w7”,“Water Resources”,“n”,“E”,“Pipe D=12 in, V=4 fps. Flow rate Q:”,“A. 3.14 cfs|B. 6.28 cfs|C. 12.6 cfs|D. 1.57 cfs”,“A”,“A=π(0.5)²=0.785 ft². Q=4×0.785=3.14 cfs”,“Q = V×A, A = πD²/4”],
+[“w8”,“Water Resources”,“n”,“M”,“Manning’s n=0.013, R=1.5 ft, S=0.001. Velocity V:”,“A. 2.1 fps|B. 3.5 fps|C. 4.7 fps|D. 6.1 fps”,“C”,“V=(1.486/0.013)×1.5^0.667×0.001^0.5 ≈ 4.7 fps”,“V=(1.486/n)R^(2/3)S^(1/2)”],
+// CONSTRUCTION
+[“c1”,“Construction”,“c”,“E”,“Critical path in CPM:”,“A. Costs the most|B. Determines shortest project completion with zero float|C. Has most float|D. Uses most labor”,“B”,“Critical path = longest path = minimum project duration. Zero float.”,””],
+[“c2”,“Construction”,“c”,“M”,“Total float is:”,“A. Time saved by overtime|B. Max delay without delaying project completion|C. Extra budget|D. Activity duration”,“B”,“Float = LS−ES. How much activity can slip without affecting end date.”,””],
+[“c3”,“Construction”,“c”,“E”,“A performance bond guarantees:”,“A. Payment to subs|B. Project completion by contractor|C. Bid price validity|D. Material quality”,“B”,“Performance bond guarantees contractor completes the project.”,””],
+[“c4”,“Construction”,“c”,“M”,“Contract type with MOST risk on contractor:”,“A. Cost plus fixed fee|B. Cost plus percentage|C. Lump sum|D. Unit price”,“C”,“Lump sum: contractor absorbs all cost overruns — maximum contractor risk.”,””],
+[“c5”,“Construction”,“c”,“E”,“OSHA fall protection in construction required at:”,“A. 4 ft|B. 6 ft|C. 8 ft|D. 10 ft”,“B”,“OSHA: 6 ft in construction, 4 ft in general industry.”,””],
+[“c6”,“Construction”,“c”,“M”,“Compaction specified as % of:”,“A. In-situ density|B. Max dry unit weight from Proctor test|C. Saturated unit weight|D. Specific gravity”,“B”,“Compaction spec: e.g. 95% of max dry unit weight from Proctor.”,””],
+[“c7”,“Construction”,“c”,“H”,“CPI in Earned Value Management:”,“A. PV/AC|B. EV/AC|C. AC/PV|D. EV/PV”,“B”,“CPI=EV/AC. >1=under budget. <1=over budget.”,””],
+[“c8”,“Construction”,“c”,“E”,“Sheeting and shoring in excavations primarily:”,“A. Improves bearing capacity|B. Prevents cave-ins and protects workers|C. Dewaters excavation|D. Compacts subgrade”,“B”,“OSHA requires protective systems to prevent cave-ins.”,””],
+// ENVIRONMENTAL
+[“ev1”,“Environmental”,“c”,“E”,“Primary wastewater treatment removes:”,“A. Dissolved nutrients|B. Suspended solids by settling|C. Pathogens|D. BOD”,“B”,“Primary treatment = sedimentation to remove suspended solids.”,””],
+[“ev2”,“Environmental”,“c”,“M”,“Activated sludge is:”,“A. Primary treatment|B. Tertiary treatment|C. Secondary biological treatment|D. Disinfection”,“C”,“Activated sludge uses microorganisms to degrade dissolved organics.”,””],
+[“ev3”,“Environmental”,“c”,“E”,“NPDES permits cover:”,“A. Underground storage tanks|B. Point source discharges to navigable waters|C. Air emissions|D. Hazardous waste”,“B”,“NPDES regulates point source discharges under the Clean Water Act.”,””],
+[“ev4”,“Environmental”,“c”,“H”,“Eutrophication most commonly caused by:”,“A. Excess dissolved oxygen|B. Excess nitrogen and phosphorus|C. Suspended sediment|D. pH reduction”,“B”,“Excess N and P cause algal blooms, depleting DO.”,””],
+[“ev5”,“Environmental”,“c”,“E”,“Chlorination of drinking water:”,“A. Removes hardness|B. Disinfects and kills pathogens|C. Adjusts pH|D. Removes iron”,“B”,“Chlorination = primary disinfection method for drinking water.”,””],
+// SURVEYING
+[“sv1”,“Surveying”,“c”,“E”,“A benchmark is:”,“A. A measured horizontal distance|B. A point of known elevation used as reference|C. A property corner|D. A GPS point”,“B”,“Benchmark = permanent reference point of known elevation.”,””],
+[“sv2”,“Surveying”,“n”,“E”,“HI=105.42 ft, foresight=3.21 ft. Unknown elevation:”,“A. 102.21 ft|B. 108.63 ft|C. 105.42 ft|D. 108.21 ft”,“A”,“Elev = HI − FS = 105.42 − 3.21 = 102.21 ft”,“Elev = HI − Foresight”],
+[“sv3”,“Surveying”,“c”,“M”,“A Total Station combines:”,“A. Level and rod|B. Electronic theodolite and EDM|C. GPS and compass|D. Planimeter and level”,“B”,“Total Station = electronic theodolite + EDM.”,””],
+[“sv4”,“Surveying”,“n”,“M”,“Bearing N 45° E as azimuth:”,“A. 45°|B. 135°|C. 225°|D. 315°”,“A”,“N 45° E = azimuth 45°. NW=360°−bearing; SE=180°−bearing.”,“NE=bearing; SE=180°−b; SW=180°+b; NW=360°−b”],
+[“sv5”,“Surveying”,“c”,“E”,“A backsight is taken on:”,“A. Unknown point|B. Known elevation point|C. Turning point ahead|D. Benchmark only”,“B”,“Backsight (BS) on known elevation establishes HI.”,””],
+// PROJECT MANAGEMENT
+[“pm1”,“Project Management”,“c”,“E”,“Gantt chart shows:”,“A. Project costs|B. Task durations on a timeline|C. Critical path|D. Team performance”,“B”,“Gantt = tasks as horizontal bars against time axis.”,””],
+[“pm2”,“Project Management”,“c”,“M”,“SPI > 1.0 means:”,“A. Over budget|B. Behind schedule|C. Ahead of schedule|D. At risk”,“C”,“SPI=EV/PV. SPI>1=ahead of schedule.”,””],
+[“pm3”,“Project Management”,“c”,“E”,“Triple constraint in project management:”,“A. Cost, Schedule, Scope|B. Safety, Quality, Cost|C. Resources, Risk, Schedule|D. Design, Build, Operate”,“A”,“Iron triangle: Cost, Schedule, Scope.”,””],
+[“pm4”,“Project Management”,“c”,“M”,“WBS organizes project by:”,“A. Calendar dates|B. Hierarchical decomposition of deliverables|C. Resource assignments|D. Risk levels”,“B”,“WBS = hierarchical tree of deliverables.”,””],
+[“pm5”,“Project Management”,“c”,“H”,“Risk mitigation means:”,“A. Accepting all risks|B. Transferring risk to owner|C. Reducing probability or impact|D. Eliminating all uncertainty”,“C”,“Mitigation reduces likelihood or consequence of risk.”,””],
+// UNITS & CONVERSIONS
+[“u1”,“Units & Conversions”,“c”,“E”,“Difference between lbf and lbm:”,“A. Identical units|B. lbf = force; lbm = mass|C. lbm used in SI|D. lbf is larger by 32.2”,“B”,“lbf = force unit. lbm = mass unit. Numerically equal only at standard gravity.”,””],
+[“u2”,“Units & Conversions”,“c”,“M”,“In F=ma, m in lbm, a in ft/s², to get F in lbf:”,“A. Multiply by 32.2|B. Divide by gc = 32.174|C. No conversion|D. Multiply by 144”,“B”,“F(lbf) = m(lbm)×a/gc. Forgetting gc is the classic error.”,””],
+[“u3”,“Units & Conversions”,“c”,“E”,“1 kip equals:”,“A. 100 lb|B. 1000 lb|C. 10000 lb|D. 100 kN”,“B”,“kip = kilopound = 1,000 lbf.”,””],
+[“u4”,“Units & Conversions”,“c”,“E”,“1 psi equals how many psf?”,“A. 12|B. 72|C. 144|D. 288”,“C”,“1 psi = 144 psf. (1 lb/in² × 144 in²/ft²)”,””],
+[“u5”,“Units & Conversions”,“c”,“E”,“1 acre equals:”,“A. 10000 ft²|B. 43560 ft²|C. 100000 ft²|D. 5280 ft²”,“B”,“1 acre = 43,560 ft².”,””],
+[“u6”,“Units & Conversions”,“c”,“M”,“1 cfs ≈ how many gpm?”,“A. 60|B. 225|C. 449|D. 7.48”,“C”,“1 cfs = 7.48 gal/ft³ × 60 s/min = 448.8 ≈ 449 gpm.”,””],
+[“u7”,“Units & Conversions”,“c”,“E”,“Specific weight of water in US Customary:”,“A. 62.4 pcf|B. 1000 pcf|C. 8.34 pcf|D. 32.2 pcf”,“A”,“γ_water = 62.4 pcf. SI: 9.81 kN/m³.”,””],
+[“u8”,“Units & Conversions”,“c”,“M”,“1 slug equals approximately:”,“A. 1 lbm|B. 14.6 lbm|C. 32.2 lbm|D. 2.2 lbm”,“C”,“1 slug = 32.174 lbm. Consistent mass unit for F=ma in lbf, ft, s.”,””],
+// STATICS
+[“st1”,“Statics”,“c”,“E”,“For static equilibrium, required conditions:”,“A. ΣF=0 only|B. ΣM=0 only|C. Both ΣF=0 and ΣM=0|D. ΣF=ma”,“C”,“Static equilibrium requires sum of forces AND moments both equal zero.”,””],
+[“st2”,“Statics”,“c”,“E”,“A free body diagram (FBD) shows:”,“A. Internal forces only|B. All external forces and reactions|C. Deformations|D. Material properties”,“B”,“FBD isolates a body and shows all external forces, reactions, and moments.”,””],
+[“st3”,“Statics”,“n”,“E”,“10-ft SS beam, 100-lb point load at midspan. Each reaction:”,“A. 100 lb|B. 50 lb|C. 25 lb|D. 200 lb”,“B”,“By symmetry: R1=R2=100/2=50 lb”,“ΣFy = 0”],
+[“st4”,“Statics”,“n”,“M”,“10-ft beam, pin at A, roller at B. 200-lb load at 4 ft from A. Reaction at B:”,“A. 80 lb|B. 120 lb|C. 100 lb|D. 160 lb”,“A”,“ΣMA=0: RB×10=200×4 → RB=80 lb”,“ΣM_A = 0”],
+[“st5”,“Statics”,“c”,“E”,“A roller support provides:”,“A. H+V+moment|B. Only perpendicular reaction|C. H+V only|D. Moment only”,“B”,“Roller = one reaction perpendicular to surface. No horizontal, no moment.”,””],
+[“st6”,“Statics”,“n”,“M”,“Moment of 50-lb force at perpendicular distance 4 ft:”,“A. 12.5 lb-ft|B. 54 lb-ft|C. 200 lb-ft|D. 46 lb-ft”,“C”,“M = F × d = 50 × 4 = 200 lb-ft”,“M = F × d”],
+[“st7”,“Statics”,“n”,“H”,“F1=60 lb at 0°, F2=80 lb at 90°. Resultant:”,“A. 100 lb|B. 140 lb|C. 72 lb|D. 20 lb”,“A”,“R=√(60²+80²)=√10000=100 lb”,“R = √(Fx²+Fy²)”],
+// MECHANICS
+[“m1”,“Mechanics of Materials”,“c”,“E”,“Axial strain ε is:”,“A. Force/area|B. Deformation/original length|C. Stress × modulus|D. Volume change”,“B”,“ε = δ/L. Dimensionless.”,””],
+[“m2”,“Mechanics of Materials”,“c”,“E”,“Poisson’s ratio ν relates:”,“A. Shear stress to shear strain|B. Lateral strain to axial strain|C. Stress to temperature|D. Modulus to density”,“B”,“ν = −εlateral/εaxial. Steel ≈ 0.3.”,””],
+[“m3”,“Mechanics of Materials”,“c”,“M”,“Shear stress distribution in rectangular beam:”,“A. Uniform|B. Linear, zero at centroid|C. Parabolic, max at neutral axis|D. Zero throughout”,“C”,“τ=VQ/Ib → parabolic, max at neutral axis, zero at top/bottom.”,””],
+[“m4”,“Mechanics of Materials”,“c”,“E”,“UTS (ultimate tensile strength) is:”,“A. Stress at first yield|B. Max engineering stress on stress-strain curve|C. Stress at fracture|D. Modulus of elasticity”,“B”,“UTS = peak of stress-strain curve — max load / original area.”,””],
+[“m5”,“Mechanics of Materials”,“n”,“M”,“Shaft: T=5 kip-in, r=1 in, J=π/2 in⁴. Max shear stress:”,“A. 2.5 ksi|B. 3.18 ksi|C. 5.0 ksi|D. 10.0 ksi”,“B”,“τ=Tr/J=5×1/(π/2)=3.18 ksi”,“τ = Tr/J”],
+[“m6”,“Mechanics of Materials”,“c”,“H”,“Fatigue failure typically occurs at:”,“A. Above UTS|B. Above yield stress|C. Below yield after many cycles|D. Only under impact”,“C”,“Fatigue failure occurs below yield stress after many repeated cycles.”,””],
+[“m7”,“Mechanics of Materials”,“c”,“M”,“Thermal stress in a constrained member when:”,“A. Load applied|B. Temperature changes but expansion prevented|C. Member yields|D. Moisture changes”,“B”,“σ_thermal = EαΔT when thermal expansion is fully restrained.”,””],
+// PROBABILITY
+[“p1”,“Probability & Statistics”,“c”,“E”,“Probability of an impossible event:”,“A. 1|B. 0.5|C. 0|D. Undefined”,“C”,“Impossible event P=0. Certain event P=1.”,””],
+[“p2”,“Probability & Statistics”,“c”,“E”,“The mean of a dataset is:”,“A. Most frequent value|B. Middle value when sorted|C. Sum / count|D. Max minus min”,“C”,“Mean = Σx/n. Median = middle. Mode = most frequent.”,””],
+[“p3”,“Probability & Statistics”,“c”,“M”,“Standard deviation measures:”,“A. Central tendency|B. Spread around the mean|C. Skewness|D. Probability”,“B”,“σ = √(variance) = measure of dispersion around the mean.”,””],
+[“p4”,“Probability & Statistics”,“c”,“M”,“For independent events A and B, P(A and B) =”,“A. P(A)+P(B)|B. P(A)×P(B)|C. P(A)−P(B)|D. P(A)/P(B)”,“B”,“Independent events: P(A∩B) = P(A)×P(B).”,””],
+[“p5”,“Probability & Statistics”,“n”,“M”,“Dataset: 2,4,4,6,6,8. Mean and median:”,“A. Mean=4 Median=5|B. Mean=5 Median=5|C. Mean=5 Median=4|D. Mean=6 Median=6”,“B”,“Mean=30/6=5. Median=(4+6)/2=5.”,“Mean = Σx/n”],
+[“p6”,“Probability & Statistics”,“c”,“M”,“Median preferred over mean when data has:”,“A. Normal distribution|B. Extreme outliers or skewed distribution|C. Small sample size|D. Discrete values only”,“B”,“Median is resistant to outliers — preferred for skewed data.”,””]
+];
+// QB format: [id, cat, mode(c/n), diff(E/M/H), question, “A..|B..|C..|D..”, answer, explanation, formula]
+
+var FORMULAS = [
+{cat:“Hydraulics”,f:“Q = V × A”,n:“Flow rate”},
+{cat:“Hydraulics”,f:“V = (1.486/n)R^(2/3)S^(1/2)”,n:“Manning’s (US)”},
+{cat:“Hydraulics”,f:“hf = f(L/D)(V²/2g)”,n:“Darcy-Weisbach”},
+{cat:“Hydraulics”,f:“Fr = V/√(gD)”,n:“Froude number”},
+{cat:“Geotechnical”,f:“σ’ = σ − u”,n:“Effective stress”},
+{cat:“Geotechnical”,f:“Ka = tan²(45 − φ/2)”,n:“Active earth pressure”},
+{cat:“Geotechnical”,f:“qu = cNc + γDNq + 0.5γBNγ”,n:“Bearing capacity”},
+{cat:“Geotechnical”,f:“γd = γ/(1+w)”,n:“Dry unit weight”},
+{cat:“Structural”,f:“M = wL²/8”,n:“Max moment SS UDL”},
+{cat:“Structural”,f:“δ = 5wL⁴/384EI”,n:“Midspan deflection”},
+{cat:“Structural”,f:“σ = Mc/I”,n:“Bending stress”},
+{cat:“Structural”,f:“I = bh³/12”,n:“Moment of inertia”},
+{cat:“Structural”,f:“Pe = π²EI/(KL)²”,n:“Euler buckling”},
+{cat:“Statics”,f:“ΣF = 0,  ΣM = 0”,n:“Equilibrium”},
+{cat:“Mechanics”,f:“δ = PL/(AE)”,n:“Axial deformation”},
+{cat:“Mechanics”,f:“τ = Tr/J”,n:“Torsional shear stress”},
+{cat:“Transportation”,f:“R = V²/[15(e+f)]”,n:“Min curve radius”},
+{cat:“Transportation”,f:“k = q/u”,n:“Traffic density”},
+{cat:“Units”,f:“1 psi = 144 psf”,n:“Pressure”},
+{cat:“Units”,f:“1 kip = 1000 lbf”,n:“Force”},
+{cat:“Units”,f:“1 cfs = 448.8 gpm”,n:“Flow”},
+{cat:“Units”,f:“1 acre = 43560 ft²”,n:“Area”},
+{cat:“Units”,f:“γ_water = 62.4 pcf = 9.81 kN/m³”,n:“Water unit weight”},
+{cat:“Units”,f:“F(lbf) = m(lbm) × a / 32.174”,n:“lbm to lbf (gc)”},
+{cat:“Probability”,f:“Mean = Σx/n”,n:“Arithmetic mean”},
+{cat:“Probability”,f:“P(A∩B) = P(A) × P(B)”,n:“Independent events”}
+];
+
+var CATS = [“All”,“Ethics”,“Geotechnical”,“Structural”,“Transportation”,“Water Resources”,“Construction”,“Environmental”,“Surveying”,“Project Management”,“Units & Conversions”,“Statics”,“Mechanics of Materials”,“Probability & Statistics”];
 var DIFFS = [“Mixed”,“Easy”,“Medium”,“Hard”];
 var TIMERS = [{l:“None”,v:0},{l:“30s”,v:30},{l:“45s”,v:45},{l:“60s”,v:60}];
 var COUNTS = [5,10,15,20];
-var CONF = [{l:“Got it”,c:”#22c55e”},{l:“Shaky”,c:”#f5c518”},{l:“Missed”,c:”#ef4444”}];
-
-var FORMULAS = [
-{cat:“Hydraulics”,f:“Q = V × A”,note:“Flow rate”},
-{cat:“Hydraulics”,f:“V = (1.486/n)R^(2/3)S^(1/2)”,note:“Manning’s (US units)”},
-{cat:“Hydraulics”,f:“hf = f(L/D)(V²/2g)”,note:“Darcy-Weisbach head loss”},
-{cat:“Hydraulics”,f:“Fr = V/√(gD)”,note:“Froude number”},
-{cat:“Geotechnical”,f:“σ’ = σ − u”,note:“Effective stress”},
-{cat:“Geotechnical”,f:“Ka = tan²(45 − φ/2)”,note:“Active earth pressure coeff.”},
-{cat:“Geotechnical”,f:“qu = cNc + γDNq + 0.5γBNγ”,note:“Terzaghi bearing capacity”},
-{cat:“Geotechnical”,f:“γd = γ/(1+w)”,note:“Dry unit weight”},
-{cat:“Geotechnical”,f:“Sc = [Cc/(1+e₀)]×H×log(σ’f/σ’₀)”,note:“Consolidation settlement”},
-{cat:“Structural”,f:“M = wL²/8”,note:“Max moment SS beam UDL”},
-{cat:“Structural”,f:“δ = 5wL⁴/384EI”,note:“Midspan deflection”},
-{cat:“Structural”,f:“σ = Mc/I”,note:“Bending stress”},
-{cat:“Structural”,f:“I = bh³/12”,note:“Rect. moment of inertia”},
-{cat:“Structural”,f:“Pe = π²EI/(KL)²”,note:“Euler buckling load”},
-{cat:“Statics”,f:“ΣF = 0,  ΣM = 0”,note:“Equilibrium conditions”},
-{cat:“Mechanics”,f:“δ = PL/(AE)”,note:“Axial deformation”},
-{cat:“Mechanics”,f:“τ = Tr/J”,note:“Shear stress in shaft”},
-{cat:“Mechanics”,f:“τ = VQ/Ib”,note:“Shear stress in beam”},
-{cat:“Transportation”,f:“SSD = v·t + v²/(2a)”,note:“Stopping sight distance”},
-{cat:“Transportation”,f:“R = V²/[15(e+f)]”,note:“Min horizontal curve radius”},
-{cat:“Transportation”,f:“k = q/u”,note:“Traffic density”},
-{cat:“Units”,f:“1 psi = 144 psf”,note:“Pressure conversion”},
-{cat:“Units”,f:“1 kip = 1,000 lbf”,note:“Force unit”},
-{cat:“Units”,f:“1 cfs = 448.8 gpm”,note:“Flow rate conversion”},
-{cat:“Units”,f:“1 acre = 43,560 ft²”,note:“Area conversion”},
-{cat:“Units”,f:“γ_water = 62.4 pcf = 9.81 kN/m³”,note:“Unit weight of water”},
-{cat:“Units”,f:“F(lbf) = m(lbm)×a / 32.174”,note:“lbm to lbf via gc”},
-{cat:“Probability”,f:“P(A∩B) = P(A)×P(B)”,note:“Independent events”},
-{cat:“Probability”,f:“μ = Σx/n”,note:“Mean”},
-];
-
-var QB = [
-// ETHICS
-{id:“e1”,cat:“Ethics”,mode:“conceptual”,diff:“Easy”,q:“Under NSPE Code of Ethics, an engineer’s paramount obligation is to:”,opts:[“A. Serve the client’s financial interests”,“B. Hold public safety, health, and welfare paramount”,“C. Maintain confidentiality of all project data”,“D. Minimize project costs”],ans:“B”,exp:“First canon of NSPE: engineers shall hold public safety, health, and welfare paramount.”},
-{id:“e2”,cat:“Ethics”,mode:“conceptual”,diff:“Easy”,q:“An engineer discovers a design flaw after construction begins. The MOST ethical action is to:”,opts:[“A. Continue and correct in the next phase”,“B. Notify the client and stop work if there is danger”,“C. Document the flaw and proceed”,“D. Inform the contractor only”],ans:“B”,exp:“Engineers must notify responsible parties and halt work posing safety risks.”},
-{id:“e3”,cat:“Ethics”,mode:“conceptual”,diff:“Medium”,q:“An engineer can sign and seal plans prepared by another engineer when:”,opts:[“A. Both hold PE licenses in the same state”,“B. The engineer reviews, adapts, and takes full responsibility”,“C. The client authorizes it”,“D. The plans are for a minor project”],ans:“B”,exp:“A PE may seal work they reviewed and took professional responsibility for — not simply rubber-stamp.”},
-{id:“e4”,cat:“Ethics”,mode:“conceptual”,diff:“Medium”,q:“Which is NOT a conflict of interest requiring disclosure?”,opts:[“A. Engineer owns stock in a specified supplier”,“B. Engineer is related to the bidding contractor”,“C. Engineer attended the same university as the client”,“D. Engineer serves on a board regulating the project”],ans:“C”,exp:“Attending the same school is not a financial or fiduciary conflict of interest.”},
-{id:“e5”,cat:“Ethics”,mode:“conceptual”,diff:“Easy”,q:“Advertising engineering services in a false or misleading manner is:”,opts:[“A. Permitted if it attracts clients”,“B. A violation of professional ethics”,“C. Only prohibited for public sector work”,“D. Allowed with client consent”],ans:“B”,exp:“NSPE prohibits false, misleading, or deceptive advertising.”},
-{id:“e6”,cat:“Ethics”,mode:“conceptual”,diff:“Medium”,q:”‘Responsible charge’ in engineering means:”,opts:[“A. Financial liability for overruns”,“B. Direct control and personal supervision of engineering work”,“C. Reviewing completed drawings before sealing”,“D. Signing contracts on behalf of a firm”],ans:“B”,exp:“Responsible charge = direct control and supervision, not just reviewing the final product.”},
-{id:“e7”,cat:“Ethics”,mode:“conceptual”,diff:“Easy”,q:“An engineer shall not reveal confidential client information without:”,opts:[“A. Payment for the information”,“B. Consent of the client, unless required by law”,“C. Approval from the state board”,“D. Review by a senior partner”],ans:“B”,exp:“Confidentiality is maintained unless client consents or law requires disclosure.”},
-{id:“e8”,cat:“Ethics”,mode:“conceptual”,diff:“Medium”,q:“A PE who allows a non-licensed person to use their seal is subject to:”,opts:[“A. A written warning only”,“B. License revocation and legal penalties”,“C. Acceptable if the person is an EIT”,“D. Acceptable for projects under a dollar threshold”],ans:“B”,exp:“Allowing seal misuse — subject to revocation, fines, and criminal charges.”},
-{id:“e9”,cat:“Ethics”,mode:“conceptual”,diff:“Medium”,q:”‘Sustainable development’ in engineering ethics means:”,opts:[“A. Minimizing project cost”,“B. Meeting present needs without compromising future generations”,“C. Using only recycled materials”,“D. Designing for a 100-year life span”],ans:“B”,exp:“Brundtland definition: development meeting present needs without compromising future generations.”},
-{id:“e10”,cat:“Ethics”,mode:“conceptual”,diff:“Hard”,q:“If an engineer believes a project violates public safety but the employer disagrees, the engineer should first:”,opts:[“A. Immediately report to authorities”,“B. Resign from the project”,“C. Notify the employer in writing and document the concern”,“D. Proceed and note the objection in files”],ans:“C”,exp:“Document concerns formally with employer first; escalate to authorities only if unresolved.”},
-// GEOTECHNICAL
-{id:“g1”,cat:“Geotechnical”,mode:“conceptual”,diff:“Easy”,q:“Effective stress in soil equals:”,opts:[“A. Total stress minus pore water pressure”,“B. Total stress plus pore water pressure”,“C. Stress at failure”,“D. Stress at the surface”],ans:“A”,exp:“σ’ = σ − u. Effective stress controls shear strength and consolidation.”},
-{id:“g2”,cat:“Geotechnical”,mode:“conceptual”,diff:“Easy”,q:“In USCS, a soil with more than 50% passing the No. 200 sieve is:”,opts:[“A. Gravel”,“B. Sand”,“C. Fine-grained soil”,“D. Organic soil”],ans:“C”,exp:“USCS: >50% passing #200 = fine-grained (silt or clay).”},
-{id:“g3”,cat:“Geotechnical”,mode:“conceptual”,diff:“Medium”,q:“Active earth pressure develops when a retaining wall:”,opts:[“A. Is pushed into the soil”,“B. Moves away from the backfill”,“C. Is completely rigid”,“D. Is founded on rock”],ans:“B”,exp:“Active pressure forms when wall moves away from soil, allowing lateral expansion.”},
-{id:“g4”,cat:“Geotechnical”,mode:“conceptual”,diff:“Medium”,q:“SPT N-value measures:”,opts:[“A. Unconfined compressive strength”,“B. Blow count as a measure of soil resistance”,“C. Permeability”,“D. In-situ moisture content”],ans:“B”,exp:“SPT N-value = blows per foot — used to estimate relative density and strength.”},
-{id:“g5”,cat:“Geotechnical”,mode:“conceptual”,diff:“Easy”,q:“Proctor compaction tests determine:”,opts:[“A. Shear strength vs depth”,“B. Dry unit weight vs moisture content”,“C. Permeability vs void ratio”,“D. Settlement vs time”],ans:“B”,exp:“Proctor finds optimum moisture content for maximum dry unit weight.”},
-{id:“g6”,cat:“Geotechnical”,mode:“conceptual”,diff:“Medium”,q:“OCR > 1 means the soil:”,opts:[“A. Has never been loaded”,“B. Was previously subjected to greater effective stress than currently”,“C. Is at its maximum past pressure”,“D. Has a high liquid limit”],ans:“B”,exp:“OCR = σ’p/σ’v0 > 1 → soil is overconsolidated.”},
-{id:“g7”,cat:“Geotechnical”,mode:“conceptual”,diff:“Hard”,q:“Critical hydraulic gradient in soil occurs when:”,opts:[“A. Flow velocity exceeds erosion velocity”,“B. Effective stress equals zero — piping or heave initiation”,“C. Permeability exceeds 10⁻² cm/s”,“D. Pore pressure equals atmospheric”],ans:“B”,exp:“ic = γ’/γw. When upward gradient equals ic, effective stress → 0 and piping can occur.”},
-{id:“g8”,cat:“Geotechnical”,mode:“conceptual”,diff:“Easy”,q:“PI = 0 means the soil is:”,opts:[“A. Highly plastic clay”,“B. Non-plastic”,“C. Expansive clay”,“D. Organic”],ans:“B”,exp:“PI = LL − PL = 0 → no plastic range, non-plastic behavior.”},
-{id:“g9”,cat:“Geotechnical”,mode:“computational”,diff:“Easy”,q:“Total unit weight = 120 pcf, water content = 20%. Dry unit weight:”,opts:[“A. 96 pcf”,“B. 100 pcf”,“C. 110 pcf”,“D. 144 pcf”],ans:“B”,exp:“γd = γ/(1+w) = 120/1.20 = 100 pcf”,formula:“γd = γ / (1 + w)”},
-{id:“g10”,cat:“Geotechnical”,mode:“computational”,diff:“Medium”,q:“Ka for φ = 30°:”,opts:[“A. 0.17”,“B. 0.33”,“C. 0.50”,“D. 0.67”],ans:“B”,exp:“Ka = tan²(45−15) = tan²(30) = 0.333”,formula:“Ka = tan²(45 − φ/2)”},
-{id:“g11”,cat:“Geotechnical”,mode:“computational”,diff:“Medium”,q:“Effective vertical stress at 10 ft: top 5 ft γ=110 pcf (above WT), bottom 5 ft γsat=125 pcf, γw=62.4 pcf:”,opts:[“A. 312 psf”,“B. 550 psf”,“C. 862 psf”,“D. 1,093 psf”],ans:“C”,exp:“σv=110×5+125×5=1175. u=62.4×5=312. σ’=1175−312=863 psf”,formula:“σ’v = σv − u”},
-{id:“g12”,cat:“Geotechnical”,mode:“computational”,diff:“Hard”,q:“Footing: B=4 ft, D=2 ft, c=500 psf, φ=0, γ=115 pcf, Nc=5.7, Nq=1. Ultimate bearing capacity:”,opts:[“A. 2,850 psf”,“B. 3,080 psf”,“C. 4,000 psf”,“D. 5,700 psf”],ans:“B”,exp:“qu=cNc+γDNq=500×5.7+115×2=2850+230=3,080 psf”,formula:“qu = cNc + γDNq + 0.5γBNγ”},
-{id:“g13”,cat:“Geotechnical”,mode:“conceptual”,diff:“Medium”,q:“Liquefaction risk is highest in:”,opts:[“A. Dense gravel under high pressure”,“B. Loose saturated sand under seismic loading”,“C. Stiff clay”,“D. Dry cohesionless soil”],ans:“B”,exp:“Liquefaction occurs in loose, saturated, cohesionless soils under rapid cyclic loading.”},
-{id:“g14”,cat:“Geotechnical”,mode:“conceptual”,diff:“Medium”,q:“A flow net is used to determine:”,opts:[“A. Bearing capacity”,“B. Seepage quantity and pore pressures”,“C. Consolidation rate”,“D. Slope stability”],ans:“B”,exp:“Flow nets graphically solve seepage — find flow quantity and pore pressure distribution.”},
-// STRUCTURAL
-{id:“s1”,cat:“Structural”,mode:“conceptual”,diff:“Easy”,q:“Maximum moment in a simply supported beam with UDL occurs at:”,opts:[“A. Supports”,“B. Quarter points”,“C. Midspan”,“D. Third points”],ans:“C”,exp:“M_max = wL²/8 at midspan for SS beam with uniform load.”},
-{id:“s2”,cat:“Structural”,mode:“conceptual”,diff:“Medium”,q:“Stirrups in reinforced concrete beams resist:”,opts:[“A. Flexure”,“B. Diagonal tension (shear)”,“C. Deflection”,“D. Corrosion”],ans:“B”,exp:“Stirrups are transverse reinforcement resisting shear (diagonal tension) cracking.”},
-{id:“s3”,cat:“Structural”,mode:“conceptual”,diff:“Easy”,q:“Hooke’s Law σ = Eε states:”,opts:[“A. Stress is inversely proportional to strain”,“B. Stress is proportional to strain within elastic range”,“C. Stress equals yield stress”,“D. Stress is independent of modulus”],ans:“B”,exp:“σ = Eε: linear elastic behavior within the proportional limit.”},
-{id:“s4”,cat:“Structural”,mode:“conceptual”,diff:“Medium”,q:“At the neutral axis of a beam in bending:”,opts:[“A. Shear stress is zero”,“B. Bending stress is zero”,“C. Deflection is maximum”,“D. Moment is maximum”],ans:“B”,exp:“Bending stress is zero at the neutral axis. Increases linearly away from it.”},
-{id:“s5”,cat:“Structural”,mode:“conceptual”,diff:“Easy”,q:“E for structural steel is approximately:”,opts:[“A. 10,000 ksi”,“B. 15,000 ksi”,“C. 29,000 ksi”,“D. 57,000 ksi”],ans:“C”,exp:“E_steel = 29,000 ksi (200 GPa).”},
-{id:“s6”,cat:“Structural”,mode:“conceptual”,diff:“Medium”,q:“Truss members carry only:”,opts:[“A. Shear and bending”,“B. Axial forces (tension or compression)”,“C. Torsion”,“D. All of the above”],ans:“B”,exp:“Ideal truss members are two-force members — pinned ends, axial only.”},
-{id:“s7”,cat:“Structural”,mode:“conceptual”,diff:“Easy”,q:“Factor of safety (FS) is:”,opts:[“A. Design load / applied load”,“B. Resistance / demand”,“C. Ultimate strength / elastic limit”,“D. Yield stress / ultimate stress”],ans:“B”,exp:“FS = Resistance/Demand. FS > 1 means capacity exceeds demand.”},
-{id:“s8”,cat:“Structural”,mode:“conceptual”,diff:“Medium”,q:“Creep in concrete is:”,opts:[“A. Sudden failure under impact”,“B. Long-term deformation under sustained load”,“C. Cracking due to thermal expansion”,“D. Foundation settlement”],ans:“B”,exp:“Creep is time-dependent deformation of concrete under sustained compressive stress.”},
-{id:“s9”,cat:“Structural”,mode:“computational”,diff:“Easy”,q:“SS beam: L=20 ft, w=2 kip/ft. Maximum moment:”,opts:[“A. 50 kip-ft”,“B. 100 kip-ft”,“C. 200 kip-ft”,“D. 400 kip-ft”],ans:“B”,exp:“M = wL²/8 = 2×400/8 = 100 kip-ft”,formula:“M = wL²/8”},
-{id:“s10”,cat:“Structural”,mode:“computational”,diff:“Medium”,q:“Rect. beam b=10 in, h=18 in. Moment of inertia:”,opts:[“A. 2,430 in⁴”,“B. 4,860 in⁴”,“C. 8,748 in⁴”,“D. 1,215 in⁴”],ans:“B”,exp:“I = bh³/12 = 10×18³/12 = 4,860 in⁴”,formula:“I = bh³/12”},
-{id:“s11”,cat:“Structural”,mode:“computational”,diff:“Medium”,q:“M=100 kip-ft, I=4860 in⁴, c=9 in. Bending stress:”,opts:[“A. 1.1 ksi”,“B. 2.2 ksi”,“C. 4.4 ksi”,“D. 0.55 ksi”],ans:“B”,exp:“σ = Mc/I = (100×12×9)/4860 ≈ 2.22 ksi”,formula:“σ = Mc/I”},
-{id:“s12”,cat:“Structural”,mode:“conceptual”,diff:“Hard”,q:“A fixed-end beam carries higher loads than SS beam because:”,opts:[“A. Fixed ends increase span”,“B. Negative moments at ends reduce midspan moment”,“C. Fixed ends prevent all deflection”,“D. Material strengthens at connections”],ans:“B”,exp:“Fixed ends develop negative moments, reducing midspan positive moment from wL²/8 to wL²/24.”},
-{id:“s13”,cat:“Structural”,mode:“conceptual”,diff:“Medium”,q:“In LRFD design, load factors are applied to:”,opts:[“A. Resistance side”,“B. Load (demand) side”,“C. Both sides equally”,“D. Neither”],ans:“B”,exp:“LRFD: factored loads (demand) ≤ φRn (factored resistance). Load factors amplify demand.”},
-{id:“s14”,cat:“Structural”,mode:“conceptual”,diff:“Medium”,q:“Which support provides horizontal + vertical reactions but no moment?”,opts:[“A. Fixed support”,“B. Pin support”,“C. Roller support”,“D. Free end”],ans:“B”,exp:“Pin: Rx and Ry, no moment. Roller: Ry only. Fixed: Rx, Ry, and moment.”},
-// TRANSPORTATION
-{id:“t1”,cat:“Transportation”,mode:“conceptual”,diff:“Easy”,q:“Stopping Sight Distance (SSD) is the distance needed to:”,opts:[“A. Change lanes”,“B. Perceive a hazard and stop before reaching it”,“C. Complete a U-turn”,“D. Accelerate to highway speed”],ans:“B”,exp:“SSD = perception-reaction distance + braking distance.”},
-{id:“t2”,cat:“Transportation”,mode:“conceptual”,diff:“Medium”,q:“Superelevation on a horizontal curve counteracts:”,opts:[“A. Increases pavement thickness”,“B. Centrifugal force on vehicles”,“C. Reduces drainage”,“D. Minimizes earthwork”],ans:“B”,exp:“Superelevation (banking) tilts roadway inward to counter centripetal acceleration.”},
-{id:“t3”,cat:“Transportation”,mode:“conceptual”,diff:“Easy”,q:“AASHTO Green Book covers:”,opts:[“A. Pavement material specs”,“B. Geometric design of highways”,“C. Traffic signal timing”,“D. Structural pavement design”],ans:“B”,exp:“AASHTO Green Book = ‘A Policy on Geometric Design of Highways and Streets’.”},
-{id:“t4”,cat:“Transportation”,mode:“conceptual”,diff:“Medium”,q:“LOS F represents:”,opts:[“A. Free flow”,“B. Stable flow at capacity”,“C. Forced flow — breakdown, stop-and-go”,“D. Unstable flow near capacity”],ans:“C”,exp:“LOS F = forced or breakdown flow — demand exceeds capacity.”},
-{id:“t5”,cat:“Transportation”,mode:“computational”,diff:“Easy”,q:“Speed = 60 mph, perception-reaction = 2.5 s. Reaction distance:”,opts:[“A. 88 ft”,“B. 132 ft”,“C. 176 ft”,“D. 220 ft”],ans:“D”,exp:“d = 88 fps × 2.5 s = 220 ft  (60 mph = 88 ft/s)”,formula:“d = v × t”},
-{id:“t6”,cat:“Transportation”,mode:“computational”,diff:“Medium”,q:“V=60 mph, e=0.08, f=0.12. Minimum radius R:”,opts:[“A. 500 ft”,“B. 1,000 ft”,“C. 1,200 ft”,“D. 2,000 ft”],ans:“C”,exp:“R = V²/[15(e+f)] = 3600/[15×0.20] = 1,200 ft”,formula:“R = V²/[15(e+f)]”},
-{id:“t7”,cat:“Transportation”,mode:“computational”,diff:“Medium”,q:“Flow = 1,200 veh/hr, speed = 40 mph. Traffic density:”,opts:[“A. 15 veh/mi”,“B. 30 veh/mi”,“C. 48,000 veh/mi”,“D. 1 veh/mi”],ans:“B”,exp:“k = q/u = 1200/40 = 30 veh/mi”,formula:“k = q/u”},
-{id:“t8”,cat:“Transportation”,mode:“conceptual”,diff:“Medium”,q:“AADT is:”,opts:[“A. Peak hour volume”,“B. Total annual volume / 365”,“C. Design hour volume”,“D. Max monthly volume”],ans:“B”,exp:“AADT = total annual two-directional traffic / 365 days.”},
-// WATER RESOURCES
-{id:“w1”,cat:“Water Resources”,mode:“conceptual”,diff:“Easy”,q:“Manning’s equation calculates:”,opts:[“A. Groundwater flow”,“B. Open channel flow velocity”,“C. Pipe pressure loss”,“D. Wave height”],ans:“B”,exp:“Manning’s V=(1/n)R^(2/3)S^(1/2) applies to open channel (gravity) flow.”},
-{id:“w2”,cat:“Water Resources”,mode:“conceptual”,diff:“Easy”,q:“Q = VA (continuity equation) states:”,opts:[“A. Pressure × area = constant”,“B. Flow rate = velocity × cross-sectional area”,“C. Energy is conserved”,“D. Head loss ∝ velocity”],ans:“B”,exp:“Q = VA: volume flow rate = velocity × cross-sectional area.”},
-{id:“w3”,cat:“Water Resources”,mode:“conceptual”,diff:“Medium”,q:“Rational Method Q = CiA estimates:”,opts:[“A. Groundwater recharge”,“B. Peak stormwater runoff”,“C. Evapotranspiration”,“D. Base flow”],ans:“B”,exp:“C=runoff coeff, i=intensity, A=drainage area — peak runoff from small watersheds.”},
-{id:“w4”,cat:“Water Resources”,mode:“conceptual”,diff:“Hard”,q:“A hydraulic jump transitions flow from:”,opts:[“A. Subcritical to supercritical”,“B. Supercritical to subcritical”,“C. Laminar to turbulent”,“D. Pressurized to open channel”],ans:“B”,exp:“Hydraulic jump: abrupt Fr>1 to Fr<1 transition with significant energy loss.”},
-{id:“w5”,cat:“Water Resources”,mode:“conceptual”,diff:“Easy”,q:“100-year storm annual probability of exceedance:”,opts:[“A. 1%”,“B. 10%”,“C. 0.1%”,“D. 100%”],ans:“A”,exp:“T=1/P → 100-yr storm: P=1/100=1% annual probability.”},
-{id:“w6”,cat:“Water Resources”,mode:“conceptual”,diff:“Easy”,q:“BOD measures:”,opts:[“A. Dissolved oxygen in stream”,“B. Oxygen consumed by biological activity”,“C. Water hardness”,“D. pH of wastewater”],ans:“B”,exp:“BOD = oxygen consumed by microorganisms breaking down organic matter.”},
-{id:“w7”,cat:“Water Resources”,mode:“computational”,diff:“Easy”,q:“Pipe D=12 in, V=4 fps. Flow rate Q:”,opts:[“A. 3.14 cfs”,“B. 6.28 cfs”,“C. 12.6 cfs”,“D. 1.57 cfs”],ans:“A”,exp:“A=π(0.5)²=0.785 ft². Q=4×0.785=3.14 cfs”,formula:“Q = V×A,  A = πD²/4”},
-{id:“w8”,cat:“Water Resources”,mode:“computational”,diff:“Medium”,q:“Manning’s n=0.013, R=1.5 ft, S=0.001. Velocity V:”,opts:[“A. 2.1 fps”,“B. 3.5 fps”,“C. 4.7 fps”,“D. 6.1 fps”],ans:“C”,exp:“V=(1.486/0.013)×1.5^0.667×0.001^0.5≈4.7 fps”,formula:“V = (1.486/n)R^(2/3)S^(1/2)”},
-// CONSTRUCTION
-{id:“c1”,cat:“Construction”,mode:“conceptual”,diff:“Easy”,q:“Critical path in CPM:”,opts:[“A. Costs the most”,“B. Determines shortest project completion time with zero float”,“C. Has the most float”,“D. Uses the most labor”],ans:“B”,exp:“Critical path = longest path through network = minimum project duration. Zero total float.”},
-{id:“c2”,cat:“Construction”,mode:“conceptual”,diff:“Medium”,q:“Total float is:”,opts:[“A. Time saved by overtime”,“B. Max delay without delaying project completion”,“C. Extra budget”,“D. Activity duration”],ans:“B”,exp:“Float = LS−ES. How much an activity can slip without affecting the end date.”},
-{id:“c3”,cat:“Construction”,mode:“conceptual”,diff:“Easy”,q:“A performance bond guarantees:”,opts:[“A. Payment to subcontractors”,“B. Project completion by contractor”,“C. Bid price validity”,“D. Material quality”],ans:“B”,exp:“Performance bond guarantees contractor completes the project.”},
-{id:“c4”,cat:“Construction”,mode:“conceptual”,diff:“Medium”,q:“Contract type with MOST risk on contractor:”,opts:[“A. Cost plus fixed fee”,“B. Cost plus percentage”,“C. Lump sum (fixed price)”,“D. Unit price”],ans:“C”,exp:“Lump sum: contractor absorbs all cost overruns — maximum contractor risk.”},
-{id:“c5”,cat:“Construction”,mode:“conceptual”,diff:“Easy”,q:“OSHA fall protection in construction required at:”,opts:[“A. 4 ft”,“B. 6 ft”,“C. 8 ft”,“D. 10 ft”],ans:“B”,exp:“OSHA: 6 ft in construction, 4 ft in general industry.”},
-{id:“c6”,cat:“Construction”,mode:“conceptual”,diff:“Medium”,q:“Compaction typically specified as % of:”,opts:[“A. In-situ density”,“B. Max dry unit weight from Proctor test”,“C. Saturated unit weight”,“D. Specific gravity”],ans:“B”,exp:“Compaction spec: e.g., 95% of max dry unit weight from Proctor.”},
-{id:“c7”,cat:“Construction”,mode:“conceptual”,diff:“Hard”,q:“CPI (Cost Performance Index) in EVM:”,opts:[“A. PV/AC”,“B. EV/AC”,“C. AC/PV”,“D. EV/PV”],ans:“B”,exp:“CPI=EV/AC. >1=under budget; <1=over budget. SPI=EV/PV.”},
-{id:“c8”,cat:“Construction”,mode:“conceptual”,diff:“Easy”,q:“Sheeting and shoring in excavations primarily:”,opts:[“A. Improves bearing capacity”,“B. Prevents cave-ins and protects workers”,“C. Dewaters excavation”,“D. Compacts subgrade”],ans:“B”,exp:“OSHA requires protective systems to prevent trench/excavation cave-ins.”},
-// ENVIRONMENTAL
-{id:“ev1”,cat:“Environmental”,mode:“conceptual”,diff:“Easy”,q:“Primary wastewater treatment removes:”,opts:[“A. Dissolved nutrients”,“B. Suspended solids by physical settling”,“C. Pathogens”,“D. BOD”],ans:“B”,exp:“Primary treatment uses sedimentation to physically remove suspended solids.”},
-{id:“ev2”,cat:“Environmental”,mode:“conceptual”,diff:“Medium”,q:“Activated sludge is:”,opts:[“A. Primary treatment”,“B. Tertiary treatment”,“C. Secondary biological treatment”,“D. Disinfection”],ans:“C”,exp:“Activated sludge uses microorganisms to degrade dissolved organics — secondary treatment.”},
-{id:“ev3”,cat:“Environmental”,mode:“conceptual”,diff:“Easy”,q:“NPDES permits cover:”,opts:[“A. Underground storage tanks”,“B. Point source discharges to navigable waters”,“C. Air emissions”,“D. Hazardous waste disposal”],ans:“B”,exp:“NPDES regulates point source discharges under the Clean Water Act.”},
-{id:“ev4”,cat:“Environmental”,mode:“conceptual”,diff:“Hard”,q:“Eutrophication most commonly caused by:”,opts:[“A. Excess dissolved oxygen”,“B. Excess nitrogen and phosphorus”,“C. Suspended sediment”,“D. pH reduction”],ans:“B”,exp:“Excess N and P cause algal blooms, depleting DO and harming aquatic life.”},
-{id:“ev5”,cat:“Environmental”,mode:“conceptual”,diff:“Easy”,q:“Chlorination of drinking water:”,opts:[“A. Removes hardness”,“B. Disinfects and kills pathogens”,“C. Adjusts pH”,“D. Removes iron”],ans:“B”,exp:“Chlorination = primary disinfection method for drinking water.”},
-// SURVEYING
-{id:“sv1”,cat:“Surveying”,mode:“conceptual”,diff:“Easy”,q:“A benchmark is:”,opts:[“A. A measured horizontal distance”,“B. A point of known elevation used as reference”,“C. A property corner”,“D. A GPS control point”],ans:“B”,exp:“Benchmark = permanent reference point of known elevation for leveling.”},
-{id:“sv2”,cat:“Surveying”,mode:“computational”,diff:“Easy”,q:“HI=105.42 ft, foresight rod=3.21 ft. Unknown elevation:”,opts:[“A. 102.21 ft”,“B. 108.63 ft”,“C. 105.42 ft”,“D. 108.21 ft”],ans:“A”,exp:“Elev = HI − FS = 105.42 − 3.21 = 102.21 ft”,formula:“Elev = HI − Foresight”},
-{id:“sv3”,cat:“Surveying”,mode:“conceptual”,diff:“Medium”,q:“A Total Station combines:”,opts:[“A. Level and rod”,“B. Electronic theodolite and EDM”,“C. GPS and compass”,“D. Planimeter and level”],ans:“B”,exp:“Total Station = electronic theodolite (angles) + EDM (distances).”},
-{id:“sv4”,cat:“Surveying”,mode:“computational”,diff:“Medium”,q:“Bearing N 45° E as azimuth:”,opts:[“A. 45°”,“B. 135°”,“C. 225°”,“D. 315°”],ans:“A”,exp:“N 45° E = azimuth 45°. N 45° W = 315°; S 45° E = 135°.”,formula:“NE=bearing; SE=180°−bearing; SW=180°+bearing; NW=360°−bearing”},
-{id:“sv5”,cat:“Surveying”,mode:“conceptual”,diff:“Easy”,q:“A backsight is taken on:”,opts:[“A. Unknown elevation point”,“B. A point of known elevation”,“C. A turning point ahead”,“D. Benchmark only”],ans:“B”,exp:“Backsight (BS) on known elevation establishes Height of Instrument (HI).”},
-// PROJECT MANAGEMENT
-{id:“pm1”,cat:“Project Management”,mode:“conceptual”,diff:“Easy”,q:“Gantt chart shows:”,opts:[“A. Project costs”,“B. Task durations on a timeline”,“C. Critical path”,“D. Team performance”],ans:“B”,exp:“Gantt = tasks as horizontal bars against time axis.”},
-{id:“pm2”,cat:“Project Management”,mode:“conceptual”,diff:“Medium”,q:“SPI > 1.0 means:”,opts:[“A. Over budget”,“B. Behind schedule”,“C. Ahead of schedule”,“D. At risk”],ans:“C”,exp:“SPI=EV/PV. SPI>1=ahead of schedule. CPI>1=under budget.”},
-{id:“pm3”,cat:“Project Management”,mode:“conceptual”,diff:“Easy”,q:“Triple constraint in project management:”,opts:[“A. Cost, Schedule, Scope”,“B. Safety, Quality, Cost”,“C. Resources, Risk, Schedule”,“D. Design, Build, Operate”],ans:“A”,exp:“Iron triangle: Cost, Schedule (Time), Scope — changing one affects the others.”},
-{id:“pm4”,cat:“Project Management”,mode:“conceptual”,diff:“Medium”,q:“WBS organizes project by:”,opts:[“A. Calendar dates”,“B. Hierarchical decomposition of deliverables”,“C. Resource assignments”,“D. Risk levels”],ans:“B”,exp:“WBS = hierarchical tree breaking project into smaller manageable deliverables.”},
-{id:“pm5”,cat:“Project Management”,mode:“conceptual”,diff:“Hard”,q:“Risk mitigation means:”,opts:[“A. Accepting all risks”,“B. Transferring risk to owner”,“C. Reducing probability or impact of risk”,“D. Eliminating all uncertainty”],ans:“C”,exp:“Mitigation reduces likelihood or consequence. Other strategies: accept, transfer, avoid.”},
-// UNITS & CONVERSIONS
-{id:“u1”,cat:“Units & Conversions”,mode:“conceptual”,diff:“Easy”,q:“Fundamental difference between lbf and lbm:”,opts:[“A. Identical units”,“B. lbf = force; lbm = mass”,“C. lbm used in SI”,“D. lbf is larger by factor of 32.2”],ans:“B”,exp:“lbf is force. lbm is mass. Dimensionally different — numerically equal only at standard gravity.”},
-{id:“u2”,cat:“Units & Conversions”,mode:“conceptual”,diff:“Medium”,q:“In F=ma, m in lbm, a in ft/s². To get F in lbf you must:”,opts:[“A. Multiply by 32.2”,“B. Divide by gc = 32.174”,“C. No conversion needed”,“D. Multiply by 144”],ans:“B”,exp:“F(lbf)=m(lbm)×a/gc. Forgetting gc is the classic lbm/lbf error.”},
-{id:“u3”,cat:“Units & Conversions”,mode:“conceptual”,diff:“Easy”,q:“1 kip equals:”,opts:[“A. 100 lb”,“B. 1,000 lb”,“C. 10,000 lb”,“D. 100 kN”],ans:“B”,exp:“kip = kilopound = 1,000 lbf.”},
-{id:“u4”,cat:“Units & Conversions”,mode:“conceptual”,diff:“Easy”,q:“1 psi equals how many psf?”,opts:[“A. 12 psf”,“B. 72 psf”,“C. 144 psf”,“D. 288 psf”],ans:“C”,exp:“1 psi = 144 psf. (1 lb/in² × 144 in²/ft²)”},
-{id:“u5”,cat:“Units & Conversions”,mode:“conceptual”,diff:“Easy”,q:“1 acre equals:”,opts:[“A. 10,000 ft²”,“B. 43,560 ft²”,“C. 100,000 ft²”,“D. 5,280 ft²”],ans:“B”,exp:“1 acre = 43,560 ft². Critical for drainage area calculations.”},
-{id:“u6”,cat:“Units & Conversions”,mode:“conceptual”,diff:“Medium”,q:“1 cfs ≈ how many gpm?”,opts:[“A. 60 gpm”,“B. 225 gpm”,“C. 449 gpm”,“D. 7.48 gpm”],ans:“C”,exp:“1 cfs = 7.48 gal/ft³ × 60 s/min = 448.8 ≈ 449 gpm.”},
-{id:“u7”,cat:“Units & Conversions”,mode:“conceptual”,diff:“Easy”,q:“Specific weight of water in US Customary:”,opts:[“A. 62.4 pcf”,“B. 1,000 pcf”,“C. 8.34 pcf”,“D. 32.2 pcf”],ans:“A”,exp:“γ_water = 62.4 pcf. SI: 9.81 kN/m³.”},
-{id:“u8”,cat:“Units & Conversions”,mode:“conceptual”,diff:“Medium”,q:“1 slug equals approximately:”,opts:[“A. 1 lbm”,“B. 14.6 lbm”,“C. 32.2 lbm”,“D. 2.2 lbm”],ans:“C”,exp:“1 slug = 32.174 lbm. Consistent mass unit for F=ma in lbf, ft, s.”},
-// STATICS
-{id:“st1”,cat:“Statics”,mode:“conceptual”,diff:“Easy”,q:“For static equilibrium, which conditions must be satisfied?”,opts:[“A. ΣF = 0 only”,“B. ΣM = 0 only”,“C. Both ΣF = 0 and ΣM = 0”,“D. ΣF = ma”],ans:“C”,exp:“Static equilibrium requires both sum of forces AND sum of moments equal zero.”},
-{id:“st2”,cat:“Statics”,mode:“conceptual”,diff:“Easy”,q:“A free body diagram (FBD) shows:”,opts:[“A. Internal forces only”,“B. All external forces and reactions acting on a body”,“C. Deformations”,“D. Material properties”],ans:“B”,exp:“FBD isolates a body and shows all external forces, reactions, and moments.”},
-{id:“st3”,cat:“Statics”,mode:“computational”,diff:“Easy”,q:“10-ft SS beam, 100-lb point load at midspan. Each reaction:”,opts:[“A. 100 lb”,“B. 50 lb”,“C. 25 lb”,“D. 200 lb”],ans:“B”,exp:“By symmetry and ΣFy=0: R1=R2=100/2=50 lb”,formula:“ΣFy = 0”},
-{id:“st4”,cat:“Statics”,mode:“computational”,diff:“Medium”,q:“10-ft beam, pinned at A, roller at B. 200-lb load at 4 ft from A. Reaction at B:”,opts:[“A. 80 lb”,“B. 120 lb”,“C. 100 lb”,“D. 160 lb”],ans:“A”,exp:“ΣMA=0: RB×10=200×4 → RB=80 lb”,formula:“ΣM_A = 0”},
-{id:“st5”,cat:“Statics”,mode:“conceptual”,diff:“Easy”,q:“A roller support provides:”,opts:[“A. H + V reactions + moment”,“B. Only a reaction perpendicular to the rolling surface”,“C. H + V reactions only”,“D. Only a moment”],ans:“B”,exp:“Roller = one reaction perpendicular to surface. No horizontal, no moment.”},
-{id:“st6”,cat:“Statics”,mode:“computational”,diff:“Medium”,q:“Moment of 50-lb force, perpendicular distance 4 ft:”,opts:[“A. 12.5 lb-ft”,“B. 54 lb-ft”,“C. 200 lb-ft”,“D. 46 lb-ft”],ans:“C”,exp:“M = F × d = 50 × 4 = 200 lb-ft”,formula:“M = F × d”},
-{id:“st7”,cat:“Statics”,mode:“computational”,diff:“Hard”,q:“F1=60 lb at 0°, F2=80 lb at 90°. Resultant magnitude:”,opts:[“A. 100 lb”,“B. 140 lb”,“C. 72 lb”,“D. 20 lb”],ans:“A”,exp:“R=√(60²+80²)=√10000=100 lb (3-4-5 triangle)”,formula:“R = √(Fx² + Fy²)”},
-// MECHANICS OF MATERIALS
-{id:“m1”,cat:“Mechanics of Materials”,mode:“conceptual”,diff:“Easy”,q:“Axial strain ε is defined as:”,opts:[“A. Force divided by area”,“B. Deformation divided by original length”,“C. Stress times modulus”,“D. Change in volume”],ans:“B”,exp:“ε = δ/L. Dimensionless.”},
-{id:“m2”,cat:“Mechanics of Materials”,mode:“conceptual”,diff:“Easy”,q:“Poisson’s ratio ν relates:”,opts:[“A. Shear stress to shear strain”,“B. Lateral strain to axial strain”,“C. Stress to temperature”,“D. Modulus to density”],ans:“B”,exp:“ν = −εlateral/εaxial. Steel ≈ 0.3; concrete ≈ 0.15-0.20.”},
-{id:“m3”,cat:“Mechanics of Materials”,mode:“conceptual”,diff:“Medium”,q:“Shear stress distribution in a rectangular beam is:”,opts:[“A. Uniform”,“B. Linear, zero at centroid”,“C. Parabolic, max at neutral axis”,“D. Zero throughout”],ans:“C”,exp:“τ=VQ/Ib → parabolic, maximum at neutral axis, zero at top and bottom.”},
-{id:“m4”,cat:“Mechanics of Materials”,mode:“conceptual”,diff:“Easy”,q:“Ultimate tensile strength (UTS) is:”,opts:[“A. Stress at first yield”,“B. Maximum engineering stress on stress-strain curve”,“C. Stress at fracture”,“D. Modulus of elasticity”],ans:“B”,exp:“UTS = peak of engineering stress-strain curve — max load / original area.”},
-{id:“m5”,cat:“Mechanics of Materials”,mode:“computational”,diff:“Medium”,q:“Circular shaft: T=5 kip-in, r=1 in, J=π/2 in⁴. Max shear stress τ:”,opts:[“A. 2.5 ksi”,“B. 3.18 ksi”,“C. 5.0 ksi”,“D. 10.0 ksi”],ans:“B”,exp:“τ=Tr/J=5×1/(π/2)=5/1.571=3.18 ksi”,formula:“τ = Tr/J”},
-{id:“m6”,cat:“Mechanics of Materials”,mode:“conceptual”,diff:“Hard”,q:“Fatigue failure typically occurs at stress levels:”,opts:[“A. Above UTS”,“B. Above yield stress”,“C. Below yield stress after many repeated cycles”,“D. Only under impact”],ans:“C”,exp:“Fatigue failure occurs below yield stress after many repeated load cycles.”},
-{id:“m7”,cat:“Mechanics of Materials”,mode:“conceptual”,diff:“Medium”,q:“Thermal stress develops in a constrained member when:”,opts:[“A. Load is applied”,“B. Temperature changes but free expansion is prevented”,“C. The member yields”,“D. Moisture changes”],ans:“B”,exp:“σ_thermal = EαΔT when thermal expansion is fully restrained.”},
-// PROBABILITY & STATISTICS
-{id:“p1”,cat:“Probability & Statistics”,mode:“conceptual”,diff:“Easy”,q:“The probability of an impossible event is:”,opts:[“A. 1”,“B. 0.5”,“C. 0”,“D. Undefined”],ans:“C”,exp:“Impossible event P = 0. Certain event P = 1.”},
-{id:“p2”,cat:“Probability & Statistics”,mode:“conceptual”,diff:“Easy”,q:“The mean of a dataset is:”,opts:[“A. Most frequent value”,“B. Middle value when sorted”,“C. Sum of values divided by count”,“D. Max minus min”],ans:“C”,exp:“Mean = Σx/n. Median = middle value. Mode = most frequent.”},
-{id:“p3”,cat:“Probability & Statistics”,mode:“conceptual”,diff:“Medium”,q:“Standard deviation measures:”,opts:[“A. Central tendency”,“B. Spread/dispersion around the mean”,“C. Skewness”,“D. Probability of an event”],ans:“B”,exp:“Standard deviation σ = √(variance) = measure of spread around the mean.”},
-{id:“p4”,cat:“Probability & Statistics”,mode:“conceptual”,diff:“Medium”,q:“For independent events A and B, P(A and B) =”,opts:[“A. P(A) + P(B)”,“B. P(A) × P(B)”,“C. P(A) − P(B)”,“D. P(A)/P(B)”],ans:“B”,exp:“Independent events: P(A∩B) = P(A)×P(B).”},
-{id:“p5”,cat:“Probability & Statistics”,mode:“computational”,diff:“Medium”,q:“Dataset: 2,4,4,6,6,8. Mean and median:”,opts:[“A. Mean=4, Median=5”,“B. Mean=5, Median=5”,“C. Mean=5, Median=4”,“D. Mean=6, Median=6”],ans:“B”,exp:“Mean=30/6=5. Median=(4+6)/2=5.”,formula:“Mean = Σx/n”},
-{id:“p6”,cat:“Probability & Statistics”,mode:“conceptual”,diff:“Medium”,q:“Median is preferred over mean when data has:”,opts:[“A. Normal distribution”,“B. Extreme outliers or skewed distribution”,“C. Small sample size”,“D. Discrete values only”],ans:“B”,exp:“Median is resistant to outliers — preferred for skewed data.”},
-];
 
 // ── STORAGE ───────────────────────────────────────────────────────────────────
-function getStats(){ try{ return JSON.parse(localStorage.getItem(‘allStats’)||’{}’); }catch(e){ return {}; } }
-function saveStats(s){ try{ localStorage.setItem(‘allStats’,JSON.stringify(s)); }catch(e){} }
-function updateAllStats(cat,correct){ try{ var s=getStats(); var p=s[cat]||{c:0,t:0}; s[cat]={c:p.c+(correct?1:0),t:p.t+1}; saveStats(s); }catch(e){} }
-function getSessionHistory(){ try{ return JSON.parse(localStorage.getItem(‘sessions’)||’[]’); }catch(e){ return []; } }
-function saveSession(score,total,mode,cat){ try{ var h=getSessionHistory(); h.unshift({score:score,total:total,mode:mode,cat:cat,date:new Date().toLocaleDateString()}); localStorage.setItem(‘sessions’,JSON.stringify(h.slice(0,10))); }catch(e){} }
-function getInstallShown(){ try{ return localStorage.getItem(‘installShown’)===‘1’; }catch(e){ return false; } }
-function setInstallShown(){ try{ localStorage.setItem(‘installShown’,‘1’); }catch(e){} }
-function getNotes(){ try{ return JSON.parse(localStorage.getItem(‘qnotes’)||’{}’); }catch(e){ return {}; } }
-function saveNote(qid,note){ try{ var n=getNotes(); n[qid]=note; localStorage.setItem(‘qnotes’,JSON.stringify(n)); }catch(e){} }
+function ls(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lss(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function getStats(){ try{ return JSON.parse(ls(‘stats’)||’{}’); }catch(e){ return {}; } }
+function addStat(cat,ok){ var s=getStats(); var p=s[cat]||{c:0,t:0}; s[cat]={c:p.c+(ok?1:0),t:p.t+1}; lss(‘stats’,JSON.stringify(s)); }
+function getSessions(){ try{ return JSON.parse(ls(‘sess’)||’[]’); }catch(e){ return []; } }
+function addSession(sc,tot,mode,cat){ var h=getSessions(); h.unshift({sc:sc,tot:tot,mode:mode,cat:cat,d:new Date().toLocaleDateString()}); lss(‘sess’,JSON.stringify(h.slice(0,8))); }
+function getNotes(){ try{ return JSON.parse(ls(‘notes’)||’{}’); }catch(e){ return {}; } }
+function saveNote(id,v){ var n=getNotes(); n[id]=v; lss(‘notes’,JSON.stringify(n)); }
+function installSeen(){ return ls(‘inst’)===‘1’; }
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-var S = {
-tab:‘quiz’, screen:‘home’, mode:‘conceptual’, cat:‘All Topics’,
-diff:‘Mixed’, count:10, timer:0, questions:[], current:0,
-selected:null, answers:[], sessionStats:{}, streak:0, bestStreak:0,
-flagged:[], confRatings:{}, timeLeft:0, timerInterval:null,
-loading:false, error:’’, modal:null
-};
+var S={tab:‘quiz’,screen:‘home’,mode:‘c’,cat:‘All’,diff:‘Mixed’,count:10,timer:0,
+qs:[],cur:0,sel:null,ans:[],stats:{},streak:0,best:0,flagged:[],conf:{},
+tLeft:0,tId:null,modal:null,err:’’};
 
-function getQs(cat,mode,diff,count){
-var pool = QB.slice();
-if(cat !== ‘All Topics’) pool = pool.filter(function(q){ return q.cat===cat; });
-if(mode !== ‘both’) pool = pool.filter(function(q){ return q.mode===mode; });
-if(diff !== ‘Mixed’) pool = pool.filter(function(q){ return q.diff===diff; });
-pool.sort(function(){ return Math.random()-0.5; });
-return pool.slice(0,count);
-}
-
-async function fetchAI(cat,mode,diff,count){
-var topic = cat===‘All Topics’ ? ‘all Civil FE subjects’ : cat;
-var prompt = ‘Generate ‘+count+’ ‘+mode+’ Civil FE exam questions on ‘+topic+’. ‘+(diff===‘Mixed’?‘Mix difficulties.’:diff+’ level.’)+’ ‘+(mode===‘conceptual’?‘NO math. Definitions, principles, codes.’:‘Require calculation. Core formulas. 1-2 steps.’)+’ Return ONLY raw JSON: [{“q”:”…”,“opts”:[“A. …”,“B. …”,“C. …”,“D. …”],“ans”:“A”,“exp”:”…”,“cat”:”’+cat+’”,“diff”:“Medium”,“formula”:null}]’;
-var res = await fetch(‘https://api.anthropic.com/v1/messages’,{method:‘POST’,headers:{‘Content-Type’:‘application/json’},body:JSON.stringify({model:‘claude-sonnet-4-20250514’,max_tokens:3000,messages:[{role:‘user’,content:prompt}]})});
-var data = await res.json();
-var text = (data.content||[]).map(function(b){ return b.text||’’; }).join(’’);
-var match = text.match(/[[\s\S]*]/);
-if(!match) throw new Error(‘No JSON’);
-return JSON.parse(match[0]).map(function(q){ return Object.assign({},q,{id:‘ai-’+Math.random(),mode:mode}); });
+function pool(){
+var r=QB.slice();
+if(S.cat!==‘All’) r=r.filter(function(q){return q[1]===S.cat;});
+if(S.mode!==‘both’) r=r.filter(function(q){return q[2]===S.mode;});
+if(S.diff!==‘Mixed’) r=r.filter(function(q){return q[3]===S.diff[0];});
+r.sort(function(){return Math.random()-0.5;});
+return r.slice(0,S.count);
 }
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
+function esc(s){ return String(s).replace(/’/g,”'”).replace(/”/g,”"”); }
+
 function render(){
-var app = document.getElementById(‘app’);
-if(!app) return;
-var h = [];
+var a=document.getElementById(‘app’);
+if(!a) return;
+var h=’’;
 
 // modal
 if(S.modal===‘exit’){
-h.push(’<div class="modal-overlay"><div class="modal"><p style="font-size:16px;font-weight:600;color:var(--tx);margin-bottom:8px;">Exit Quiz?</p><p style="font-size:13px;color:var(--tx2);margin-bottom:20px;">Your progress will be lost.</p><div style="display:flex;gap:8px;"><button class="btn-sec" onclick="S.modal=null;render()">Keep Going</button><button class="btn" onclick="S.modal=null;S.screen=\'home\';clearInterval(S.timerInterval);render()">Exit</button></div></div></div>’);
+h=’<div class="modal"><div class="mbox"><p style="font-size:16px;font-weight:600;color:var(--tx,#e5e5e5);margin-bottom:8px;">Exit Quiz?</p><p style="font-size:13px;color:#888;margin-bottom:20px;">Your progress will be lost.</p><div style="display:flex;gap:8px;"><button class="btn2" style="flex:1;" onclick="S.modal=null;render()">Keep Going</button><button class="btn" style="margin-bottom:0;flex:1;" onclick="S.modal=null;S.screen=\'home\';clearInterval(S.tId);render()">Exit</button></div></div></div>’;
+a.innerHTML=h; return;
 }
 if(S.modal===‘note’){
-var qid = S.questions[S.current] ? S.questions[S.current].id : ‘’;
-var nv = getNotes()[qid]||’’;
-h.push(’<div class="modal-overlay"><div class="modal"><p style="font-size:15px;font-weight:600;color:var(--tx);margin-bottom:10px;">My Note</p><textarea class="note-input" id="note-inp">’+nv+’</textarea><div style="display:flex;gap:8px;margin-top:10px;"><button class="btn-sec" onclick="S.modal=null;render()">Cancel</button><button class="btn" onclick="saveNote(\''+qid+'\',document.getElementById(\'note-inp\').value);S.modal=null;render()">Save</button></div></div></div>’);
+var qid=S.qs[S.cur]?S.qs[S.cur][0]:’’;
+var nv=getNotes()[qid]||’’;
+h=’<div class="modal"><div class="mbox"><p style="font-size:15px;font-weight:600;color:var(--tx,#e5e5e5);margin-bottom:10px;">My Note</p><textarea id="ni" style="width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#111;color:#e5e5e5;font-size:13px;font-family:inherit;resize:none;outline:none;min-height:80px;">’+esc(nv)+’</textarea><div style="display:flex;gap:8px;margin-top:10px;"><button class="btn2" style="flex:1;" onclick="S.modal=null;render()">Cancel</button><button class="btn" style="flex:1;margin-bottom:0;" onclick="saveNote(\''+esc(qid)+'\',document.getElementById(\'ni\').value);S.modal=null;render()">Save</button></div></div></div>’;
+a.innerHTML=h; return;
 }
 
 if(S.screen===‘home’){
-h.push(’<div style="text-align:center;margin-bottom:18px;"><div class="icon-wrap">📐</div><h1>FE Civil Mastery</h1><p class="sub">Smart prep for the Civil FE exam</p></div>’);
+h+=’<div style="text-align:center;margin-bottom:18px;"><div style="width:50px;height:50px;border-radius:14px;background:#1a1600;border:1px solid #3a3000;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:20px;">📐</div><h1 style="font-size:21px;font-weight:600;">FE Civil Mastery</h1><p style="font-size:13px;color:#888;margin-top:3px;">Smart prep for the Civil FE exam</p></div>’;
+if(!installSeen()) h+=’<div style="background:#1a1600;border:1px solid #3a3000;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">📲</span><div style="flex:1;"><p style="font-size:12px;font-weight:600;color:#f5c518;">Add to Home Screen</p><p style="font-size:11px;color:#888;">Safari Share → “Add to Home Screen”</p></div><button onclick="lss(\'inst\',\'1\');render()" style="background:none;border:none;color:#555;font-size:20px;cursor:pointer;line-height:1;">×</button></div>’;
+h+=’<div class="tabs"><button class="'+(S.tab==='quiz'?'on':'')+'" onclick="S.tab=\'quiz\';render()">Quiz</button><button class="'+(S.tab==='offline'?'on':'')+'" onclick="S.tab=\'offline\';render()">Offline</button><button class="'+(S.tab==='formulas'?'on':'')+'" onclick="S.tab=\'formulas\';render()">Formulas</button><button class="'+(S.tab==='stats'?'on':'')+'" onclick="S.tab=\'stats\';render()">Stats</button></div>’;
 
 ```
-if(!getInstallShown()){
-  h.push('<div style="background:var(--acc2);border:1px solid var(--acc3);border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">📲</span><div style="flex:1;"><p style="font-size:12px;font-weight:600;color:var(--acc);">Add to Home Screen</p><p style="font-size:11px;color:var(--tx2);">Safari Share → "Add to Home Screen"</p></div><button onclick="setInstallShown();render()" style="background:none;border:none;color:var(--tx3);font-size:20px;cursor:pointer;line-height:1;">×</button></div>');
-}
-
-h.push('<div class="tab-bar"><button class="tab'+(S.tab==='quiz'?' active':'')+'" onclick="S.tab=\'quiz\';render()">Quiz</button><button class="tab'+(S.tab==='offline'?' active':'')+'" onclick="S.tab=\'offline\';render()">Offline</button><button class="tab'+(S.tab==='formulas'?' active':'')+'" onclick="S.tab=\'formulas\';render()">Formulas</button><button class="tab'+(S.tab==='stats'?' active':'')+'" onclick="S.tab=\'stats\';render()">Stats</button></div>');
-
 if(S.tab==='quiz'){
-  if(S.error) h.push('<div class="err">'+S.error+'</div>');
-  h.push('<div class="seg"><button class="seg-btn'+(S.mode==='conceptual'?' active':'')+'" onclick="S.mode=\'conceptual\';render()">Conceptual <span style="font-size:10px;padding:1px 5px;border-radius:99px;background:'+(S.mode==='conceptual'?'rgba(0,0,0,.15)':'var(--brd)')+';margin-left:4px;">No math</span></button><button class="seg-btn'+(S.mode==='computational'?' active':'')+'" onclick="S.mode=\'computational\';render()">Computational <span style="font-size:10px;padding:1px 5px;border-radius:99px;background:'+(S.mode==='computational'?'rgba(0,0,0,.15)':'var(--brd)')+';margin-left:4px;">Calc</span></button></div>');
-  h.push('<div class="card"><span class="lbl">Topic</span><div style="position:relative"><select onchange="S.cat=this.value;render()">'+CATS.map(function(c){ return '<option'+(c===S.cat?' selected':'')+'>'+c+'</option>'; }).join('')+'</select><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--tx3);pointer-events:none;font-size:10px;">▼</span></div></div>');
-  h.push('<div class="card"><span class="lbl">Difficulty</span><div class="grid4">'+DIFFS.map(function(d){ return '<button class="sm-btn'+(S.diff===d?' active':'')+'" onclick="S.diff=\''+d+'\';render()">'+d+'</button>'; }).join('')+'</div></div>');
-  h.push('<div class="card"><span class="lbl">Questions</span><div class="grid4">'+COUNTS.map(function(n){ return '<button class="sm-btn'+(S.count===n?' active':'')+'" onclick="S.count='+n+';render()">'+n+'</button>'; }).join('')+'</div></div>');
-  h.push('<div class="card"><span class="lbl">Timer per question</span><div class="grid4">'+TIMERS.map(function(t){ return '<button class="sm-btn'+(S.timer===t.v?' active':'')+'" onclick="S.timer='+t.v+';render()">'+t.l+'</button>'; }).join('')+'</div></div>');
-  h.push('<p style="font-size:12px;color:var(--tx3);text-align:center;margin-bottom:10px;">📦 '+QB.length+' offline questions ready</p>');
-  h.push('<button class="btn" onclick="startQuiz()">'+(S.loading?'Generating…':'Start Quiz →')+'</button>');
+  if(S.err) h+='<div style="background:#2b0d0d;border:1px solid #7f1d1d;border-radius:10px;padding:11px 13px;margin-bottom:12px;color:#fca5a5;font-size:13px;">'+S.err+'</div>';
+  h+='<div class="seg"><button class="'+(S.mode==='c'?'on':'')+'" onclick="S.mode=\'c\';render()">Conceptual <span style="font-size:10px;padding:1px 5px;border-radius:99px;background:'+(S.mode==='c'?'rgba(0,0,0,.15)':'#2a2a2a')+';margin-left:4px;">No math</span></button><button class="'+(S.mode==='n'?'on':'')+'" onclick="S.mode=\'n\';render()">Computational <span style="font-size:10px;padding:1px 5px;border-radius:99px;background:'+(S.mode==='n'?'rgba(0,0,0,.15)':'#2a2a2a')+';margin-left:4px;">Calc</span></button></div>';
+  h+='<div class="card"><span class="lbl">Topic</span><div style="position:relative"><select onchange="S.cat=this.value;render()">'+CATS.map(function(c){return '<option'+(c===S.cat?' selected':'')+'>'+c+'</option>';}).join('')+'</select><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#555;pointer-events:none;font-size:10px;">▼</span></div></div>';
+  h+='<div class="card"><span class="lbl">Difficulty</span><div class="g4">'+DIFFS.map(function(d){return '<button class="sb'+(S.diff===d?' on':'')+'" onclick="S.diff=\''+d+'\';render()">'+d+'</button>';}).join('')+'</div></div>';
+  h+='<div class="card"><span class="lbl">Questions</span><div class="g4">'+COUNTS.map(function(n){return '<button class="sb'+(S.count===n?' on':'')+'" onclick="S.count='+n+';render()">'+n+'</button>';}).join('')+'</div></div>';
+  h+='<div class="card"><span class="lbl">Timer per question</span><div class="g4">'+TIMERS.map(function(t){return '<button class="sb'+(S.timer===t.v?' on':'')+'" onclick="S.timer='+t.v+';render()">'+t.l+'</button>';}).join('')+'</div></div>';
+  h+='<p style="font-size:12px;color:#555;text-align:center;margin-bottom:10px;">📦 '+QB.length+' offline questions ready</p>';
+  h+='<button class="btn" onclick="startQuiz()">Start Quiz →</button>';
 }
 
 if(S.tab==='offline'){
-  h.push('<div class="card"><p style="font-size:14px;font-weight:600;color:var(--tx);margin-bottom:6px;">Built-in Question Bank</p><p style="font-size:13px;color:var(--tx2);line-height:1.6;margin-bottom:12px;">Your app has <strong style="color:var(--acc);">'+QB.length+' questions</strong> built in — works with zero internet.</p><div class="divider"></div>');
-  CATS.filter(function(c){ return c!=='All Topics'; }).forEach(function(c){
-    var n = QB.filter(function(q){ return q.cat===c; }).length;
-    h.push('<div class="weak-row"><span style="font-size:13px;color:var(--tx);">'+c+'</span><span style="font-size:12px;color:var(--acc);font-weight:600;">'+n+'q</span></div>');
+  h+='<div class="card"><p style="font-size:14px;font-weight:600;margin-bottom:6px;">Built-in Question Bank</p><p style="font-size:13px;color:#888;line-height:1.6;margin-bottom:12px;">Your app has <strong style="color:#f5c518;">'+QB.length+' questions</strong> built in — no internet needed.</p><div class="hr"></div>';
+  CATS.filter(function(c){return c!=='All';}).forEach(function(c){
+    var n=QB.filter(function(q){return q[1]===c;}).length;
+    h+='<div class="wr"><span style="font-size:13px;">'+c+'</span><span style="font-size:12px;color:#f5c518;font-weight:600;">'+n+'q</span></div>';
   });
-  h.push('</div><div class="card"><p style="font-size:14px;font-weight:600;color:var(--tx);margin-bottom:8px;">📲 Add to iPhone</p><p style="font-size:13px;color:var(--tx2);line-height:1.7;">1. Open in <strong style="color:var(--tx);">Safari</strong><br>2. Tap <strong style="color:var(--acc);">Share ↑</strong><br>3. Tap <strong style="color:var(--acc);">"Add to Home Screen"</strong><br>4. Tap <strong style="color:var(--acc);">Add</strong></p></div>');
+  h+='</div><div class="card"><p style="font-size:14px;font-weight:600;margin-bottom:8px;">📲 Add to iPhone</p><p style="font-size:13px;color:#888;line-height:1.7;">1. Open in <strong>Safari</strong><br>2. Tap <strong style="color:#f5c518;">Share ↑</strong><br>3. Tap <strong style="color:#f5c518;">"Add to Home Screen"</strong><br>4. Tap <strong style="color:#f5c518;">Add</strong></p></div>';
 }
 
 if(S.tab==='formulas'){
-  h.push('<h2 style="font-size:16px;font-weight:600;color:var(--tx);margin-bottom:4px;">Formula Reference</h2><p class="sub" style="margin-bottom:14px;">Key FE equations — works offline</p>');
-  var fcats = [];
-  FORMULAS.forEach(function(f){ if(fcats.indexOf(f.cat)<0) fcats.push(f.cat); });
-  fcats.forEach(function(cat){
-    h.push('<p style="font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px;">'+cat+'</p>');
-    FORMULAS.filter(function(f){ return f.cat===cat; }).forEach(function(f){
-      h.push('<div class="formula-card"><p style="font-family:\'Courier New\',monospace;font-size:14px;color:var(--acc);margin-bottom:3px;">'+f.f+'</p><p style="font-size:12px;color:var(--tx2);">'+f.note+'</p></div>');
+  h+='<h2 style="font-size:16px;font-weight:600;margin-bottom:4px;">Formula Reference</h2><p style="font-size:13px;color:#888;margin-bottom:14px;">Key FE equations — works offline</p>';
+  var fc=[]; FORMULAS.forEach(function(f){if(fc.indexOf(f.cat)<0)fc.push(f.cat);});
+  fc.forEach(function(cat){
+    h+='<p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px;">'+cat+'</p>';
+    FORMULAS.filter(function(f){return f.cat===cat;}).forEach(function(f){
+      h+='<div class="fcard"><p style="font-family:monospace;font-size:14px;color:#f5c518;margin-bottom:3px;">'+f.f+'</p><p style="font-size:12px;color:#888;">'+f.n+'</p></div>';
     });
   });
 }
 
 if(S.tab==='stats'){
-  var allS = getStats(), sessions = getSessionHistory();
-  h.push('<h2 style="font-size:16px;font-weight:600;color:var(--tx);margin-bottom:4px;">My Stats</h2><p class="sub" style="margin-bottom:14px;">Cumulative performance across all sessions</p>');
-  var cats = Object.keys(allS);
-  if(!cats.length){
-    h.push('<div class="card"><p style="font-size:13px;color:var(--tx2);text-align:center;">No data yet. Complete a quiz first.</p></div>');
-  } else {
-    var tc=0,tt=0; cats.forEach(function(c){ tc+=allS[c].c; tt+=allS[c].t; });
-    var pct=Math.round(tc/tt*100);
-    h.push('<div class="card" style="text-align:center;margin-bottom:12px;"><div class="score-big">'+tc+'<span style="font-size:22px;color:var(--tx3);">/'+tt+'</span></div><p style="color:var(--tx2);font-size:14px;margin-top:4px;">'+pct+'% overall</p></div>');
-    h.push('<p style="font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">By category</p>');
-    cats.sort(function(a,b){ return (allS[a].c/allS[a].t)-(allS[b].c/allS[b].t); }).forEach(function(cat){
-      var v=allS[cat], p=Math.round(v.c/v.t*100), col=p>=70?'var(--green)':p>=50?'var(--acc)':'var(--red)';
-      h.push('<div class="weak-row"><span style="font-size:13px;color:var(--tx);flex:1;">'+cat+'</span><div class="weak-bar-bg"><div style="height:4px;width:'+p+'%;background:'+col+';border-radius:99px;"></div></div><span style="font-size:12px;color:'+col+';font-weight:600;margin-left:8px;min-width:30px;">'+p+'%</span></div>');
+  var st=getStats(), sess=getSessions();
+  h+='<h2 style="font-size:16px;font-weight:600;margin-bottom:4px;">My Stats</h2><p style="font-size:13px;color:#888;margin-bottom:14px;">Cumulative performance</p>';
+  var kk=Object.keys(st);
+  if(!kk.length){ h+='<div class="card"><p style="font-size:13px;color:#888;text-align:center;">No data yet. Complete a quiz first.</p></div>'; }
+  else {
+    var tc=0,tt=0; kk.forEach(function(k){tc+=st[k].c;tt+=st[k].t;});
+    h+='<div class="card" style="text-align:center;margin-bottom:12px;"><div class="big">'+tc+'<span style="font-size:22px;color:#555;">/'+tt+'</span></div><p style="color:#888;font-size:14px;margin-top:4px;">'+Math.round(tc/tt*100)+'% overall</p></div>';
+    h+='<p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">By category</p>';
+    kk.sort(function(a,b){return(st[a].c/st[a].t)-(st[b].c/st[b].t);}).forEach(function(k){
+      var p=Math.round(st[k].c/st[k].t*100),col=p>=70?'#22c55e':p>=50?'#f5c518':'#ef4444';
+      h+='<div class="wr"><span style="font-size:13px;flex:1;">'+k+'</span><div class="wbar"><div style="height:4px;width:'+p+'%;background:'+col+';border-radius:99px;"></div></div><span style="font-size:12px;color:'+col+';font-weight:600;margin-left:8px;min-width:30px;">'+p+'%</span></div>';
     });
-    if(sessions.length){
-      h.push('<p style="font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px;">Recent Sessions</p>');
-      sessions.slice(0,5).forEach(function(s){
-        var sp=Math.round(s.score/s.total*100), sc=sp>=70?'var(--green)':sp>=50?'var(--acc)':'var(--red)';
-        h.push('<div class="session-row"><span style="font-size:13px;color:var(--tx);">'+s.cat+'</span><span style="font-size:12px;color:var(--tx3);">'+s.date+'</span><span style="font-size:13px;color:'+sc+';font-weight:600;">'+s.score+'/'+s.total+'</span></div>');
+    if(sess.length){
+      h+='<p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px;">Recent Sessions</p>';
+      sess.slice(0,5).forEach(function(s){
+        var p=Math.round(s.sc/s.tot*100),col=p>=70?'#22c55e':p>=50?'#f5c518':'#ef4444';
+        h+='<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #1a1a1a;"><span style="font-size:13px;">'+s.cat+'</span><span style="font-size:12px;color:#555;">'+s.d+'</span><span style="font-size:13px;color:'+col+';font-weight:600;">'+s.sc+'/'+s.tot+'</span></div>';
       });
     }
   }
@@ -488,134 +455,114 @@ if(S.tab==='stats'){
 }
 
 else if(S.screen===‘loading’){
-h.push(’<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;gap:16px;"><div class="spin"></div><p style="color:var(--tx2);font-size:14px;">Generating questions…</p></div>’);
+h=’<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;gap:16px;"><div class="spin"></div><p style="color:#666;font-size:14px;">Generating questions…</p></div>’;
 }
 
 else if(S.screen===‘quiz’){
-var q = S.questions[S.current];
-if(!q){ S.screen=‘home’; render(); return; }
-var prog = S.current/S.questions.length*100;
-var timedOut = S.selected===’**timeout**’;
-var notes = getNotes();
-var hasNote = !!notes[q.id];
-h.push(’<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="display:flex;gap:5px;align-items:center;"><span class="badge badge-y" style="font-size:10px;">’+(S.mode===‘conceptual’?‘Concept’:‘Calc’)+’</span>’+(S.flagged.indexOf(S.current)>=0?’<span style="font-size:11px;color:var(--red);">🚩</span>’:’’)+(hasNote?’<span style="font-size:11px;color:var(--acc);">📝</span>’:’’)+’</div><div style="display:flex;gap:8px;align-items:center;">’+(S.streak>=2?’<span class="streak">🔥’+S.streak+’</span>’:’’)+(S.timer>0&&S.selected===null?’<span class="timer-num'+(S.timeLeft<=10?' timer-warn':'')+'" id="tmr">’+S.timeLeft+‘s</span>’:’’)+’<span style="font-size:13px;color:var(--tx2);font-weight:500;">’+(S.current+1)+’/’+S.questions.length+’</span></div></div>’);
-h.push(’<div class="bar-bg"><div class="bar-fill" style="width:'+prog+'%;"></div></div>’);
-if(q.formula && q.formula!==‘null’) h.push(’<div class="formula-box"><span style="font-size:9px;color:var(--tx3);font-family:sans-serif;text-transform:uppercase;letter-spacing:.08em;">Formula</span><br>’+q.formula+’</div>’);
-h.push(’<div class="card" style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;gap:8px;"><p style="font-size:15px;font-weight:500;color:var(--tx);line-height:1.65;flex:1;">’+q.q+’</p><div style="display:flex;flex-direction:column;gap:6px;"><button onclick="toggleFlag()" style="background:none;border:none;cursor:pointer;font-size:15px;opacity:.5;">🚩</button><button onclick="S.modal=\'note\';render()" style="background:none;border:none;cursor:pointer;font-size:14px;opacity:.5;">📝</button></div></div></div>’);
-if(timedOut) h.push(’<div class="err" style="margin-bottom:10px;">⏱ Time's up! Correct: ‘+q.ans+’</div>’);
-q.opts.forEach(function(opt){
-var letter=opt.charAt(0), cls=‘opt’;
-if(S.selected!==null && !timedOut){ if(letter===q.ans) cls+=’ correct’; else if(opt===S.selected) cls+=’ wrong’; }
-else if(opt===S.selected) cls+=’ selected’;
-h.push(’<button class=”’+cls+’” ‘+(S.selected!==null?‘disabled’:’’)+’ onclick=“pickOpt('’+opt.replace(/’/g,”\’”).replace(/”/g,’"’)+’')”>’+opt+’</button>’);
+var q=S.qs[S.cur];
+if(!q){S.screen=‘home’;render();return;}
+var opts=q[5].split(’|’);
+var timedOut=S.sel===’**to**’;
+var notes=getNotes(), hasNote=!!notes[q[0]];
+var prog=S.cur/S.qs.length*100;
+h+=’<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">’;
+h+=’<div style="display:flex;gap:5px;align-items:center;"><span style="display:inline-block;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:600;background:#1a1600;color:#f5c518;border:1px solid #3a3000;">’+(S.mode===‘c’?‘Concept’:‘Calc’)+’</span>’+(S.flagged.indexOf(S.cur)>=0?’<span style="font-size:11px;color:#ef4444;">🚩</span>’:’’)+(hasNote?’<span style="font-size:11px;color:#f5c518;">📝</span>’:’’)+’</div>’;
+h+=’<div style="display:flex;gap:8px;align-items:center;">’+(S.streak>=2?’<span class="streak">🔥’+S.streak+’</span>’:’’)+(S.timer>0&&S.sel===null?’<span class="tmr'+(S.tLeft<=10?' red':'')+'" id="tmr">’+S.tLeft+‘s</span>’:’’)+’<span style="font-size:13px;color:#888;font-weight:500;">’+(S.cur+1)+’/’+S.qs.length+’</span></div></div>’;
+h+=’<div class="bar"><div class="barfill" style="width:'+prog+'%;"></div></div>’;
+if(q[8]) h+=’<div class="fbox"><span style="font-size:9px;color:#555;font-family:sans-serif;text-transform:uppercase;letter-spacing:.08em;">Formula</span><br>’+q[8]+’</div>’;
+h+=’<div class="card" style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;gap:8px;"><p style="font-size:15px;font-weight:500;line-height:1.65;flex:1;">’+q[4]+’</p><div style="display:flex;flex-direction:column;gap:6px;"><button onclick="toggleFlag()" style="background:none;border:none;cursor:pointer;font-size:15px;opacity:.5;">🚩</button><button onclick="S.modal=\'note\';render()" style="background:none;border:none;cursor:pointer;font-size:14px;opacity:.5;">📝</button></div></div></div>’;
+if(timedOut) h+=’<div style="background:#2b0d0d;border:1px solid #7f1d1d;border-radius:10px;padding:11px;margin-bottom:10px;color:#fca5a5;font-size:13px;">⏱ Time's up! Correct: ‘+q[6]+’</div>’;
+opts.forEach(function(opt){
+var letter=opt.charAt(0),cls=‘opt’;
+if(S.sel!==null&&!timedOut){if(letter===q[6])cls+=’ ok’;else if(opt===S.sel)cls+=’ ng’;}
+else if(opt===S.sel)cls+=’ sel’;
+h+=’<button class=”’+cls+’” ‘+(S.sel!==null?‘disabled’:’’)+’ onclick=“pick('’+esc(opt)+’')”>’+opt+’</button>’;
 });
-if(S.selected && !timedOut) h.push(’<div class="explain"><p>💡 ‘+q.exp+’</p></div>’);
-if(S.selected!==null && !S.confRatings[S.current]){
-h.push(’<p style="font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:8px;">How confident? <span style="font-weight:400;opacity:.6;">(optional)</span></p>’);
-h.push(’<div class="conf-row">’+CONF.map(function(c){ return ‘<button class="conf-btn" style="border-color:'+c.c+'55;color:'+c.c+';" onclick="pickConf(\''+c.l+'\')">’+c.l+’</button>’; }).join(’’)+’</div>’);
+if(S.sel&&!timedOut) h+=’<div class="explain">💡 ‘+q[7]+’</div>’;
+if(S.sel!==null&&!S.conf[S.cur]){
+h+=’<p style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:8px;">Confident? <span style="font-weight:400;opacity:.6;">(optional)</span></p>’;
+h+=’<div class="conf"><button style="border-color:#22c55e55;color:#22c55e;" onclick="conf(\'Got it\')">Got it</button><button style="border-color:#f5c51855;color:#f5c518;" onclick="conf(\'Shaky\')">Shaky</button><button style="border-color:#ef444455;color:#ef4444;" onclick="conf(\'Missed\')">Missed</button></div>’;
 }
-if(S.selected!==null) h.push(’<button class="btn" onclick="nextQ()">’+(S.current+1<S.questions.length?‘Next →’:‘See Results →’)+’</button>’);
-h.push(’<button style="width:100%;padding:10px;border-radius:12px;border:1px solid var(--brd);background:transparent;color:var(--tx2);font-size:13px;cursor:pointer;" onclick="S.modal=\'exit\';render()">← Home</button>’);
+if(S.sel!==null) h+=’<button class="btn" onclick="next()">’+(S.cur+1<S.qs.length?‘Next →’:‘See Results →’)+’</button>’;
+h+=’<button style="width:100%;padding:10px;border-radius:12px;border:1px solid #2a2a2a;background:transparent;color:#888;font-size:13px;cursor:pointer;margin-top:0;" onclick="S.modal=\'exit\';render()">← Home</button>’;
 }
 
 else if(S.screen===‘results’){
-var total=S.answers.length, correct=S.answers.filter(function(a){ return a.correct; }).length;
-var pct=Math.round(correct/total*100);
-h.push(’<div style="text-align:center;margin-bottom:22px;"><div style="font-size:28px;margin-bottom:10px;">’+(pct>=70?‘🎉’:pct>=50?‘📚’:‘💪’)+’</div><div class="score-big">’+correct+’<span style="font-size:22px;color:var(--tx3);">/’+total+’</span></div><p style="color:var(--tx2);font-size:14px;margin:6px 0 10px;">’+pct+’%</p><span class="badge '+(pct>=70?'badge-g':'badge-r')+'">’+(pct>=70?‘Pass ✓’:‘Keep Studying’)+’</span>’+(S.bestStreak>=3?’<p style="font-size:12px;color:var(--acc);margin-top:8px;">🔥 Best streak: ‘+S.bestStreak+’</p>’:’’)+’</div>’);
-h.push(’<div class="card" style="margin-bottom:12px;"><p style="font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">By category</p>’);
-Object.keys(S.sessionStats).sort(function(a,b){ return (S.sessionStats[a].c/S.sessionStats[a].t)-(S.sessionStats[b].c/S.sessionStats[b].t); }).forEach(function(cat){
-var v=S.sessionStats[cat], p=Math.round(v.c/v.t*100), col=p>=70?‘var(–green)’:p>=50?‘var(–acc)’:‘var(–red)’;
-h.push(’<div class="weak-row"><span style="font-size:13px;color:var(--tx);flex:1;">’+cat+’</span><div class="weak-bar-bg"><div style="height:4px;width:'+p+'%;background:'+col+';border-radius:99px;"></div></div><span style="font-size:12px;color:'+col+';font-weight:600;margin-left:8px;">’+p+’%</span></div>’);
+var tot=S.ans.length, ok=S.ans.filter(function(a){return a.ok;}).length;
+var pct=Math.round(ok/tot*100);
+h+=’<div style="text-align:center;margin-bottom:22px;"><div style="font-size:28px;margin-bottom:10px;">’+(pct>=70?‘🎉’:pct>=50?‘📚’:‘💪’)+’</div><div class="big">’+ok+’<span style="font-size:22px;color:#555;">/’+tot+’</span></div><p style="color:#888;font-size:14px;margin:6px 0 10px;">’+pct+’%</p><span style="display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:600;'+(pct>=70?'background:#0d2b1d;color:#86efac;':'background:#2b0d0d;color:#fca5a5;')+'">’+(pct>=70?‘Pass ✓’:‘Keep Studying’)+’</span>’+(S.best>=3?’<p style="font-size:12px;color:#f5c518;margin-top:8px;">🔥 Best streak: ‘+S.best+’</p>’:’’)+’</div>’;
+h+=’<div class="card" style="margin-bottom:12px;"><p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">By category</p>’;
+var sk=Object.keys(S.stats);
+sk.sort(function(a,b){return(S.stats[a].c/S.stats[a].t)-(S.stats[b].c/S.stats[b].t);}).forEach(function(cat){
+var v=S.stats[cat],p=Math.round(v.c/v.t*100),col=p>=70?’#22c55e’:p>=50?’#f5c518’:’#ef4444’;
+h+=’<div class="wr"><span style="font-size:13px;flex:1;">’+cat+’</span><div class="wbar"><div style="height:4px;width:'+p+'%;background:'+col+';border-radius:99px;"></div></div><span style="font-size:12px;color:'+col+';font-weight:600;margin-left:8px;">’+p+’%</span></div>’;
 });
-h.push(’</div><details style="margin-bottom:14px;"><summary style="font-size:13px;font-weight:600;color:var(--tx);cursor:pointer;padding:10px 0;list-style:none;">▶ Review all questions (’+total+’)</summary><div style="margin-top:10px;">’);
-S.answers.forEach(function(a,i){
-var cr=S.confRatings[i], col=cr===‘Got it’?‘var(–green)’:cr===‘Shaky’?‘var(–acc)’:‘var(–red)’;
-h.push(’<div class="'+(a.correct?'review-ok':'review-ng')+'"><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:11px;color:#555;">Q’+(i+1)+’ · ‘+a.cat+(S.flagged.indexOf(i)>=0?’ 🚩’:’’)+’</span><div style="display:flex;gap:5px;">’+(cr?’<span style="font-size:10px;color:'+col+';">’+cr+’</span>’:’’)+’<span style="font-size:11px;font-weight:600;color:'+(a.timedOut?'var(--acc)':a.correct?'var(--green)':'var(--red)')+';">’+(a.timedOut?‘⏱’:a.correct?‘✓’:‘✗’)+’</span></div></div>’+(a.formula&&a.formula!==‘null’?’<p style="font-family:monospace;font-size:12px;color:var(--acc);margin-bottom:4px;">’+a.formula+’</p>’:’’)+’<p style="font-size:13px;color:var(--tx);margin-bottom:4px;line-height:1.5;">’+a.q+’</p>’+((!a.correct&&a.selected)?’<p style="font-size:12px;color:var(--red);margin-bottom:3px;">Your: ‘+a.selected+’</p>’:’’)+’<p style="font-size:12px;color:var(--green);">✓ ‘+a.ans+’ — ‘+a.exp+’</p></div>’);
+h+=’</div>’;
+h+=’<details style="margin-bottom:14px;"><summary style="font-size:13px;font-weight:600;cursor:pointer;padding:10px 0;list-style:none;color:#e5e5e5;">▶ Review all (’+tot+’)</summary><div style="margin-top:10px;">’;
+S.ans.forEach(function(a,i){
+var cr=S.conf[i]||’’, col=cr===‘Got it’?’#22c55e’:cr===‘Shaky’?’#f5c518’:’#ef4444’;
+h+=’<div class="'+(a.ok?'rok':'rng')+'"><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:11px;color:#555;">Q’+(i+1)+’ · ‘+a.cat+(S.flagged.indexOf(i)>=0?’ 🚩’:’’)+’</span><div style="display:flex;gap:5px;">’+(cr?’<span style="font-size:10px;color:'+col+';">’+cr+’</span>’:’’)+’<span style="font-size:11px;font-weight:600;color:'+(a.to?'#f5c518':a.ok?'#22c55e':'#ef4444')+';">’+(a.to?‘⏱’:a.ok?‘✓’:‘✗’)+’</span></div></div>’+(a.f?’<p style="font-family:monospace;font-size:12px;color:#f5c518;margin-bottom:4px;">’+a.f+’</p>’:’’)+’<p style="font-size:13px;margin-bottom:4px;line-height:1.5;">’+a.q+’</p>’+((!a.ok&&a.sel)?’<p style="font-size:12px;color:#ef4444;margin-bottom:3px;">Your: ‘+a.sel+’</p>’:’’)+’<p style="font-size:12px;color:#22c55e;">✓ ‘+a.ans+’ — ‘+a.exp+’</p></div>’;
 });
-h.push(’</div></details><div style="display:flex;gap:8px;"><button class="btn-sec" onclick="S.tab=\'stats\';S.screen=\'home\';render()">Stats</button><button class="btn-sec" onclick="S.screen=\'home\';S.tab=\'quiz\';render()">← Home</button><button class="btn" style="flex:1;" onclick="startQuiz()">Retake ↺</button></div>’);
+h+=’</div></details>’;
+h+=’<div style="display:flex;gap:8px;"><button class="btn2" onclick="S.tab=\'stats\';S.screen=\'home\';render()">Stats</button><button class="btn2" onclick="S.screen=\'home\';S.tab=\'quiz\';render()">← Home</button><button class="btn" style="flex:1;margin-bottom:0;" onclick="startQuiz()">Retake ↺</button></div>’;
 }
 
-app.innerHTML = h.join(’’);
+a.innerHTML=h;
 }
 
 // ── ACTIONS ───────────────────────────────────────────────────────────────────
-async function startQuiz(){
-S.error=’’; S.answers=[]; S.current=0; S.selected=null;
-S.streak=0; S.bestStreak=0; S.flagged=[]; S.confRatings={}; S.sessionStats={};
-var qs = getQs(S.cat, S.mode, S.diff, S.count);
-if(qs.length < S.count){
-try{
-S.screen=‘loading’; render();
-var ai = await fetchAI(S.cat, S.mode, S.diff, S.count);
-qs = qs.concat(ai).slice(0, S.count);
-}catch(e){
-if(!qs.length){ S.error=‘Not enough questions. Try broader settings.’; S.screen=‘home’; render(); return; }
-}
-}
-S.questions = qs;
-S.screen = ‘quiz’;
-render();
-startTimer();
+function startQuiz(){
+S.err=’’;S.ans=[];S.cur=0;S.sel=null;S.streak=0;S.best=0;S.flagged=[];S.conf={};S.stats={};
+S.qs=pool();
+if(!S.qs.length){S.err=‘No questions match. Try different settings.’;render();return;}
+S.screen=‘quiz’; render(); startTimer();
 }
 
 function startTimer(){
-clearInterval(S.timerInterval);
+clearInterval(S.tId);
 if(!S.timer) return;
-S.timeLeft = S.timer;
-S.timerInterval = setInterval(function(){
-S.timeLeft–;
-var el = document.getElementById(‘tmr’);
-if(el){ el.textContent = S.timeLeft+‘s’; if(S.timeLeft<=10) el.classList.add(‘timer-warn’); }
-if(S.timeLeft<=0){ clearInterval(S.timerInterval); S.selected=’**timeout**’; render(); }
-}, 1000);
+S.tLeft=S.timer;
+S.tId=setInterval(function(){
+S.tLeft–;
+var el=document.getElementById(‘tmr’);
+if(el){el.textContent=S.tLeft+‘s’;if(S.tLeft<=10)el.className=‘tmr red’;}
+if(S.tLeft<=0){clearInterval(S.tId);S.sel=’**to**’;render();}
+},1000);
 }
 
-function pickOpt(opt){
-if(S.selected!==null) return;
-clearInterval(S.timerInterval);
-S.selected = opt;
-render();
+function pick(opt){
+if(S.sel!==null) return;
+clearInterval(S.tId);
+S.sel=opt; render();
 }
 
-function pickConf(c){
-S.confRatings[S.current] = c;
-render();
-}
+function conf(c){ S.conf[S.cur]=c; render(); }
 
 function toggleFlag(){
-var idx = S.flagged.indexOf(S.current);
-if(idx>=0) S.flagged.splice(idx,1);
-else S.flagged.push(S.current);
+var i=S.flagged.indexOf(S.cur);
+if(i>=0)S.flagged.splice(i,1);else S.flagged.push(S.cur);
 render();
 }
 
-function nextQ(){
-var q = S.questions[S.current];
-var sel = S.selected===’**timeout**’ ? null : S.selected;
-var correct = sel ? sel.charAt(0)===q.ans : false;
-var ns = correct ? S.streak+1 : 0;
-S.streak = ns;
-if(ns > S.bestStreak) S.bestStreak = ns;
-var cat = q.cat;
-var prev = S.sessionStats[cat]||{c:0,t:0};
-S.sessionStats[cat] = {c:prev.c+(correct?1:0), t:prev.t+1};
-updateAllStats(cat, correct);
-S.answers.push({q:q.q, opts:q.opts, ans:q.ans, exp:q.exp, formula:q.formula||null, cat:q.cat, selected:sel, correct:correct, timedOut:S.selected===’**timeout**’});
-if(S.current+1 < S.questions.length){
-S.current++; S.selected=null; render(); startTimer();
-} else {
-saveSession(S.answers.filter(function(a){ return a.correct; }).length, S.answers.length, S.mode, S.cat);
-S.screen=‘results’; render();
-}
+function next(){
+var q=S.qs[S.cur];
+var sel=S.sel===’**to**’?null:S.sel;
+var ok=sel?sel.charAt(0)===q[6]:false;
+var ns=ok?S.streak+1:0; S.streak=ns; if(ns>S.best)S.best=ns;
+var cat=q[1]; var pv=S.stats[cat]||{c:0,t:0}; S.stats[cat]={c:pv.c+(ok?1:0),t:pv.t+1};
+addStat(cat,ok);
+S.ans.push({q:q[4],ans:q[6],exp:q[7],f:q[8],cat:cat,sel:sel,ok:ok,to:S.sel===’**to**’});
+if(S.cur+1<S.qs.length){S.cur++;S.sel=null;render();startTimer();}
+else{addSession(S.ans.filter(function(a){return a.ok;}).length,S.ans.length,S.mode,S.cat);S.screen=‘results’;render();}
 }
 
 // ── BOOT ──────────────────────────────────────────────────────────────────────
-try {
+window.onerror=function(msg){
+var a=document.getElementById(‘app’);
+if(a)a.innerHTML=’<div style="padding:40px 20px;text-align:center;"><p style="color:#f5c518;font-size:16px;margin-bottom:8px;">⚠️ Error</p><p style="color:#888;font-size:13px;margin-bottom:20px;">’+msg+’</p><button onclick="location.reload()" style="padding:12px 24px;background:#f5c518;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;">Reload</button></div>’;
+return true;
+};
 render();
-} catch(e) {
-var app = document.getElementById(‘app’);
-if(app) app.innerHTML = ‘<div style="padding:40px 20px;text-align:center;"><p style="color:#f5c518;font-size:16px;margin-bottom:8px;">⚠️ Error loading app</p><p style="color:#888;font-size:13px;margin-bottom:20px;">’+e.message+’</p><button onclick="location.reload()" style="padding:12px 24px;background:#f5c518;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;">Reload</button></div>’;
-}
 </script>
 
 </body>
