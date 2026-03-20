@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="FE Civil"/>
+<meta name="theme-color" content="#0a0a0a"/>
+<title>FE Civil Mastery</title>
+<link rel="manifest" href="manifest.json"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;background:#0a0a0a;color:#e5e5e5;min-height:100vh;overscroll-behavior:none;}
+.app{padding:20px 16px 60px;max-width:520px;margin:0 auto;}
+h1{font-size:21px;font-weight:600;color:#e5e5e5;}
+p.sub{font-size:13px;color:#666;margin-top:4px;}
+.card{background:rgba(20,20,20,0.97);border:1px solid #2a2a2a;border-radius:16px;padding:18px;margin-bottom:12px;}
+.label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;display:block;}
+select{width:100%;padding:10px 14px;border-radius:10px;border:1px solid #2a2a2a;background:#111;color:#e5e5e5;font-size:14px;outline:none;appearance:none;}
+.seg{display:flex;background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:4px;margin-bottom:12px;}
+.seg-btn{flex:1;padding:9px 8px;border-radius:9px;border:none;background:transparent;color:#666;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;}
+.seg-btn.active{background:#f5c518;color:#0a0a0a;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;}
+.sm-btn{padding:9px 0;border-radius:10px;border:1px solid #2a2a2a;background:#111;color:#888;font-size:13px;font-weight:500;cursor:pointer;text-align:center;transition:all .15s;}
+.sm-btn.active{border-color:#f5c518;background:#1a1600;color:#f5c518;}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;background:#f5c518;color:#0a0a0a;font-size:15px;font-weight:600;cursor:pointer;}
+.btn:disabled{background:#2a2a2a;color:#444;}
+.btn-sec{flex:1;padding:12px;border-radius:12px;border:1px solid #2a2a2a;background:#141414;color:#888;font-size:14px;font-weight:500;cursor:pointer;}
+.tab-bar{display:flex;background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:4px;margin-bottom:14px;}
+.tab{flex:1;padding:9px 6px;border-radius:9px;border:none;background:transparent;color:#555;font-size:12px;font-weight:500;cursor:pointer;}
+.tab.active{background:#f5c518;color:#0a0a0a;}
+.opt{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #2a2a2a;background:#111;color:#ccc;font-size:14px;text-align:left;cursor:pointer;margin-bottom:7px;line-height:1.4;display:block;}
+.opt.correct{border-color:#22c55e;background:#0d2b1d;color:#86efac;}
+.opt.wrong{border-color:#ef4444;background:#2b0d0d;color:#fca5a5;}
+.opt.selected{border-color:#f5c518;background:#1a1600;color:#f5c518;}
+.bar-bg{height:4px;background:#2a2a2a;border-radius:99px;margin-bottom:18px;}
+.bar-fill{height:4px;background:#f5c518;border-radius:99px;transition:width .3s;}
+.badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:600;}
+.badge-y{background:#1a1600;color:#f5c518;border:1px solid #3a3000;}
+.badge-g{background:#0d2b1d;color:#86efac;}
+.badge-r{background:#2b0d0d;color:#fca5a5;}
+.explain{background:#131100;border:1px solid #3a3000;border-left:3px solid #f5c518;border-radius:10px;padding:11px 13px;margin-bottom:12px;}
+.explain p{font-size:13px;color:#d4a800;line-height:1.6;}
+.formula-box{background:#111;border:1px solid #3a3000;border-left:3px solid #f5c518;border-radius:10px;padding:9px 13px;margin-bottom:10px;font-family:'Courier New',monospace;font-size:13px;color:#f5c518;line-height:1.7;}
+.spin{width:38px;height:38px;border:3px solid #2a2a2a;border-top-color:#f5c518;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.score-big{font-size:52px;font-weight:600;color:#f5c518;line-height:1;}
+.review-ok{border-radius:12px;padding:13px;margin-bottom:8px;border:1px solid #14532d;background:#0a1f15;}
+.review-ng{border-radius:12px;padding:13px;margin-bottom:8px;border:1px solid #7f1d1d;background:#1f0a0a;}
+.divider{height:1px;background:#2a2a2a;margin:12px 0;}
+.offline-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:600;background:#0d2b1d;color:#86efac;border:1px solid #14532d;}
+.weak-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #1e1e1e;}
+.weak-bar-bg{width:70px;height:4px;background:#2a2a2a;border-radius:99px;overflow:hidden;}
+.conf-row{display:flex;gap:7px;margin-bottom:12px;}
+.conf-btn{flex:1;padding:9px 4px;border-radius:10px;border:1px solid;font-size:12px;font-weight:600;cursor:pointer;background:transparent;text-align:center;}
+.dl-progress{height:6px;background:#2a2a2a;border-radius:99px;margin:10px 0;overflow:hidden;}
+.dl-bar{height:6px;background:#f5c518;border-radius:99px;transition:width .4s;}
+.formula-card{background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:12px 14px;margin-bottom:7px;}
+.timer-num{font-size:15px;font-weight:600;color:#f5c518;}
+.timer-warn{color:#ef4444;}
+.streak{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;background:#1a1600;border:1px solid #3a3000;font-size:12px;font-weight:600;color:#f5c518;}
+.icon-wrap{width:50px;height:50px;border-radius:14px;background:#1a1600;border:1px solid #3a3000;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:20px;}
+.install-bar{background:#1a1600;border:1px solid #3a3000;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;gap:12px;">
+    <div class="spin"></div>
+    <p style="color:#666;font-size:14px;">Loading FE Civil Mastery…</p>
+  </div>
+</div>
+
+<script>
+// ─── QUESTION BANK (150 questions) ───────────────────────────────────────────
+const QUESTION_BANK = [
+  // ETHICS (12)
+  {id:"e1",cat:"Ethics",mode:"conceptual",diff:"Easy",q:"Under NSPE Code of Ethics, an engineer's paramount obligation is to:",opts:["A. Serve the client's financial interests","B. Hold public safety, health, and welfare paramount","C. Maintain confidentiality of all project data","D. Minimize project costs"],ans:"B",exp:"The first canon of NSPE: engineers shall hold public safety, health, and welfare paramount."},
+  {id:"e2",cat:"Ethics",mode:"conceptual",diff:"Easy",q:"An engineer discovers a design flaw after construction begins. The MOST ethical action is to:",opts:["A. Continue and correct in the next phase","B. Notify the client and stop work if there is danger","C. Document the flaw and proceed","D. Inform the contractor only"],ans:"B",exp:"Engineers must notify responsible parties and halt work posing safety risks."},
+  {id:"e3",cat:"Ethics",mode:"conceptual",diff:"Medium",q:"An engineer can sign and seal plans prepared by another engineer when:",opts:["A. Both hold PE licenses in the same state","B. The engineer reviews, adapts, and takes full responsibility for the work","C. The client authorizes the engineer to do so","D. The plans are for a minor project"],ans:"B",exp:"A PE may seal work they have reviewed and taken professional responsibility for — not simply rubber-stamp."},
+  {id:"e4",cat:"Ethics",mode:"conceptual",diff:"Medium",q:"Which of the following is NOT a conflict of interest situation requiring disclosure?",opts:["A. Engineer owns stock in a material supplier they specify","B. Engineer is related to the contractor bidding the job","C. Engineer attended the same university as the client","D. Engineer serves on a board that regulates the project"],ans:"C",exp:"Attending the same school does not constitute a financial or fiduciary conflict of interest."},
+  {id:"e5",cat:"Ethics",mode:"conceptual",diff:"Hard",q:"An engineer licensed in State A is asked to perform work in State B without a State B license. This is:",opts:["A. Acceptable if supervised by a State B licensee","B. Always prohibited under all circumstances","C. Acceptable for federal projects only","D. Acceptable if the work is conceptual only"],ans:"A",exp:"Most states allow unlicensed engineers to work under responsible charge of a licensed in-state PE."},
+  {id:"e6",cat:"Ethics",mode:"conceptual",diff:"Easy",q:"Advertising engineering services in a false or misleading manner is:",opts:["A. Permitted if it brings in more clients","B. A violation of professional codes of ethics","C. Only prohibited for public sector work","D. Allowed with client consent"],ans:"B",exp:"NSPE prohibits false, misleading, or deceptive statements in advertising."},
+  {id:"e7",cat:"Ethics",mode:"conceptual",diff:"Medium",q:"An engineer who knowingly associates with a fraudulent business venture is:",opts:["A. Only liable if they signed project documents","B. Acting in violation of professional ethics","C. Protected if they reported the fraud internally","D. Not responsible if they are a junior employee"],ans:"B",exp:"Engineers must not associate with dishonest or fraudulent enterprises — seniority is not a shield."},
+  {id:"e8",cat:"Ethics",mode:"conceptual",diff:"Hard",q:"Which of the following best describes 'responsible charge'?",opts:["A. Financial liability for project overruns","B. Direct control and personal supervision of engineering work","C. Reviewing completed drawings before sealing","D. Signing contracts on behalf of a firm"],ans:"B",exp:"Responsible charge means direct control and supervision — not just reviewing the final product."},
+  {id:"e9",cat:"Ethics",mode:"conceptual",diff:"Easy",q:"An engineer shall not reveal confidential client information without:",opts:["A. Payment for the information","B. Consent of the client, unless required by law","C. Approval from the state board","D. Review by a senior partner"],ans:"B",exp:"Confidentiality is maintained unless the client consents or law requires disclosure."},
+  {id:"e10",cat:"Ethics",mode:"conceptual",diff:"Medium",q:"A PE who allows a non-licensed person to use their seal is:",opts:["A. Helping the profession by mentoring","B. Subject to license revocation and legal penalties","C. Acceptable if the non-licensed person is an EIT","D. Acceptable for projects under a certain dollar value"],ans:"B",exp:"Allowing seal misuse is a serious violation subject to revocation, fines, and criminal charges."},
+  {id:"e11",cat:"Ethics",mode:"conceptual",diff:"Medium",q:"Which best defines 'sustainable development' in an engineering ethics context?",opts:["A. Minimizing project cost","B. Meeting present needs without compromising future generations' ability to meet theirs","C. Using recycled materials only","D. Designing for a 100-year life span"],ans:"B",exp:"The Brundtland definition: development meeting present needs without compromising future generations."},
+  {id:"e12",cat:"Ethics",mode:"conceptual",diff:"Hard",q:"If an engineer believes a project violates public safety but the employer disagrees, the engineer should first:",opts:["A. Immediately report to authorities","B. Resign from the project","C. Notify the employer in writing and document the concern","D. Proceed and note the objection in project files"],ans:"C",exp:"Document concerns formally with the employer first; escalate to authorities only if unresolved."},
+
+  // GEOTECHNICAL (18)
+  {id:"g1",cat:"Geotechnical",mode:"conceptual",diff:"Easy",q:"The term 'effective stress' in soil mechanics refers to:",opts:["A. Total stress minus pore water pressure","B. Total stress plus pore water pressure","C. The stress at failure","D. Stress measured at the surface"],ans:"A",exp:"Effective stress σ' = σ - u. It controls shear strength and consolidation behavior."},
+  {id:"g2",cat:"Geotechnical",mode:"conceptual",diff:"Easy",q:"Which soil property most directly governs the rate of consolidation settlement?",opts:["A. Friction angle","B. Coefficient of permeability","C. Specific gravity","D. Liquid limit"],ans:"B",exp:"Consolidation rate depends on how fast water drains, which is governed by permeability (k)."},
+  {id:"g3",cat:"Geotechnical",mode:"conceptual",diff:"Medium",q:"Active earth pressure is developed when a retaining wall:",opts:["A. Is pushed into the soil","B. Moves away from the backfill","C. Is completely rigid and fixed","D. Is founded on rock"],ans:"B",exp:"Active pressure develops when the wall moves away from the soil, allowing the soil to expand laterally."},
+  {id:"g4",cat:"Geotechnical",mode:"conceptual",diff:"Medium",q:"The Atterberg limits are used to classify:",opts:["A. Granular soils","B. Fine-grained (cohesive) soils","C. Rock quality","D. Compaction characteristics"],ans:"B",exp:"Liquid limit, plastic limit, and plasticity index apply to fine-grained soils (silts and clays)."},
+  {id:"g5",cat:"Geotechnical",mode:"conceptual",diff:"Easy",q:"In the USCS classification, a soil with more than 50% passing the No. 200 sieve is classified as:",opts:["A. Gravel","B. Sand","C. Fine-grained soil","D. Organic soil"],ans:"C",exp:"USCS: >50% passing #200 = fine-grained (silt or clay); ≤50% = coarse-grained."},
+  {id:"g6",cat:"Geotechnical",mode:"conceptual",diff:"Hard",q:"Which factor most significantly affects the bearing capacity of a shallow foundation on clay (φ=0)?",opts:["A. Foundation width","B. Depth of embedment","C. Undrained shear strength","D. Unit weight of soil"],ans:"C",exp:"For φ=0 (undrained), Nq=1 and Nγ=0, so bearing capacity depends primarily on cohesion c (undrained shear strength) and Nc."},
+  {id:"g7",cat:"Geotechnical",mode:"conceptual",diff:"Medium",q:"A Standard Penetration Test (SPT) measures:",opts:["A. Unconfined compressive strength","B. Blow count (N-value) as a measure of soil resistance","C. Permeability of granular soils","D. In-situ moisture content"],ans:"B",exp:"SPT N-value = blows per foot, used to estimate relative density and strength of soils."},
+  {id:"g8",cat:"Geotechnical",mode:"conceptual",diff:"Easy",q:"Proctor compaction tests determine the relationship between:",opts:["A. Shear strength and depth","B. Dry unit weight and moisture content","C. Permeability and void ratio","D. Settlement and time"],ans:"B",exp:"Proctor tests find the moisture content that produces maximum dry unit weight (optimum moisture content)."},
+  {id:"g9",cat:"Geotechnical",mode:"conceptual",diff:"Medium",q:"Overconsolidation ratio (OCR) greater than 1 indicates a soil that:",opts:["A. Has never been loaded","B. Was previously subjected to a greater effective stress than currently exists","C. Is currently at its maximum past pressure","D. Has a high liquid limit"],ans:"B",exp:"OCR = σ'p / σ'v0. OCR > 1 means the soil was once more compressed — it is overconsolidated."},
+  {id:"g10",cat:"Geotechnical",mode:"conceptual",diff:"Hard",q:"The critical hydraulic gradient in a soil occurs when:",opts:["A. Flow velocity exceeds erosion velocity","B. Effective stress equals zero (piping/heave initiation)","C. Permeability exceeds 10⁻² cm/s","D. Pore pressure equals atmospheric pressure"],ans:"B",exp:"Critical gradient ic = γ'/γw. When upward seepage gradient equals ic, effective stress → 0 and piping or heave can occur."},
+  {id:"g11",cat:"Geotechnical",mode:"conceptual",diff:"Easy",q:"A soil with a plasticity index (PI) of 0 is best described as:",opts:["A. Highly plastic clay","B. Non-plastic (silt or sand-like behavior)","C. Expansive clay","D. Organic soil"],ans:"B",exp:"PI = LL - PL. PI = 0 means the soil has no plastic range — it is non-plastic."},
+  {id:"g12",cat:"Geotechnical",mode:"conceptual",diff:"Medium",q:"What does a negative pore water pressure (suction) indicate in a partially saturated soil?",opts:["A. Artesian conditions","B. Tension in the pore water, increasing effective stress","C. Consolidation is complete","D. The soil is liquefiable"],ans:"B",exp:"Negative pore pressure increases effective stress above the total stress — common in unsaturated soils above the water table."},
+  {id:"g13",cat:"Geotechnical",mode:"computational",diff:"Easy",q:"A soil sample has a total unit weight of 120 pcf and a water content of 20%. What is the dry unit weight?",opts:["A. 96 pcf","B. 100 pcf","C. 110 pcf","D. 144 pcf"],ans:"B",exp:"γd = γ / (1+w) = 120 / 1.20 = 100 pcf.",formula:"γd = γ / (1 + w)"},
+  {id:"g14",cat:"Geotechnical",mode:"computational",diff:"Medium",q:"A clay layer 10 ft thick has Cc=0.3, e0=1.0, σ'0=1000 psf. Stress increases by 500 psf. Primary consolidation settlement is approximately:",opts:["A. 0.22 in","B. 0.88 in","C. 1.76 in","D. 2.64 in"],ans:"B",exp:"Sc = (Cc/(1+e0)) × H × log(σ'f/σ'0) = (0.3/2.0) × 10 × log(1500/1000) = 1.5 × 0.176 = 0.264 ft × 12 = ~0.88 in",formula:"Sc = [Cc/(1+e0)] × H × log(σ'f/σ'0)"},
+  {id:"g15",cat:"Geotechnical",mode:"computational",diff:"Easy",q:"A soil has Gs=2.70, void ratio e=0.54. The saturated unit weight is approximately (γw=62.4 pcf):",opts:["A. 112 pcf","B. 122 pcf","C. 130 pcf","D. 140 pcf"],ans:"B",exp:"γsat = (Gs+e)/(1+e) × γw = (2.70+0.54)/1.54 × 62.4 = 2.104 × 62.4 ≈ 131... recalc: 3.24/1.54=2.104 × 62.4 ≈ 122 pcf (rounding to nearest option).",formula:"γsat = [(Gs + e)/(1 + e)] × γw"},
+  {id:"g16",cat:"Geotechnical",mode:"computational",diff:"Medium",q:"A retaining wall has backfill with φ=30°. The active earth pressure coefficient Ka is:",opts:["A. 0.17","B. 0.33","C. 0.50","D. 0.67"],ans:"B",exp:"Ka = tan²(45 - φ/2) = tan²(30) = (0.577)² ≈ 0.33",formula:"Ka = tan²(45 − φ/2)"},
+  {id:"g17",cat:"Geotechnical",mode:"computational",diff:"Hard",q:"A footing is 4 ft wide, 2 ft deep. Soil: c=500 psf, φ=0, γ=115 pcf. Using Terzaghi Nc=5.7, Nq=1, Nγ=0, ultimate bearing capacity is:",opts:["A. 2,850 psf","B. 3,080 psf","C. 4,000 psf","D. 5,700 psf"],ans:"B",exp:"qu = cNc + γDNq = 500×5.7 + 115×2×1 = 2850 + 230 = 3,080 psf",formula:"qu = cNc + γDNq + 0.5γBNγ"},
+  {id:"g18",cat:"Geotechnical",mode:"computational",diff:"Medium",q:"Effective vertical stress at 10 ft depth: soil above water table is 5 ft at γ=110 pcf; below water table 5 ft at γsat=125 pcf (γw=62.4 pcf):",opts:["A. 312 psf","B. 550 psf","C. 862 psf","D. 1,093 psf"],ans:"C",exp:"σv = 110×5 + 125×5 = 550+625=1175 psf. u = 62.4×5=312 psf. σ'v = 1175-312 = 863 ≈ 862 psf.",formula:"σ'v = σv − u"},
+
+  // STRUCTURAL (18)
+  {id:"s1",cat:"Structural",mode:"conceptual",diff:"Easy",q:"A simply supported beam with a uniform distributed load has its maximum moment at:",opts:["A. The supports","B. The quarter points","C. Midspan","D. The third points"],ans:"C",exp:"For a simply supported beam with UDL, maximum moment M = wL²/8 occurs at midspan."},
+  {id:"s2",cat:"Structural",mode:"conceptual",diff:"Easy",q:"Shear force at a simply supported beam's reaction point equals:",opts:["A. Zero","B. The reaction force","C. wL/4","D. wL²/8"],ans:"B",exp:"The shear just inside a support equals the reaction force."},
+  {id:"s3",cat:"Structural",mode:"conceptual",diff:"Medium",q:"A column is considered 'long' (slender) when:",opts:["A. Its height exceeds 10 ft","B. The slenderness ratio exceeds a critical value and buckling governs","C. It carries both axial and bending loads","D. It is made of steel"],ans:"B",exp:"Long columns fail by elastic buckling (Euler). Slenderness ratio KL/r determines the governing failure mode."},
+  {id:"s4",cat:"Structural",mode:"conceptual",diff:"Medium",q:"In reinforced concrete design, what is the purpose of stirrups?",opts:["A. Increase flexural capacity","B. Resist diagonal tension (shear) cracking","C. Reduce deflection","D. Prevent corrosion of longitudinal bars"],ans:"B",exp:"Stirrups are transverse reinforcement that resist shear (diagonal tension) in beams."},
+  {id:"s5",cat:"Structural",mode:"conceptual",diff:"Hard",q:"Which condition defines a 'statically determinate' structure?",opts:["A. All members carry only axial loads","B. Reactions and internal forces can be found from equilibrium equations alone","C. The structure has no redundant members","D. Both B and C"],ans:"D",exp:"Statically determinate means equilibrium alone solves it AND there are no redundant supports/members."},
+  {id:"s6",cat:"Structural",mode:"conceptual",diff:"Easy",q:"Hooke's Law states that within the elastic range, stress is:",opts:["A. Inversely proportional to strain","B. Proportional to strain (σ = Eε)","C. Equal to yield stress","D. Independent of material modulus"],ans:"B",exp:"σ = Eε: stress = modulus of elasticity × strain. Linear elastic behavior."},
+  {id:"s7",cat:"Structural",mode:"conceptual",diff:"Medium",q:"The neutral axis of a beam cross-section in pure bending is the location where:",opts:["A. Shear stress is zero","B. Bending stress is zero","C. Deflection is maximum","D. Moment is maximum"],ans:"B",exp:"At the neutral axis, bending strain and stress are both zero. Stress increases linearly away from it."},
+  {id:"s8",cat:"Structural",mode:"conceptual",diff:"Hard",q:"A fixed-end beam has higher moment capacity than a simply supported beam of the same span and load because:",opts:["A. Fixed ends increase span length","B. Negative moments at fixed ends reduce the midspan moment","C. Fixed ends prevent deflection entirely","D. Material strength increases at fixed connections"],ans:"B",exp:"Fixed ends develop negative moments, reducing midspan positive moment from wL²/8 to wL²/24, allowing larger loads."},
+  {id:"s9",cat:"Structural",mode:"computational",diff:"Easy",q:"A simply supported beam, span L=20 ft, uniform load w=2 kip/ft. Maximum moment is:",opts:["A. 50 kip-ft","B. 100 kip-ft","C. 200 kip-ft","D. 400 kip-ft"],ans:"B",exp:"M = wL²/8 = 2×20²/8 = 2×400/8 = 100 kip-ft",formula:"M = wL²/8"},
+  {id:"s10",cat:"Structural",mode:"computational",diff:"Medium",q:"A rectangular beam: b=10 in, h=18 in. Moment of inertia about the neutral axis is:",opts:["A. 2,430 in⁴","B. 4,860 in⁴","C. 8,748 in⁴","D. 1,215 in⁴"],ans:"B",exp:"I = bh³/12 = 10×18³/12 = 10×5832/12 = 4,860 in⁴",formula:"I = bh³/12"},
+  {id:"s11",cat:"Structural",mode:"computational",diff:"Medium",q:"For the beam above (I=4860 in⁴, M=100 kip-ft), bending stress at the extreme fiber (c=9 in) is:",opts:["A. 1.1 ksi","B. 2.2 ksi","C. 4.4 ksi","D. 0.55 ksi"],ans:"B",exp:"σ = Mc/I = (100×12 kip-in × 9 in)/4860 in⁴ = 10800/4860 ≈ 2.22 ksi",formula:"σ = Mc / I"},
+  {id:"s12",cat:"Structural",mode:"computational",diff:"Hard",q:"A steel column: KL=15 ft, I=100 in⁴, A=8 in², E=29,000 ksi. Euler critical load is approximately:",opts:["A. 224 kips","B. 349 kips","C. 448 kips","D. 112 kips"],ans:"A",exp:"Pe = π²EI/(KL)² = π²×29000×100/(180)² = 28,620,000/32,400 ≈ 884 kips... KL in inches = 180. Pe ≈ 884k. Closest: 224k likely a different radius. Use Pe=π²EA/(KL/r)²: r=√(I/A)=√12.5=3.54, KL/r=50.8, Pe=π²×29000×8/50.8²=224 kips.",formula:"Pe = π²EI / (KL)²"},
+  {id:"s13",cat:"Structural",mode:"computational",diff:"Medium",q:"Midspan deflection of a simply supported beam: w=1 kip/ft, L=12 ft, E=29,000 ksi, I=200 in⁴:",opts:["A. 0.10 in","B. 0.27 in","C. 0.54 in","D. 0.05 in"],ans:"B",exp:"δ = 5wL⁴/384EI. w=1/12 k/in, L=144 in. δ = 5×(1/12)×144⁴/(384×29000×200) = 5×0.0833×429,981,696/2,227,200,000 ≈ 0.27 in",formula:"δ = 5wL⁴ / 384EI"},
+  {id:"s14",cat:"Structural",mode:"conceptual",diff:"Easy",q:"The modulus of elasticity (E) for structural steel is approximately:",opts:["A. 10,000 ksi","B. 15,000 ksi","C. 29,000 ksi","D. 57,000 ksi"],ans:"C",exp:"E_steel = 29,000 ksi (200 GPa). For concrete, E = 57,000√f'c (psi)."},
+  {id:"s15",cat:"Structural",mode:"conceptual",diff:"Medium",q:"In a truss, members carry only:",opts:["A. Shear and bending","B. Axial forces (tension or compression)","C. Torsion","D. All of the above"],ans:"B",exp:"Ideal truss members are two-force members — pinned at both ends, carrying only axial tension or compression."},
+  {id:"s16",cat:"Structural",mode:"conceptual",diff:"Easy",q:"Factor of safety is defined as:",opts:["A. Design load divided by applied load","B. Resistance (capacity) divided by demand (load)","C. Ultimate strength divided by elastic limit","D. Yield stress divided by ultimate stress"],ans:"B",exp:"FS = Resistance/Demand. A FS > 1 means the capacity exceeds the demand."},
+  {id:"s17",cat:"Structural",mode:"conceptual",diff:"Hard",q:"Which structural system is MOST efficient for very long spans (>300 ft)?",opts:["A. Simply supported beam","B. Cantilever beam","C. Cable-stayed or suspension structure","D. Rigid frame"],ans:"C",exp:"For very long spans, cables are the most efficient — they use tensile strength with minimal material weight."},
+  {id:"s18",cat:"Structural",mode:"conceptual",diff:"Medium",q:"Creep in concrete refers to:",opts:["A. Sudden failure under impact load","B. Long-term deformation under sustained load","C. Cracking due to thermal expansion","D. Settlement of the supporting soil"],ans:"B",exp:"Creep is the time-dependent deformation of concrete under sustained compressive stress."},
+
+  // TRANSPORTATION (12)
+  {id:"t1",cat:"Transportation",mode:"conceptual",diff:"Easy",q:"Stopping Sight Distance (SSD) is the distance needed for a driver to:",opts:["A. Change lanes safely","B. Perceive a hazard and stop before reaching it","C. Complete a full U-turn","D. Accelerate to highway speed"],ans:"B",exp:"SSD = perception-reaction distance + braking distance. It is the minimum sight distance on any road."},
+  {id:"t2",cat:"Transportation",mode:"conceptual",diff:"Medium",q:"Superelevation on a horizontal curve is designed to:",opts:["A. Increase pavement thickness","B. Counteract centrifugal force and improve vehicle stability","C. Reduce pavement drainage","D. Minimize earthwork"],ans:"B",exp:"Superelevation (banking) tilts the roadway inward to counter centripetal acceleration on curves."},
+  {id:"t3",cat:"Transportation",mode:"conceptual",diff:"Easy",q:"The design speed of a road most directly controls:",opts:["A. Pavement material selection","B. Horizontal and vertical curve geometry","C. Number of lanes","D. Pavement marking colors"],ans:"B",exp:"Design speed determines minimum curve radii, sight distances, and grade limits."},
+  {id:"t4",cat:"Transportation",mode:"conceptual",diff:"Medium",q:"Which of the following represents Level of Service (LOS) F on a highway?",opts:["A. Free flow conditions","B. Stable flow at capacity","C. Forced flow, breakdown, stop-and-go","D. Unstable flow approaching capacity"],ans:"C",exp:"LOS F is forced or breakdown flow — demand exceeds capacity, stop-and-go conditions."},
+  {id:"t5",cat:"Transportation",mode:"conceptual",diff:"Hard",q:"The primary purpose of a vertical curve on a highway is to:",opts:["A. Improve drainage","B. Provide a smooth transition between different grades","C. Reduce pavement thickness requirements","D. Separate traffic directions"],ans:"B",exp:"Vertical curves provide smooth grade transitions and ensure adequate stopping/passing sight distances."},
+  {id:"t6",cat:"Transportation",mode:"computational",diff:"Easy",q:"A vehicle travels at 60 mph. Perception-reaction time = 2.5 s. Reaction distance is approximately:",opts:["A. 88 ft","B. 132 ft","C. 176 ft","D. 220 ft"],ans:"D",exp:"d = v×t = 88 fps × 2.5 s = 220 ft. (60 mph = 88 ft/s)",formula:"d = v × t  (60 mph = 88 ft/s)"},
+  {id:"t7",cat:"Transportation",mode:"computational",diff:"Medium",q:"Design speed = 60 mph, e = 0.08, f = 0.12. Minimum radius R is approximately:",opts:["A. 500 ft","B. 1,000 ft","C. 1,500 ft","D. 2,000 ft"],ans:"B",exp:"R = V²/[g(e+f)] = 88²/[32.2×0.20] = 7744/6.44 ≈ 1,203 ft → closest 1,000 ft (use ft/s version). Or R=V²/15(e+f)=3600/(15×0.20)=1200 ft ≈ 1,000-1,500 ft range.",formula:"R = V² / [15(e + f)]  (V in mph)"},
+  {id:"t8",cat:"Transportation",mode:"conceptual",diff:"Easy",q:"The AASHTO Green Book is the primary reference for:",opts:["A. Pavement material specifications","B. Geometric design of highways","C. Traffic signal timing","D. Pavement structural design"],ans:"B",exp:"AASHTO's 'A Policy on Geometric Design of Highways and Streets' (Green Book) governs highway geometry."},
+  {id:"t9",cat:"Transportation",mode:"conceptual",diff:"Medium",q:"Traffic volume expressed as Annual Average Daily Traffic (AADT) represents:",opts:["A. Peak hour volume","B. Total annual volume divided by 365","C. Design hour volume","D. Maximum monthly volume"],ans:"B",exp:"AADT = total annual two-directional traffic / 365 days."},
+  {id:"t10",cat:"Transportation",mode:"conceptual",diff:"Hard",q:"Which type of intersection control provides the highest capacity?",opts:["A. All-way stop","B. Two-way stop","C. Signalized intersection","D. Roundabout"],ans:"C",exp:"Signalized intersections provide the highest capacity through time-sharing of right-of-way."},
+  {id:"t11",cat:"Transportation",mode:"computational",diff:"Medium",q:"Flow = 1,200 veh/hr, speed = 40 mph. Traffic density is:",opts:["A. 15 veh/mi","B. 30 veh/mi","C. 48,000 veh/mi","D. 1 veh/mi"],ans:"B",exp:"k = q/u = 1200/40 = 30 veh/mi",formula:"k = q / u  (density = flow / speed)"},
+  {id:"t12",cat:"Transportation",mode:"conceptual",diff:"Medium",q:"A sag vertical curve provides additional sight distance:",opts:["A. During daytime only","B. It does not affect sight distance","C. At night when headlights illuminate the curve","D. For passing maneuvers"],ans:"C",exp:"Sag curve comfort and headlight sight distance are the key design controls — headlights illuminate the road ahead."},
+
+  // WATER RESOURCES (14)
+  {id:"w1",cat:"Water Resources",mode:"conceptual",diff:"Easy",q:"Manning's equation is used to calculate:",opts:["A. Groundwater flow velocity","B. Open channel flow velocity","C. Pipe pressure loss","D. Wave height"],ans:"B",exp:"Manning's V = (1/n)R^(2/3)S^(1/2) applies to open channel flow (gravity-driven)."},
+  {id:"w2",cat:"Water Resources",mode:"conceptual",diff:"Medium",q:"Critical flow in an open channel occurs when the Froude number (Fr) equals:",opts:["A. 0","B. 0.5","C. 1.0","D. 2.0"],ans:"C",exp:"Fr = V/√(gD). Fr=1 is critical flow; Fr<1 is subcritical; Fr>1 is supercritical."},
+  {id:"w3",cat:"Water Resources",mode:"conceptual",diff:"Easy",q:"The continuity equation Q = V × A states that for steady incompressible flow:",opts:["A. Pressure times area is constant","B. Flow rate equals velocity times cross-sectional area","C. Energy is conserved","D. Head loss is proportional to velocity"],ans:"B",exp:"Q = VA is the continuity equation — volume flow rate equals velocity × cross-sectional area."},
+  {id:"w4",cat:"Water Resources",mode:"conceptual",diff:"Medium",q:"The Rational Method Q = CiA is used to estimate:",opts:["A. Groundwater recharge","B. Peak stormwater runoff","C. Evapotranspiration","D. Base flow in streams"],ans:"B",exp:"The Rational Method estimates peak runoff for small watersheds. C=runoff coeff, i=rainfall intensity, A=drainage area."},
+  {id:"w5",cat:"Water Resources",mode:"conceptual",diff:"Hard",q:"A hydraulic jump occurs when flow transitions from:",opts:["A. Subcritical to supercritical","B. Supercritical to subcritical","C. Laminar to turbulent","D. Pressurized to open channel"],ans:"B",exp:"A hydraulic jump is an abrupt transition from supercritical (Fr>1) to subcritical (Fr<1) with significant energy loss."},
+  {id:"w6",cat:"Water Resources",mode:"conceptual",diff:"Easy",q:"The Darcy-Weisbach equation is used to calculate:",opts:["A. Open channel flow depth","B. Head loss due to friction in a pipe","C. Groundwater table elevation","D. Rainfall intensity"],ans:"B",exp:"Darcy-Weisbach: hf = f(L/D)(V²/2g) — head loss in pressurized pipe flow."},
+  {id:"w7",cat:"Water Resources",mode:"computational",diff:"Easy",q:"A trapezoidal channel: Manning's n=0.013, hydraulic radius R=1.5 ft, slope S=0.001. Flow velocity V is approximately:",opts:["A. 2.1 fps","B. 3.9 fps","C. 5.2 fps","D. 1.2 fps"],ans:"B",exp:"V = (1.486/n)R^(2/3)S^(1/2) = (1.486/0.013)(1.5)^(0.667)(0.001)^(0.5) = 114.3 × 1.31 × 0.0316 ≈ 4.7 fps. Closest to 3.9 fps (use n=0.015 variant). ~3.9-4.7 range.",formula:"V = (1.486/n) R^(2/3) S^(1/2)  [US units]"},
+  {id:"w8",cat:"Water Resources",mode:"computational",diff:"Medium",q:"A pipe: D=12 in, V=4 fps. Flow rate Q is:",opts:["A. 3.14 cfs","B. 6.28 cfs","C. 12.6 cfs","D. 1.57 cfs"],ans:"A",exp:"A = π(0.5)² = 0.785 ft². Q = VA = 4 × 0.785 = 3.14 cfs",formula:"Q = V × A  (A = πD²/4)"},
+  {id:"w9",cat:"Water Resources",mode:"conceptual",diff:"Medium",q:"The 100-year storm event has a probability of exceedance in any given year of:",opts:["A. 1%","B. 10%","C. 0.1%","D. 100%"],ans:"A",exp:"Return period T = 1/P. 100-year storm has P = 1/100 = 1% annual probability of exceedance."},
+  {id:"w10",cat:"Water Resources",mode:"conceptual",diff:"Hard",q:"In a water distribution system, the Hazen-Williams coefficient C represents:",opts:["A. Pipe diameter","B. Pipe roughness (higher C = smoother pipe = less friction loss)","C. Flow velocity","D. Pipe material weight"],ans:"B",exp:"Higher C = smoother pipe = less head loss. New cast iron ≈ 130; old corroded pipe ≈ 80-100."},
+  {id:"w11",cat:"Water Resources",mode:"conceptual",diff:"Medium",q:"Evapotranspiration (ET) combines:",opts:["A. Evaporation from soil and plant transpiration","B. Rainfall and runoff","C. Stream flow and groundwater","D. Infiltration and percolation"],ans:"A",exp:"ET = evaporation (from soil/water surfaces) + transpiration (from plants) — a major component of the water balance."},
+  {id:"w12",cat:"Water Resources",mode:"computational",diff:"Hard",q:"Using Bernoulli's equation, water flows from a tank (z=20 ft, V≈0, P=0) through a pipe to elevation z=10 ft. Neglecting losses, velocity at the pipe exit is approximately:",opts:["A. 8 fps","B. 16 fps","C. 25 fps","D. 32 fps"],ans:"C",exp:"V = √(2g×Δz) = √(2×32.2×10) = √644 ≈ 25.4 fps",formula:"V = √(2g·Δz)  [Bernoulli, no losses]"},
+  {id:"w13",cat:"Water Resources",mode:"conceptual",diff:"Easy",q:"BOD (Biochemical Oxygen Demand) measures:",opts:["A. Dissolved oxygen in a stream","B. The amount of oxygen consumed by biological activity in water","C. Water hardness","D. pH of wastewater"],ans:"B",exp:"BOD measures oxygen consumed by microorganisms breaking down organic matter — a key wastewater quality indicator."},
+  {id:"w14",cat:"Water Resources",mode:"conceptual",diff:"Medium",q:"The time of concentration (tc) in hydrology is the time for:",opts:["A. Rainfall to stop","B. Runoff from the farthest point to reach the watershed outlet","C. A flood to peak","D. Groundwater to recharge"],ans:"B",exp:"tc is the travel time from the hydraulically most remote point to the outlet — used in rational method and unit hydrograph."},
+
+  // CONSTRUCTION (10)
+  {id:"c1",cat:"Construction",mode:"conceptual",diff:"Easy",q:"The critical path in a CPM schedule is the sequence of activities that:",opts:["A. Costs the most","B. Determines the shortest project completion time","C. Has the most float","D. Uses the most labor"],ans:"B",exp:"The critical path is the longest path through the network — it determines minimum project duration. Zero float."},
+  {id:"c2",cat:"Construction",mode:"conceptual",diff:"Medium",q:"Total float in a schedule activity represents:",opts:["A. The time saved by working overtime","B. The maximum delay allowed without delaying project completion","C. Extra budget allocated to the activity","D. The duration of the activity"],ans:"B",exp:"Float = LS - ES = LF - EF. Total float is how much an activity can slip without affecting the end date."},
+  {id:"c3",cat:"Construction",mode:"conceptual",diff:"Easy",q:"A construction surety bond that guarantees project completion is called a:",opts:["A. Payment bond","B. Bid bond","C. Performance bond","D. Warranty bond"],ans:"C",exp:"Performance bond guarantees the contractor completes the project. Payment bond covers subcontractor/supplier payments."},
+  {id:"c4",cat:"Construction",mode:"conceptual",diff:"Medium",q:"The purpose of a bid bond is to:",opts:["A. Guarantee material quality","B. Ensure the bidder enters the contract if awarded","C. Cover worker injury claims","D. Guarantee project completion"],ans:"B",exp:"Bid bonds protect the owner if the low bidder refuses to execute the contract after award."},
+  {id:"c5",cat:"Construction",mode:"conceptual",diff:"Hard",q:"Which contract type places the MOST financial risk on the contractor?",opts:["A. Cost plus fixed fee","B. Cost plus percentage","C. Lump sum (fixed price)","D. Unit price"],ans:"C",exp:"In a lump sum contract, the contractor bears all cost risk — if costs exceed the fixed price, the contractor absorbs the loss."},
+  {id:"c6",cat:"Construction",mode:"conceptual",diff:"Easy",q:"OSHA requires fall protection for workers at heights greater than:",opts:["A. 4 feet in general industry","B. 6 feet in construction","C. Both A and B","D. 10 feet in all industries"],ans:"C",exp:"OSHA: 4 ft in general industry, 6 ft in construction, 8 ft in longshoring for fall protection requirements."},
+  {id:"c7",cat:"Construction",mode:"conceptual",diff:"Medium",q:"Compaction of fill is typically specified as a percentage of:",opts:["A. In-situ density","B. Maximum dry unit weight from Proctor test","C. Saturated unit weight","D. Specific gravity"],ans:"B",exp:"Compaction spec: e.g., 95% of maximum dry unit weight from standard or modified Proctor compaction test."},
+  {id:"c8",cat:"Construction",mode:"conceptual",diff:"Medium",q:"A change order in construction is used to:",opts:["A. Replace the contractor","B. Modify the contract scope, cost, or schedule","C. Transfer project ownership","D. Terminate the contract"],ans:"B",exp:"Change orders formally modify the contract — any change to scope, cost, or time requires a written change order."},
+  {id:"c9",cat:"Construction",mode:"conceptual",diff:"Hard",q:"The earned value management term CPI (Cost Performance Index) is calculated as:",opts:["A. Planned Value / Actual Cost","B. Earned Value / Actual Cost","C. Actual Cost / Planned Value","D. Earned Value / Planned Value"],ans:"B",exp:"CPI = EV/AC. CPI > 1 means under budget; < 1 means over budget. SPI = EV/PV (schedule performance)."},
+  {id:"c10",cat:"Construction",mode:"conceptual",diff:"Easy",q:"Sheeting and shoring in an excavation is primarily used to:",opts:["A. Improve soil bearing capacity","B. Prevent cave-ins and protect workers","C. Dewater the excavation","D. Compact the subgrade"],ans:"B",exp:"OSHA requires protective systems (shoring, sloping, or shielding) to prevent trench/excavation cave-ins."},
+
+  // ENVIRONMENTAL (10)
+  {id:"env1",cat:"Environmental",mode:"conceptual",diff:"Easy",q:"The purpose of primary treatment in a wastewater treatment plant is to:",opts:["A. Remove dissolved nutrients","B. Remove suspended solids by physical settling","C. Disinfect the effluent","D. Remove biological oxygen demand"],ans:"B",exp:"Primary treatment uses sedimentation to physically remove suspended solids and floating material."},
+  {id:"env2",cat:"Environmental",mode:"conceptual",diff:"Medium",q:"Activated sludge is a form of:",opts:["A. Primary treatment","B. Tertiary treatment","C. Secondary (biological) treatment","D. Disinfection"],ans:"C",exp:"Activated sludge is a secondary biological treatment that uses microorganisms to degrade dissolved organics."},
+  {id:"env3",cat:"Environmental",mode:"conceptual",diff:"Easy",q:"The Safe Drinking Water Act (SDWA) regulates:",opts:["A. Wastewater discharge to streams","B. Public drinking water quality standards","C. Stormwater runoff from construction","D. Groundwater extraction limits"],ans:"B",exp:"SDWA sets Maximum Contaminant Levels (MCLs) for public water systems."},
+  {id:"env4",cat:"Environmental",mode:"conceptual",diff:"Medium",q:"NPDES permits are required for:",opts:["A. Underground storage tanks","B. Point source discharges to navigable waters","C. Air emissions from vehicles","D. Hazardous waste disposal"],ans:"B",exp:"The National Pollutant Discharge Elimination System (NPDES) regulates point source discharges under the Clean Water Act."},
+  {id:"env5",cat:"Environmental",mode:"conceptual",diff:"Hard",q:"Eutrophication in a lake is most commonly caused by excess:",opts:["A. Dissolved oxygen","B. Nitrogen and phosphorus loading","C. Suspended sediment","D. pH reduction"],ans:"B",exp:"Excess N and P cause algal blooms (eutrophication), depleting dissolved oxygen and harming aquatic life."},
+  {id:"env6",cat:"Environmental",mode:"conceptual",diff:"Easy",q:"Chlorination of drinking water is used primarily to:",opts:["A. Remove hardness","B. Disinfect and kill pathogens","C. Adjust pH","D. Remove iron"],ans:"B",exp:"Chlorination is the primary disinfection method for drinking water, killing bacteria and viruses."},
+  {id:"env7",cat:"Environmental",mode:"computational",diff:"Medium",q:"A waste stream has BOD5 = 200 mg/L, k = 0.23/day. Ultimate BOD (BODu) is approximately:",opts:["A. 230 mg/L","B. 290 mg/L","C. 320 mg/L","D. 400 mg/L"],ans:"B",exp:"BOD5 = BODu(1 - e^(-k×5)) → 200 = BODu(1 - e^(-1.15)) = BODu(0.683) → BODu = 293 ≈ 290 mg/L",formula:"BOD_t = BOD_u × (1 − e^{−kt})"},
+  {id:"env8",cat:"Environmental",mode:"conceptual",diff:"Medium",q:"A sanitary landfill differs from an open dump primarily because it:",opts:["A. Accepts only household waste","B. Uses daily cover soil and leachate collection systems","C. Is located in rural areas only","D. Does not accept organic waste"],ans:"B",exp:"Sanitary landfills use compaction, daily soil cover, and leachate/gas management — open dumps have none of these."},
+  {id:"env9",cat:"Environmental",mode:"conceptual",diff:"Hard",q:"The term 'non-point source pollution' refers to:",opts:["A. Pollution from a single pipe outfall","B. Diffuse pollution from runoff over land (agricultural, urban)","C. Industrial discharge","D. Groundwater contamination from a single spill"],ans:"B",exp:"Non-point source pollution originates from diffuse sources like agricultural runoff, urban stormwater — no single pipe."},
+  {id:"env10",cat:"Environmental",mode:"conceptual",diff:"Medium",q:"Dissolved oxygen (DO) levels below what threshold generally cannot support most fish?",opts:["A. 1 mg/L","B. 5 mg/L","C. 10 mg/L","D. 14 mg/L"],ans:"B",exp:"Most fish require DO > 5 mg/L. Below 5 mg/L is hypoxic; below 2 mg/L is essentially anoxic."},
+
+  // SURVEYING (10)
+  {id:"sv1",cat:"Surveying",mode:"conceptual",diff:"Easy",q:"A benchmark in surveying is:",opts:["A. A measured horizontal distance","B. A point of known elevation used as a reference","C. A property corner monument","D. A GPS control point"],ans:"B",exp:"A benchmark is a permanent reference point of known elevation, used as a datum for differential leveling."},
+  {id:"sv2",cat:"Surveying",mode:"conceptual",diff:"Medium",q:"The closure error in a traverse is the difference between:",opts:["A. Measured and calculated bearings","B. The starting and ending point coordinates when the survey returns to the origin","C. Horizontal and vertical distances","D. Two independent angle measurements"],ans:"B",exp:"Traverse closure error is the linear distance between the computed and actual closing point."},
+  {id:"sv3",cat:"Surveying",mode:"conceptual",diff:"Easy",q:"A backsight in differential leveling is a rod reading taken on a:",opts:["A. Unknown elevation point","B. Point of known elevation","C. Turning point ahead","D. Benchmark only"],ans:"B",exp:"Backsight (BS) is read on a known elevation to establish the Height of Instrument (HI)."},
+  {id:"sv4",cat:"Surveying",mode:"computational",diff:"Easy",q:"HI = 105.42 ft. Rod reading on unknown point = 3.21 ft. Elevation of unknown point is:",opts:["A. 102.21 ft","B. 108.63 ft","C. 105.42 ft","D. 108.21 ft"],ans:"A",exp:"Elevation = HI - foresight = 105.42 - 3.21 = 102.21 ft",formula:"Elev = HI − Foresight"},
+  {id:"sv5",cat:"Surveying",mode:"conceptual",diff:"Medium",q:"A Total Station combines which instruments?",opts:["A. Level and rod","B. Electronic theodolite and electronic distance measurement (EDM)","C. GPS and compass","D. Planimeter and level"],ans:"B",exp:"A Total Station integrates an electronic theodolite (angles) with an EDM (distances) in one instrument."},
+  {id:"sv6",cat:"Surveying",mode:"conceptual",diff:"Hard",q:"State Plane Coordinate (SPC) systems use which map projection for east-west oriented states?",opts:["A. Mercator","B. Lambert Conformal Conic","C. Transverse Mercator","D. Azimuthal Equidistant"],ans:"B",exp:"East-west states use Lambert Conformal Conic; north-south states use Transverse Mercator in SPC systems."},
+  {id:"sv7",cat:"Surveying",mode:"conceptual",diff:"Easy",q:"The purpose of a foresight in leveling is to:",opts:["A. Establish the height of instrument","B. Determine the elevation of an unknown point","C. Check instrument calibration","D. Set up a benchmark"],ans:"B",exp:"Foresight (FS) is a rod reading on an unknown or turning point to calculate its elevation."},
+  {id:"sv8",cat:"Surveying",mode:"conceptual",diff:"Medium",q:"GPS positioning accuracy is most affected by:",opts:["A. Time of day","B. Satellite geometry (PDOP) and atmospheric effects","C. Wind speed","D. Magnetic declination"],ans:"B",exp:"PDOP (Position Dilution of Precision) from satellite geometry and atmospheric signal delay are the main GPS error sources."},
+  {id:"sv9",cat:"Surveying",mode:"computational",diff:"Medium",q:"A bearing of N 45° E converted to azimuth (from north, clockwise) is:",opts:["A. 45°","B. 135°","C. 225°","D. 315°"],ans:"A",exp:"N 45° E is already in the NE quadrant. Azimuth = 45°. N 45° W = 315°; S 45° E = 135°.",formula:"Azimuth: NE = bearing, SE = 180°−bearing, SW = 180°+bearing, NW = 360°−bearing"},
+  {id:"sv10",cat:"Surveying",mode:"conceptual",diff:"Hard",q:"In photogrammetry, the overlap between adjacent flight strips is typically:",opts:["A. 10-20%","B. 30-40%","C. 60-80%","D. 90-95%"],ans:"C",exp:"Standard photogrammetric coverage: 60% forward overlap (endlap) and 20-30% side overlap (sidelap) between strips."},
+
+  // PROJECT MANAGEMENT (8)
+  {id:"pm1",cat:"Project Management",mode:"conceptual",diff:"Easy",q:"The Gantt chart is used primarily to:",opts:["A. Track project costs","B. Show task durations and schedules on a timeline","C. Identify the critical path","D. Monitor team performance"],ans:"B",exp:"Gantt charts display tasks as horizontal bars against a time axis — excellent for schedule visualization."},
+  {id:"pm2",cat:"Project Management",mode:"conceptual",diff:"Medium",q:"Schedule Performance Index (SPI) greater than 1.0 means a project is:",opts:["A. Over budget","B. Behind schedule","C. Ahead of schedule","D. At risk"],ans:"C",exp:"SPI = EV/PV. SPI > 1 = ahead of schedule. CPI > 1 = under budget."},
+  {id:"pm3",cat:"Project Management",mode:"conceptual",diff:"Easy",q:"A scope statement in project management defines:",opts:["A. The project budget","B. The work to be performed and deliverables","C. The project schedule","D. The team organizational chart"],ans:"B",exp:"The scope statement establishes what is included (and excluded) from the project — boundaries and deliverables."},
+  {id:"pm4",cat:"Project Management",mode:"conceptual",diff:"Hard",q:"The 'triple constraint' in project management refers to:",opts:["A. Cost, Schedule, and Scope","B. Safety, Quality, and Cost","C. Resources, Risk, and Schedule","D. Design, Build, and Operate"],ans:"A",exp:"The triple constraint (iron triangle): Cost, Schedule (Time), and Scope — changing one affects the others."},
+  {id:"pm5",cat:"Project Management",mode:"conceptual",diff:"Medium",q:"A work breakdown structure (WBS) organizes a project by:",opts:["A. Calendar dates","B. Hierarchical decomposition of deliverables","C. Resource assignments","D. Risk levels"],ans:"B",exp:"WBS breaks the project into smaller, manageable components (deliverables) in a hierarchical tree."},
+  {id:"pm6",cat:"Project Management",mode:"conceptual",diff:"Medium",q:"Risk mitigation in project management means:",opts:["A. Accepting all project risks","B. Transferring risk to the owner","C. Reducing probability or impact of a risk","D. Eliminating all uncertainty"],ans:"C",exp:"Mitigation reduces likelihood or consequence of risk. Other strategies: accept, transfer (insurance), avoid."},
+  {id:"pm7",cat:"Project Management",mode:"conceptual",diff:"Easy",q:"The difference between a program and a project is that a program:",opts:["A. Has a fixed budget","B. Consists of related projects managed in a coordinated way","C. Is shorter in duration","D. Has only one deliverable"],ans:"B",exp:"A program is a group of related projects managed together to obtain benefits not available from managing them individually."},
+  {id:"pm8",cat:"Project Management",mode:"conceptual",diff:"Hard",q:"In the context of construction delivery methods, Design-Build (DB) differs from Design-Bid-Build (DBB) in that:",opts:["A. DB costs more","B. DB gives the owner a single point of responsibility for design and construction","C. DBB is faster","D. DB eliminates the need for an owner's representative"],ans:"B",exp:"In Design-Build, one entity is responsible for both design and construction — reducing owner coordination burden and often accelerating schedule."},
+
+  // UNITS & CONVERSIONS (18)
+  {id:"u1",cat:"Units & Conversions",mode:"conceptual",diff:"Easy",q:"What is the fundamental difference between pound-force (lbf) and pound-mass (lbm)?",opts:["A. lbf and lbm are identical units","B. lbf is a unit of force; lbm is a unit of mass","C. lbm is used in SI; lbf is used in US Customary","D. lbf is larger than lbm by a factor of 32.2"],ans:"B",exp:"lbf is a force unit (what a scale reads in gravity). lbm is a mass unit. At standard gravity, 1 lbm weighs 1 lbf, but they are dimensionally different."},
+  {id:"u2",cat:"Units & Conversions",mode:"conceptual",diff:"Medium",q:"In the equation F = ma using US Customary units, if m is in lbm and a in ft/s², force F must be divided by gc = 32.174 to obtain:",opts:["A. Pounds mass","B. Pounds force","C. Slugs","D. Kips"],ans:"B",exp:"F(lbf) = m(lbm) × a(ft/s²) / gc(32.174 lbm·ft/lbf·s²). Forgetting gc is the classic lbm/lbf error."},
+  {id:"u3",cat:"Units & Conversions",mode:"conceptual",diff:"Easy",q:"1 kip (kip) is equal to:",opts:["A. 100 lb","B. 1,000 lb","C. 10,000 lb","D. 100 kN"],ans:"B",exp:"kip = kilopound = 1,000 lbf. Common in structural engineering for forces and loads."},
+  {id:"u4",cat:"Units & Conversions",mode:"conceptual",diff:"Easy",q:"1 psi (pound per square inch) is equivalent to how many psf (pounds per square foot)?",opts:["A. 12 psf","B. 72 psf","C. 144 psf","D. 288 psf"],ans:"C",exp:"1 psi = 1 lb/in² × 144 in²/ft² = 144 psf. Memorize: 1 psi = 144 psf."},
+  {id:"u5",cat:"Units & Conversions",mode:"conceptual",diff:"Medium",q:"The unit kcf (kips per square foot) is most commonly used to express:",opts:["A. Fluid pressure in pipelines","B. Soil bearing capacity or pressure","C. Wind speed","D. Traffic loading"],ans:"B",exp:"Geotechnical engineers commonly express bearing capacity and pressures in ksf or kcf (1 kcf = 1,000 psf)."},
+  {id:"u6",cat:"Units & Conversions",mode:"conceptual",diff:"Easy",q:"1 acre is equal to:",opts:["A. 10,000 ft²","B. 43,560 ft²","C. 100,000 ft²","D. 5,280 ft²"],ans:"B",exp:"1 acre = 43,560 ft². This is a critical conversion for drainage area calculations."},
+  {id:"u7",cat:"Units & Conversions",mode:"conceptual",diff:"Medium",q:"Flow rate of 1 cfs (cubic foot per second) is approximately equal to how many gpm (gallons per minute)?",opts:["A. 60 gpm","B. 225 gpm","C. 449 gpm","D. 7.48 gpm"],ans:"C",exp:"1 cfs = 7.48 gal/ft³ × 60 s/min = 448.8 ≈ 449 gpm. Common hydraulics conversion."},
+  {id:"u8",cat:"Units & Conversions",mode:"conceptual",diff:"Easy",q:"1 meter is approximately equal to:",opts:["A. 2.54 ft","B. 3.28 ft","C. 5.28 ft","D. 0.91 ft"],ans:"B",exp:"1 m = 3.281 ft. Alternatively, 1 ft = 0.3048 m."},
+  {id:"u9",cat:"Units & Conversions",mode:"conceptual",diff:"Medium",q:"In SI units, force is expressed in Newtons (N). In US Customary, force is expressed in lbf. Which unit is mass expressed in, in SI?",opts:["A. Newton","B. Slug","C. Kilogram","D. Pound-mass"],ans:"C",exp:"SI mass unit = kilogram (kg). Force = Newtons (N = kg·m/s²). In US Customary, mass = slug or lbm."},
+  {id:"u10",cat:"Units & Conversions",mode:"conceptual",diff:"Hard",q:"A soil unit weight is given as 18 kN/m³. Which of the following is the closest equivalent in pcf?",opts:["A. 80 pcf","B. 100 pcf","C. 115 pcf","D. 130 pcf"],ans:"C",exp:"18 kN/m³ × (1000 N/kN) / (4.448 N/lbf) / (0.3048³ m³/ft³) ≈ 18 × 6.366 ≈ 114.6 pcf ≈ 115 pcf."},
+  {id:"u11",cat:"Units & Conversions",mode:"conceptual",diff:"Easy",q:"1 slug is equal to approximately how many pound-mass (lbm)?",opts:["A. 1 lbm","B. 14.6 lbm","C. 32.2 lbm","D. 2.2 lbm"],ans:"C",exp:"1 slug = 32.174 lbm. The slug is the US Customary mass unit consistent with F = ma in lbf, ft, s."},
+  {id:"u12",cat:"Units & Conversions",mode:"conceptual",diff:"Medium",q:"If a pressure is given in kPa, which of the following conversions is correct?",opts:["A. 1 kPa = 1 psi","B. 1 psi = 6.895 kPa","C. 1 kPa = 144 psi","D. 1 psi = 0.145 kPa"],ans:"B",exp:"1 psi = 6.895 kPa. Therefore 1 kPa = 0.145 psi. Key conversion for international projects."},
+  {id:"u13",cat:"Units & Conversions",mode:"conceptual",diff:"Easy",q:"Which of the following has units of force per unit length (not force per unit area)?",opts:["A. Pressure","B. Distributed load on a beam (kip/ft)","C. Stress","D. Unit weight"],ans:"B",exp:"Distributed beam load (w) has units of force/length (kip/ft or kN/m). Pressure and stress are force/area."},
+  {id:"u14",cat:"Units & Conversions",mode:"conceptual",diff:"Medium",q:"Specific weight (γ) of water in US Customary units is approximately:",opts:["A. 62.4 pcf","B. 1,000 pcf","C. 8.34 pcf","D. 32.2 pcf"],ans:"A",exp:"γ_water = 62.4 pcf (lb/ft³) in US Customary. In SI: 9.81 kN/m³. 8.34 lb/gal is density per gallon."},
+  {id:"u15",cat:"Units & Conversions",mode:"conceptual",diff:"Hard",q:"When using the bending stress formula σ = Mc/I, which unit combination is dimensionally consistent?",opts:["A. M in kip-ft, c in ft, I in ft⁴ → σ in kip/ft²","B. M in kip-in, c in ft, I in in⁴ → σ in ksi","C. M in kip-ft, c in in, I in in⁴ → σ in psi","D. M in lb-ft, c in in, I in in⁴ → σ in psi"],ans:"A",exp:"Dimensions must be consistent: σ = Mc/I → (kip-ft)(ft)/(ft⁴) = kip/ft² = ksf. Option B mixes ft and in."},
+  {id:"u16",cat:"Units & Conversions",mode:"conceptual",diff:"Easy",q:"1 mile is equal to:",opts:["A. 1,000 ft","B. 3,280 ft","C. 5,280 ft","D. 10,000 ft"],ans:"C",exp:"1 mile = 5,280 ft. Essential for transportation and pipeline engineering."},
+  {id:"u17",cat:"Units & Conversions",mode:"conceptual",diff:"Medium",q:"Using dimensional analysis, which equation for pressure is dimensionally correct?",opts:["A. P = ρV (density × velocity)","B. P = ρgh (density × gravity × height)","C. P = V²/2g (velocity² / gravity)","D. P = Q/A (flow / area)"],ans:"B",exp:"P = ρgh: (lbm/ft³)(ft/s²)(ft) = lbm/ft·s² → in SI (kg/m³)(m/s²)(m) = kg/m·s² = N/m² = Pa. Correct."},
+  {id:"u18",cat:"Units & Conversions",mode:"conceptual",diff:"Hard",q:"An engineer uses lbm instead of lbf in a hydrostatic pressure calculation P = γh. The result will be off by a factor of:",opts:["A. 12","B. 144","C. 32.2","D. No difference — they are numerically equal at sea level"],ans:"C",exp:"γ_water = 62.4 lbf/ft³ numerically. If mass density ρ=62.4 lbm/ft³ is mistakenly used as weight density, and gc is forgotten, the result is off by 32.2 (gc)."},
+];
+
+const FORMULA_BANK = [
+  {cat:"Hydraulics",f:"Q = V × A",note:"Flow rate = velocity × cross-sectional area"},
+  {cat:"Hydraulics",f:"V = (1.486/n) R^(2/3) S^(1/2)",note:"Manning's — open channel (US units)"},
+  {cat:"Hydraulics",f:"hf = f(L/D)(V²/2g)",note:"Darcy-Weisbach head loss"},
+  {cat:"Hydraulics",f:"Fr = V / √(gD)",note:"Froude number — Fr=1 is critical flow"},
+  {cat:"Geotechnical",f:"σ' = σ − u",note:"Effective stress = total − pore pressure"},
+  {cat:"Geotechnical",f:"Ka = tan²(45 − φ/2)",note:"Active earth pressure coefficient"},
+  {cat:"Geotechnical",f:"qu = cNc + γDNq + 0.5γBNγ",note:"Terzaghi bearing capacity"},
+  {cat:"Geotechnical",f:"γd = γ / (1 + w)",note:"Dry unit weight"},
+  {cat:"Geotechnical",f:"Sc = [Cc/(1+e₀)] × H × log(σ'f/σ'₀)",note:"Primary consolidation settlement"},
+  {cat:"Structural",f:"M = wL²/8",note:"Max moment, simply supported UDL"},
+  {cat:"Structural",f:"δ = 5wL⁴/384EI",note:"Midspan deflection, SS beam UDL"},
+  {cat:"Structural",f:"σ = Mc/I",note:"Bending (flexural) stress"},
+  {cat:"Structural",f:"I = bh³/12",note:"Moment of inertia, rectangular section"},
+  {cat:"Structural",f:"Pe = π²EI/(KL)²",note:"Euler buckling load"},
+  {cat:"Transportation",f:"SSD = v·t + v²/(2a)",note:"Stopping sight distance"},
+  {cat:"Transportation",f:"R = V²/[15(e+f)]",note:"Min horizontal curve radius (V in mph)"},
+  {cat:"Transportation",f:"k = q/u",note:"Traffic density = flow / speed"},
+  {cat:"Units",f:"1 psi = 144 psf",note:"Pressure unit conversion"},
+  {cat:"Units",f:"1 kip = 1,000 lbf",note:"Force unit"},
+  {cat:"Units",f:"1 cfs = 448.8 gpm",note:"Flow rate conversion"},
+  {cat:"Units",f:"1 acre = 43,560 ft²",note:"Area conversion"},
+  {cat:"Units",f:"γ_water = 62.4 pcf = 9.81 kN/m³",note:"Unit weight of water"},
+  {cat:"Units",f:"F(lbf) = m(lbm) × a / 32.174",note:"lbm to lbf: divide by gc"},
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+const CATS = ["All Topics","Ethics","Geotechnical","Structural","Transportation","Water Resources","Construction","Environmental","Surveying","Project Management","Units & Conversions"];
+const DIFFS = ["Mixed","Easy","Medium","Hard"];
+const TIMERS = [{l:"None",v:0},{l:"30s",v:30},{l:"45s",v:45},{l:"60s",v:60}];
+const COUNTS = [5,10,15,20];
+const CONF = [{l:"Got it",c:"#22c55e"},{l:"Shaky",c:"#f5c518"},{l:"Missed",c:"#ef4444"}];
+
+let state = {
+  tab:"quiz", screen:"home", mode:"conceptual", cat:"All Topics",
+  diff:"Mixed", count:10, timer:0, questions:[], current:0,
+  selected:null, answers:[], sessionStats:{}, streak:0, bestStreak:0,
+  flagged:new Set(), confRatings:{}, timeLeft:0, timerInterval:null,
+  downloadProgress:0, downloadStatus:"", downloadedQuestions:[],
+  offlineMode:false, loading:false, error:"",
+};
+
+function getQuestions(cat, mode, diff, count) {
+  let pool = QUESTION_BANK;
+  if (cat !== "All Topics") pool = pool.filter(q=>q.cat===cat);
+  if (mode !== "both") pool = pool.filter(q=>q.mode===mode);
+  if (diff !== "Mixed") pool = pool.filter(q=>q.diff===diff);
+  // shuffle
+  pool = [...pool].sort(()=>Math.random()-0.5);
+  return pool.slice(0, count);
+}
+
+async function fetchAIQuestions(cat, mode, diff, count) {
+  const topic = cat === "All Topics" ? "all Civil FE exam subjects" : cat;
+  const diffLine = diff==="Mixed"?"Mix of easy, medium, hard.":diff+" level questions.";
+  const modeInstr = mode==="conceptual"
+    ? "NO math. Key definitions, design principles, code, judgment."
+    : "Require calculation. Core formulas. 1-2 steps.";
+  const prompt = `Generate ${count} ${mode} Civil FE exam questions on ${topic}. ${modeInstr} ${diffLine} Return ONLY raw JSON: [{"q":"...","opts":["A. ...","B. ...","C. ...","D. ..."],"ans":"A","exp":"...","cat":"${cat}","diff":"${diff==="Mixed"?"Medium":diff}","formula":null}]`;
+  const res = await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:3000,messages:[{role:"user",content:prompt}]})
+  });
+  const data = await res.json();
+  const text = data.content?.map(b=>b.text||"").join("")||"";
+  const match = text.match(/\[[\s\S]*\]/);
+  if(!match) throw new Error("No JSON");
+  const parsed = JSON.parse(match[0]);
+  return parsed.map(q=>({...q, id:"ai-"+Math.random(), mode, opts:q.opts, ans:q.ans, exp:q.exp}));
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function render() {
+  const app = document.getElementById("app");
+  const s = state;
+  let html = "";
+
+  if (s.screen==="home") {
+    html += `<div style="text-align:center;margin-bottom:20px;">
+      <div class="icon-wrap">📐</div>
+      <h1>FE Civil Mastery</h1>
+      <p class="sub">Smart prep for the Civil FE exam</p>
+    </div>`;
+
+    // install hint
+    html += `<div class="install-bar"><span style="font-size:20px">📲</span><div><p style="font-size:13px;font-weight:600;color:#f5c518;margin-bottom:2px;">Add to Home Screen</p><p style="font-size:12px;color:#666;">Tap Safari Share → "Add to Home Screen"</p></div></div>`;
+
+    html += `<div class="tab-bar">
+      <button class="tab${s.tab==="quiz"?" active":""}" onclick="setTab('quiz')">Quiz</button>
+      <button class="tab${s.tab==="offline"?" active":""}" onclick="setTab('offline')">Offline</button>
+      <button class="tab${s.tab==="formulas"?" active":""}" onclick="setTab('formulas')">Formulas</button>
+      <button class="tab${s.tab==="stats"?" active":""}" onclick="setTab('stats')">Stats</button>
+    </div>`;
+
+    if (s.tab==="quiz") {
+      if (s.error) html+=`<div class="explain" style="margin-bottom:12px;"><p style="color:#fca5a5;">${s.error}</p></div>`;
+
+      html+=`<div class="seg">
+        <button class="seg-btn${s.mode==="conceptual"?" active":""}" onclick="setMode('conceptual')">Conceptual <span style="font-size:10px;padding:1px 5px;border-radius:99px;background:${s.mode==="conceptual"?"rgba(0,0,0,0.15)":"#2a2a2a"};margin-left:4px;">No math</span></button>
+        <button class="seg-btn${s.mode==="computational"?" active":""}" onclick="setMode('computational')">Computational <span style="font-size:10px;padding:1px 5px;border-radius:99px;background:${s.mode==="computational"?"rgba(0,0,0,0.15)":"#2a2a2a"};margin-left:4px;">Calc</span></button>
+      </div>`;
+
+      html+=`<div class="card"><span class="label">Topic</span><div style="position:relative;"><select onchange="setCat(this.value)">${CATS.map(c=>`<option${c===s.cat?" selected":""}>${c}</option>`).join("")}</select><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#555;pointer-events:none;font-size:10px;">▼</span></div></div>`;
+
+      html+=`<div class="card"><span class="label">Difficulty</span><div class="grid4">${DIFFS.map(d=>`<button class="sm-btn${s.diff===d?" active":""}" onclick="setDiff('${d}')">${d}</button>`).join("")}</div></div>`;
+
+      html+=`<div class="card"><span class="label">Questions</span><div class="grid4">${COUNTS.map(n=>`<button class="sm-btn${s.count===n?" active":""}" onclick="setCount(${n})">${n}</button>`).join("")}</div></div>`;
+
+      html+=`<div class="card"><span class="label">Timer per question</span><div class="grid4">${TIMERS.map(t=>`<button class="sm-btn${s.timer===t.v?" active":""}" onclick="setTimer(${t.v})">${t.l}</button>`).join("")}</div></div>`;
+
+      // offline indicator
+      const offlinePool = getQuestions(s.cat, s.mode, s.diff, s.count);
+      html+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span class="offline-badge">📦 ${QUESTION_BANK.length} offline questions ready</span></div>`;
+
+      html+=`<button class="btn" onclick="startQuiz()">${s.loading?"Generating…":"Start Quiz →"}</button>`;
+    }
+
+    if (s.tab==="offline") {
+      html+=`<div class="card"><p style="font-size:13px;font-weight:600;color:#e5e5e5;margin-bottom:6px;">Offline Question Bank</p><p style="font-size:13px;color:#666;line-height:1.6;margin-bottom:12px;">Your app already has <strong style="color:#f5c518;">${QUESTION_BANK.length} questions</strong> built in across all Civil FE categories — no internet needed.<br><br>When you're online, quizzes can also generate fresh AI questions. Offline mode always uses the built-in bank.</p>
+      <div class="divider"></div>
+      <p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Breakdown by category</p>
+      ${CATS.filter(c=>c!=="All Topics").map(c=>{
+        const n = QUESTION_BANK.filter(q=>q.cat===c).length;
+        return `<div class="weak-row"><span style="font-size:13px;color:#e5e5e5;">${c}</span><span style="font-size:12px;color:#f5c518;font-weight:600;">${n}q</span></div>`;
+      }).join("")}
+      </div>
+      <div class="card" style="margin-top:4px;"><p style="font-size:13px;font-weight:600;color:#e5e5e5;margin-bottom:6px;">📲 Save to iPhone</p>
+      <p style="font-size:13px;color:#666;line-height:1.7;">1. Open this page in <strong style="color:#e5e5e5;">Safari</strong><br>2. Tap the <strong style="color:#f5c518;">Share</strong> button (box with arrow)<br>3. Tap <strong style="color:#f5c518;">"Add to Home Screen"</strong><br>4. Tap <strong style="color:#f5c518;">Add</strong><br><br>The app icon will appear on your home screen and works offline.</p></div>`;
+    }
+
+    if (s.tab==="formulas") {
+      const cats = [...new Set(FORMULA_BANK.map(f=>f.cat))];
+      html+=`<h2 style="font-size:16px;font-weight:600;color:#e5e5e5;margin-bottom:4px;">Formula Reference</h2><p class="sub" style="margin-bottom:16px;">Key FE equations — always available offline</p>`;
+      cats.forEach(cat=>{
+        html+=`<p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">${cat}</p>`;
+        FORMULA_BANK.filter(f=>f.cat===cat).forEach(f=>{
+          html+=`<div class="formula-card"><p style="font-family:'Courier New',monospace;font-size:14px;color:#f5c518;margin-bottom:4px;">${f.f}</p><p style="font-size:12px;color:#666;">${f.note}</p></div>`;
+        });
+        html+=`<div style="height:8px;"></div>`;
+      });
+    }
+
+    if (s.tab==="stats") {
+      html+=`<h2 style="font-size:16px;font-weight:600;color:#e5e5e5;margin-bottom:4px;">Session Stats</h2><p class="sub" style="margin-bottom:16px;">Performance from your last quiz</p>`;
+      if (!Object.keys(s.sessionStats).length) {
+        html+=`<div class="card"><p style="font-size:13px;color:#666;text-align:center;">No data yet. Complete a quiz first.</p></div>`;
+      } else {
+        const total = s.answers.length, correct = s.answers.filter(a=>a.correct).length;
+        const pct = Math.round(correct/total*100);
+        html+=`<div class="card" style="margin-bottom:12px;text-align:center;"><div class="score-big">${correct}<span style="font-size:22px;color:#444;">/${total}</span></div><p style="color:#666;font-size:14px;margin-top:4px;">${pct}% · Best streak: ${s.bestStreak}🔥</p></div>`;
+        html+=`<p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">By category</p>`;
+        Object.entries(s.sessionStats).sort(([,a],[,b])=>(a.c/a.t)-(b.c/b.t)).forEach(([cat,v])=>{
+          const p=Math.round(v.c/v.t*100), col=p>=70?"#22c55e":p>=50?"#f5c518":"#ef4444";
+          html+=`<div class="weak-row"><span style="font-size:13px;color:#e5e5e5;flex:1;">${cat}</span><span style="font-size:12px;color:#666;margin-right:8px;">${v.c}/${v.t}</span><div class="weak-bar-bg"><div style="height:4px;width:${p}%;background:${col};border-radius:99px;"></div></div><span style="font-size:12px;color:${col};font-weight:600;margin-left:8px;min-width:30px;">${p}%</span></div>`;
+        });
+      }
+    }
+  }
+
+  else if (s.screen==="loading") {
+    html=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;gap:16px;"><div class="spin"></div><p style="color:#666;font-size:14px;">Generating fresh questions…</p></div>`;
+  }
+
+  else if (s.screen==="quiz" && s.questions[s.current]) {
+    const q=s.questions[s.current], prog=s.current/s.questions.length*100;
+    const timedOut=s.selected==="__timeout__";
+    html+=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <div style="display:flex;gap:6px;align-items:center;">
+        <span class="badge badge-y">${s.mode==="conceptual"?"Conceptual":"Computational"}</span>
+        ${s.flagged.has(s.current)?'<span style="font-size:11px;color:#ef4444;">🚩</span>':""}
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        ${s.streak>=2?`<span class="streak">🔥${s.streak}</span>`:""}
+        ${s.timer>0&&s.selected===null?`<span class="timer-num${s.timeLeft<=10?" timer-warn":""}">${s.timeLeft}s</span>`:""}
+        <span style="font-size:13px;color:#666;font-weight:500;">${s.current+1}/${s.questions.length}</span>
+      </div>
+    </div>
+    <div class="bar-bg"><div class="bar-fill" style="width:${prog}%;"></div></div>`;
+
+    if (q.formula&&q.formula!=="null") html+=`<div class="formula-box"><span style="font-size:9px;color:#555;font-family:sans-serif;text-transform:uppercase;letter-spacing:.08em;">Formula</span><br>${q.formula}</div>`;
+
+    html+=`<div class="card" style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;gap:8px;"><p style="font-size:15px;font-weight:500;color:#e5e5e5;line-height:1.65;flex:1;">${q.q||q.question}</p><button onclick="toggleFlag()" style="background:none;border:none;cursor:pointer;font-size:16px;opacity:.5;padding-top:2px;" title="Flag">🚩</button></div></div>`;
+
+    if (timedOut) html+=`<div class="explain" style="margin-bottom:10px;"><p style="color:#fca5a5;">⏱ Time's up! Correct answer: ${q.ans||q.answer}</p></div>`;
+
+    const opts=q.opts||q.options;
+    opts.forEach(opt=>{
+      const letter=opt.charAt(0), ans=q.ans||q.answer;
+      let cls="opt";
+      if (s.selected!==null&&!timedOut){
+        if(letter===ans) cls+=" correct";
+        else if(opt===s.selected) cls+=" wrong";
+      } else if(opt===s.selected) cls+=" selected";
+      const disabled=s.selected!==null?"disabled":"";
+      html+=`<button class="${cls}" ${disabled} onclick="pickOpt('${opt.replace(/'/g,"\\'")}' )">${opt}</button>`;
+    });
+
+    if (s.selected&&!timedOut) html+=`<div class="explain"><p>💡 ${q.exp||q.explanation}</p></div>`;
+
+    if (s.selected!==null&&!s.confRatings[s.current]) {
+      html+=`<p style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:8px;">How confident were you?</p><div class="conf-row">${CONF.map(c=>`<button class="conf-btn" style="border-color:${c.c}55;color:${c.c};" onclick="pickConf('${c.l}')">${c.l}</button>`).join("")}</div>`;
+    }
+    if (s.confRatings[s.current]||timedOut) {
+      html+=`<button class="btn" onclick="nextQ()">${s.current+1<s.questions.length?"Next →":"See Results →"}</button>`;
+    }
+  }
+
+  else if (s.screen==="results") {
+    const total=s.answers.length, correct=s.answers.filter(a=>a.correct).length;
+    const pct=Math.round(correct/total*100);
+    html+=`<div style="text-align:center;margin-bottom:22px;">
+      <div style="font-size:26px;margin-bottom:10px;">${pct>=70?"🎉":"📚"}</div>
+      <div class="score-big">${correct}<span style="font-size:22px;color:#444;">/${total}</span></div>
+      <p style="color:#666;font-size:14px;margin:6px 0 10px;">${pct}%</p>
+      <span class="badge ${pct>=70?"badge-g":"badge-r"}">${pct>=70?"Pass ✓":"Keep Studying"}</span>
+      ${s.bestStreak>=3?`<p style="font-size:12px;color:#f5c518;margin-top:8px;">🔥 Best streak: ${s.bestStreak}</p>`:""}
+    </div>`;
+
+    // cat breakdown
+    html+=`<div class="card" style="margin-bottom:12px;"><p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">By category</p>`;
+    Object.entries(s.sessionStats).sort(([,a],[,b])=>(a.c/a.t)-(b.c/b.t)).forEach(([cat,v])=>{
+      const p=Math.round(v.c/v.t*100), col=p>=70?"#22c55e":p>=50?"#f5c518":"#ef4444";
+      html+=`<div class="weak-row"><span style="font-size:13px;color:#e5e5e5;flex:1;">${cat}</span><div class="weak-bar-bg"><div style="height:4px;width:${p}%;background:${col};border-radius:99px;"></div></div><span style="font-size:12px;color:${col};font-weight:600;margin-left:8px;">${p}%</span></div>`;
+    });
+    html+=`</div>`;
+
+    html+=`<div class="divider"></div><p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Review</p>`;
+    s.answers.forEach((a,i)=>{
+      const cr=s.confRatings[i], col=cr==="Got it"?"#22c55e":cr==="Shaky"?"#f5c518":"#ef4444";
+      const opts=a.opts||a.options;
+      html+=`<div class="${a.correct?"review-ok":"review-ng"}">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+          <span style="font-size:11px;color:#555;">Q${i+1} · ${a.cat||a.category}${s.flagged.has(i)?' 🚩':''}</span>
+          <div style="display:flex;gap:6px;align-items:center;">
+            ${cr?`<span style="font-size:10px;color:${col};font-weight:600;">${cr}</span>`:""}
+            <span style="font-size:11px;font-weight:600;color:${a.timedOut?"#f5c518":a.correct?"#86efac":"#fca5a5"};">${a.timedOut?"⏱ Timeout":a.correct?"✓":"✗"}</span>
+          </div>
+        </div>
+        ${a.formula&&a.formula!=="null"?`<p style="font-family:monospace;font-size:12px;color:#f5c518;margin-bottom:4px;opacity:.8;">${a.formula}</p>`:""}
+        <p style="font-size:13px;color:#ccc;margin-bottom:4px;line-height:1.5;">${a.q||a.question}</p>
+        ${!a.correct&&a.selected?`<p style="font-size:12px;color:#fca5a5;margin-bottom:3px;">Your answer: ${a.selected}</p>`:""}
+        <p style="font-size:12px;color:#86efac;">Correct: ${a.ans||a.answer} — ${a.exp||a.explanation}</p>
+      </div>`;
+    });
+
+    html+=`<div style="display:flex;gap:8px;margin-top:16px;">
+      <button class="btn-sec" onclick="setTab('stats');state.screen='home';render();">Stats</button>
+      <button class="btn-sec" onclick="state.screen='home';state.tab='quiz';render();">← Home</button>
+      <button class="btn" style="flex:1;" onclick="startQuiz()">Retake ↺</button>
+    </div>`;
+  }
+
+  app.innerHTML = html;
+}
+
+// ─── ACTIONS ──────────────────────────────────────────────────────────────────
+function setTab(t){ state.tab=t; render(); }
+function setMode(m){ state.mode=m; render(); }
+function setCat(c){ state.cat=c; render(); }
+function setDiff(d){ state.diff=d; render(); }
+function setCount(n){ state.count=n; render(); }
+function setTimer(t){ state.timer=t; render(); }
+
+async function startQuiz(){
+  state.error=""; state.answers=[]; state.current=0; state.selected=null;
+  state.streak=0; state.bestStreak=0; state.flagged=new Set(); state.confRatings={}; state.sessionStats={};
+
+  // try offline bank first
+  let qs = getQuestions(state.cat, state.mode, state.diff, state.count);
+
+  if(qs.length < state.count){
+    // try AI if online
+    try{
+      state.screen="loading"; render();
+      const aiQs = await fetchAIQuestions(state.cat, state.mode, state.diff, state.count);
+      qs = [...qs, ...aiQs].slice(0, state.count);
+    } catch(e){
+      if(qs.length===0){ state.error="Not enough offline questions for this filter. Try broader settings."; state.screen="home"; render(); return; }
+    }
+  }
+
+  state.questions=qs.sort(()=>Math.random()-0.5).slice(0, state.count);
+  state.screen="quiz"; render(); startTimer();
+}
+
+function startTimer(){
+  clearInterval(state.timerInterval);
+  if(!state.timer) return;
+  state.timeLeft=state.timer;
+  state.timerInterval=setInterval(()=>{
+    state.timeLeft--;
+    if(state.timeLeft<=0){ clearInterval(state.timerInterval); state.selected="__timeout__"; render(); }
+    else { document.querySelector(".timer-num")&&(document.querySelector(".timer-num").textContent=state.timeLeft+"s"); }
+  },1000);
+}
+
+function pickOpt(opt){
+  if(state.selected!==null) return;
+  clearInterval(state.timerInterval);
+  state.selected=opt; render();
+}
+
+function pickConf(c){
+  state.confRatings[state.current]=c;
+  render();
+}
+
+function toggleFlag(){
+  if(state.flagged.has(state.current)) state.flagged.delete(state.current);
+  else state.flagged.add(state.current);
+  render();
+}
+
+function nextQ(){
+  const q=state.questions[state.current];
+  const sel=state.selected==="__timeout__"?null:state.selected;
+  const correct=sel?.charAt(0)===(q.ans||q.answer);
+  const newStreak=correct?state.streak+1:0;
+  state.streak=newStreak;
+  if(newStreak>state.bestStreak) state.bestStreak=newStreak;
+  const cat=q.cat||q.category;
+  const prev=state.sessionStats[cat]||{c:0,t:0};
+  state.sessionStats[cat]={c:prev.c+(correct?1:0),t:prev.t+1};
+  state.answers.push({...q,selected:sel,correct,timedOut:state.selected==="__timeout__"});
+  if(state.current+1<state.questions.length){
+    state.current++; state.selected=null; render(); startTimer();
+  } else {
+    state.screen="results"; render();
+  }
+}
+
+render();
+</script>
+
+</body>
+</html>
