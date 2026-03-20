@@ -1,0 +1,563 @@
+<!-- FE Civil Mastery v5.0 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FE Civil">
+<title>FE Civil Mastery</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0f0f0f;color:#e5e5e5;min-height:100vh}
+body.light{background:#f0f0e8;color:#1a1a1a}
+.app{padding:20px 16px 80px;max-width:520px;margin:0 auto;position:relative;z-index:1}
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0}
+.card{background:rgba(22,22,22,0.96);border:1px solid #2a2a2a;border-radius:16px;padding:18px;margin-bottom:12px}
+body.light .card{background:rgba(255,255,255,0.96);border-color:#ddd}
+.lbl{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;display:block}
+body.light .lbl{color:#aaa}
+select{width:100%;padding:10px 14px;border-radius:10px;border:1px solid #2a2a2a;background:#111;color:#e5e5e5;font-size:14px;outline:none;appearance:none;font-family:inherit}
+body.light select{background:#fafafa;color:#1a1a1a;border-color:#ddd}
+.seg{display:flex;background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:4px;margin-bottom:12px}
+body.light .seg{background:#f0f0f0;border-color:#ddd}
+.seg button{flex:1;padding:9px 8px;border-radius:9px;border:none;background:transparent;color:#666;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit}
+.seg button.on{background:#f5c518;color:#000}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.sb{padding:9px 0;border-radius:10px;border:1px solid #2a2a2a;background:#111;color:#888;font-size:13px;cursor:pointer;text-align:center;font-family:inherit}
+body.light .sb{background:#fafafa;border-color:#ddd;color:#999}
+.sb.on{border-color:#f5c518;background:#1a1600;color:#f5c518}
+body.light .sb.on{background:#fffbe6;color:#9a7800}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;background:#f5c518;color:#000;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:8px}
+.btn2{padding:11px;border-radius:12px;border:1px solid #2a2a2a;background:#1a1a1a;color:#888;font-size:13px;cursor:pointer;font-family:inherit}
+body.light .btn2{background:#fff;border-color:#ddd;color:#888}
+.tabs{display:flex;background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:4px;margin-bottom:14px}
+body.light .tabs{background:#f0f0f0;border-color:#ddd}
+.tabs button{flex:1;padding:9px 4px;border-radius:9px;border:none;background:transparent;color:#555;font-size:11px;font-weight:500;cursor:pointer;font-family:inherit}
+body.light .tabs button{color:#aaa}
+.tabs button.on{background:#f5c518;color:#000}
+.opt{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #2a2a2a;background:#111;color:#ccc;font-size:14px;text-align:left;cursor:pointer;margin-bottom:7px;line-height:1.4;display:block;font-family:inherit}
+body.light .opt{background:#fafafa;border-color:#ddd;color:#333}
+.opt.ok{border-color:#22c55e;background:#0d2b1d;color:#86efac}
+.opt.ng{border-color:#ef4444;background:#2b0d0d;color:#fca5a5}
+.opt.sel{border-color:#f5c518;background:#1a1600;color:#f5c518}
+body.light .opt.ok{background:#dcfce7;color:#14532d}
+body.light .opt.ng{background:#fee2e2;color:#991b1b}
+body.light .opt.sel{background:#fffbe6;color:#78570a}
+.bar{height:4px;background:#2a2a2a;border-radius:99px;margin-bottom:16px}
+body.light .bar{background:#e0e0e0}
+.barfill{height:4px;background:#f5c518;border-radius:99px;transition:width .3s}
+.explain{background:#131100;border:1px solid #3a3000;border-left:3px solid #f5c518;border-radius:10px;padding:11px 13px;margin-bottom:12px;font-size:13px;color:#d4a800;line-height:1.6}
+body.light .explain{background:#fffbe6;border-color:#f5d060;color:#78570a}
+.fbox{background:#111;border:1px solid #3a3000;border-left:3px solid #f5c518;border-radius:10px;padding:9px 13px;margin-bottom:10px;font-family:monospace;font-size:13px;color:#f5c518;line-height:1.7}
+body.light .fbox{background:#fafafa;color:#8a6800}
+.spin{width:38px;height:38px;border:3px solid #2a2a2a;border-top-color:#f5c518;border-radius:50%;animation:sp .7s linear infinite;margin:0 auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.big{font-size:52px;font-weight:600;color:#f5c518;line-height:1}
+.rok{border-radius:12px;padding:13px;margin-bottom:8px;border:1px solid #14532d;background:#0a1f15}
+.rng{border-radius:12px;padding:13px;margin-bottom:8px;border:1px solid #7f1d1d;background:#1f0a0a}
+body.light .rok{background:#f0fdf4;border-color:#bbf7d0}
+body.light .rng{background:#fff1f2;border-color:#fecdd3}
+.hr{height:1px;background:#2a2a2a;margin:12px 0}
+body.light .hr{background:#e0e0e0}
+.wr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #1a1a1a}
+body.light .wr{border-bottom-color:#eee}
+.wbar{width:70px;height:4px;background:#2a2a2a;border-radius:99px;overflow:hidden}
+body.light .wbar{background:#e0e0e0}
+.conf{display:flex;gap:7px;margin-bottom:10px}
+.conf button{flex:1;padding:9px 4px;border-radius:10px;border:1px solid;font-size:12px;font-weight:600;cursor:pointer;background:transparent;font-family:inherit}
+.fcard{background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:12px 14px;margin-bottom:7px}
+body.light .fcard{background:#fafafa;border-color:#ddd}
+.streak{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;background:#1a1600;border:1px solid #3a3000;font-size:12px;font-weight:600;color:#f5c518}
+.tmr{font-size:15px;font-weight:600;color:#f5c518}
+.tmr.red{color:#ef4444}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.mbox{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:20px;padding:24px;width:100%;max-width:340px}
+body.light .mbox{background:#fff;border-color:#ddd}
+.tbtn{position:fixed;top:14px;right:14px;z-index:100;padding:7px 13px;border-radius:99px;border:1px solid #2a2a2a;background:rgba(20,20,20,.95);color:#888;font-size:12px;cursor:pointer;font-family:inherit}
+body.light .tbtn{background:rgba(255,255,255,.95);border-color:#ddd}
+</style>
+</head>
+<body>
+<div class="bg" id="bg"></div>
+<button class="tbtn" id="tbtn" onclick="toggleTheme()">☀ Light</button>
+<div class="app" id="app">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;gap:16px">
+    <div class="spin"></div>
+    <p style="color:#666;font-size:14px">Loading FE Civil Mastery…</p>
+  </div>
+</div>
+<script>
+// ── THEME ─────────────────────────────────────────────────────────────────────
+var dark = true;
+try { dark = localStorage.getItem('theme') !== 'light'; } catch(e){}
+function applyTheme() {
+  document.body.classList.toggle('light', !dark);
+  var b = document.getElementById('tbtn');
+  if (b) b.textContent = dark ? '☀ Light' : '● Dark';
+  drawBG();
+}
+function toggleTheme() {
+  dark = !dark;
+  try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch(e){}
+  applyTheme();
+  render();
+}
+applyTheme();
+
+// ── BACKGROUND ────────────────────────────────────────────────────────────────
+function drawBG() {
+  var el = document.getElementById('bg');
+  if (!el) return;
+  var s = dark ? '#2a2a2a' : '#c0c0c0';
+  var s2 = dark ? '#222' : '#d0d0d0';
+  var p = [];
+  // ground
+  p.push('<line x1="0" y1="625" x2="1000" y2="625" stroke="'+s2+'" stroke-width="2"/>');
+  for (var x = 0; x < 1000; x += 80) p.push('<line x1="'+(x+10)+'" y1="630" x2="'+(x+50)+'" y2="630" stroke="'+s2+'" stroke-width="1.2" stroke-dasharray="30,50"/>');
+  // left building
+  p.push('<rect x="30" y="300" width="110" height="325" fill="none" stroke="'+s+'" stroke-width="1.5"/>');
+  for (var r = 0; r < 10; r++) for (var c = 0; c < 4; c++) p.push('<rect x="'+(42+c*24)+'" y="'+(312+r*28)+'" width="16" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>');
+  p.push('<rect x="55" y="585" width="60" height="40" fill="none" stroke="'+s+'" stroke-width="1.2"/>');
+  p.push('<line x1="85" y1="300" x2="85" y2="260" stroke="'+s+'" stroke-width="1.2"/>');
+  p.push('<line x1="78" y1="270" x2="92" y2="270" stroke="'+s+'" stroke-width="1"/>');
+  // mid building
+  p.push('<rect x="150" y="435" width="75" height="190" fill="none" stroke="'+s+'" stroke-width="1.5"/>');
+  for (var r = 0; r < 6; r++) for (var c = 0; c < 3; c++) p.push('<rect x="'+(158+c*22)+'" y="'+(445+r*28)+'" width="14" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>');
+  // crane left
+  p.push('<line x1="248" y1="625" x2="248" y2="180" stroke="'+s+'" stroke-width="2"/>');
+  for (var i = 0; i < 8; i++) { var y = 230+i*50; if(i%2===0) p.push('<line x1="242" y1="'+y+'" x2="254" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>'); else p.push('<line x1="254" y1="'+y+'" x2="242" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>'); }
+  p.push('<rect x="240" y="188" width="24" height="18" fill="none" stroke="'+s+'" stroke-width="1.2"/>');
+  p.push('<line x1="248" y1="192" x2="430" y2="192" stroke="'+s+'" stroke-width="2"/>');
+  p.push('<line x1="248" y1="192" x2="190" y2="192" stroke="'+s+'" stroke-width="1.8"/>');
+  p.push('<rect x="178" y="188" width="18" height="12" fill="none" stroke="'+s+'" stroke-width="1.2"/>');
+  p.push('<line x1="248" y1="175" x2="430" y2="192" stroke="'+s+'" stroke-width="0.8"/>');
+  p.push('<line x1="248" y1="175" x2="190" y2="192" stroke="'+s+'" stroke-width="0.8"/>');
+  p.push('<line x1="390" y1="192" x2="390" y2="250" stroke="'+s+'" stroke-width="0.8"/>');
+  p.push('<path d="M385 250 Q390 260 395 250" fill="none" stroke="'+s+'" stroke-width="1.2"/>');
+  // suspension bridge
+  p.push('<rect x="350" y="618" width="300" height="8" fill="none" stroke="'+s+'" stroke-width="1.5"/>');
+  p.push('<rect x="372" y="535" width="12" height="88" fill="none" stroke="'+s+'" stroke-width="1.5"/>');
+  p.push('<rect x="616" y="535" width="12" height="88" fill="none" stroke="'+s+'" stroke-width="1.5"/>');
+  p.push('<path d="M350 562 Q500 502 650 562" fill="none" stroke="'+s+'" stroke-width="2"/>');
+  for (var i = 0; i < 13; i++) { var hx = 380+i*20; var t = (hx-380)/240; var hy = 560-90*(1-(2*t-1)*(2*t-1)); p.push('<line x1="'+hx+'" y1="622" x2="'+hx+'" y2="'+hy+'" stroke="'+s+'" stroke-width="0.8"/>'); }
+  p.push('<rect x="340" y="612" width="22" height="12" fill="none" stroke="'+s+'" stroke-width="1.2"/>');
+  p.push('<rect x="638" y="612" width="22" height="12" fill="none" stroke="'+s+'" stroke-width="1.2"/>');
+  // crane right
+  p.push('<line x1="740" y1="625" x2="740" y2="195" stroke="'+s+'" stroke-width="2"/>');
+  for (var i = 0; i < 8; i++) { var y = 230+i*50; if(i%2===0) p.push('<line x1="734" y1="'+y+'" x2="746" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>'); else p.push('<line x1="746" y1="'+y+'" x2="734" y2="'+(y+50)+'" stroke="'+s+'" stroke-width="0.8"/>'); }
+  p.push('<rect x="732" y="203" width="24" height="18" fill="none" stroke="'+s+'" stroke-width="1.2"/>');
+  p.push('<line x1="740" y1="207" x2="580" y2="207" stroke="'+s+'" stroke-width="2"/>');
+  p.push('<line x1="740" y1="207" x2="800" y2="207" stroke="'+s+'" stroke-width="1.8"/>');
+  p.push('<rect x="800" y="203" width="18" height="12" fill="none" stroke="'+s+'" stroke-width="1.2"/>');
+  p.push('<line x1="740" y1="190" x2="580" y2="207" stroke="'+s+'" stroke-width="0.8"/>');
+  p.push('<line x1="740" y1="190" x2="800" y2="207" stroke="'+s+'" stroke-width="0.8"/>');
+  p.push('<line x1="612" y1="207" x2="612" y2="265" stroke="'+s+'" stroke-width="0.8"/>');
+  p.push('<path d="M607 265 Q612 275 617 265" fill="none" stroke="'+s+'" stroke-width="1.2"/>');
+  // right building
+  p.push('<rect x="790" y="345" width="95" height="280" fill="none" stroke="'+s+'" stroke-width="1.5"/>');
+  for (var r = 0; r < 9; r++) for (var c = 0; c < 3; c++) p.push('<rect x="'+(800+c*26)+'" y="'+(355+r*28)+'" width="18" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>');
+  p.push('<line x1="837" y1="345" x2="837" y2="305" stroke="'+s+'" stroke-width="1.2"/>');
+  // far right building
+  p.push('<rect x="895" y="465" width="70" height="160" fill="none" stroke="'+s+'" stroke-width="1.5"/>');
+  for (var r = 0; r < 5; r++) for (var c = 0; c < 2; c++) p.push('<rect x="'+(904+c*28)+'" y="'+(475+r*28)+'" width="18" height="18" fill="none" stroke="'+s+'" stroke-width="0.8"/>');
+  // beam diagram top left
+  p.push('<line x1="30" y1="130" x2="200" y2="130" stroke="'+s+'" stroke-width="2"/>');
+  p.push('<polygon points="30,130 20,148 40,148" fill="none" stroke="'+s+'" stroke-width="1.2"/>');
+  p.push('<polygon points="200,130 190,148 210,148" fill="none" stroke="'+s+'" stroke-width="1.2"/>');
+  for (var bx = 50; bx <= 190; bx += 20) { p.push('<line x1="'+bx+'" y1="110" x2="'+bx+'" y2="128" stroke="'+s+'" stroke-width="0.9"/>'); p.push('<polygon points="'+bx+',130 '+(bx-3)+',122 '+(bx+3)+',122" fill="'+s+'"/>'); }
+  p.push('<line x1="50" y1="110" x2="190" y2="110" stroke="'+s+'" stroke-width="1"/>');
+  // survey instrument
+  p.push('<rect x="28" y="50" width="66" height="26" fill="none" stroke="'+s+'" stroke-width="1.4" rx="4"/>');
+  p.push('<circle cx="61" cy="63" r="7" fill="none" stroke="'+s+'" stroke-width="1"/>');
+  p.push('<line x1="61" y1="76" x2="61" y2="98" stroke="'+s+'" stroke-width="1.4"/>');
+  p.push('<line x1="43" y1="98" x2="79" y2="98" stroke="'+s+'" stroke-width="1.4"/>');
+  p.push('<line x1="61" y1="98" x2="38" y2="130" stroke="'+s+'" stroke-width="1.2"/>');
+  p.push('<line x1="61" y1="98" x2="61" y2="133" stroke="'+s+'" stroke-width="1.2"/>');
+  p.push('<line x1="61" y1="98" x2="84" y2="130" stroke="'+s+'" stroke-width="1.2"/>');
+  // topo lines top right
+  var tlines = ['M820 75 Q840 65 865 73 Q888 81 908 70 Q928 59 945 67','M820 90 Q842 79 867 88 Q890 97 912 85 Q932 74 945 82','M820 105 Q844 94 869 103 Q893 113 915 101 Q935 91 945 97'];
+  for (var ti = 0; ti < tlines.length; ti++) p.push('<path d="'+tlines[ti]+'" fill="none" stroke="'+s+'" stroke-width="0.9"/>');
+  // boring log far right
+  p.push('<rect x="955" y="300" width="38" height="195" fill="none" stroke="'+s+'" stroke-width="1"/>');
+  p.push('<text x="974" y="295" text-anchor="middle" font-size="8" fill="'+s+'" font-family="monospace">B-1</text>');
+  for (var bl of [340,385,445]) p.push('<line x1="955" y1="'+bl+'" x2="993" y2="'+bl+'" stroke="'+s+'" stroke-width="0.8"/>');
+  // retaining wall bottom left
+  p.push('<rect x="0" y="562" width="28" height="63" fill="none" stroke="'+s+'" stroke-width="1.5"/>');
+  for (var pi = 0; pi < 4; pi++) { var py = 570+pi*16; p.push('<line x1="28" y1="'+py+'" x2="46" y2="'+py+'" stroke="'+s+'" stroke-width="0.9"/>'); }
+  el.innerHTML = '<svg width="100%" height="100%" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">'+p.join('')+'</svg>';
+}
+
+// ── QUESTION BANK ─────────────────────────────────────────────────────────────
+var QB = [
+  // ETHICS
+  ["e1","Ethics","c","E","Under NSPE Code of Ethics, an engineer's paramount obligation is to:","A. Serve client finances|B. Hold public safety paramount|C. Keep all data confidential|D. Minimize project costs","B","First canon of NSPE: hold public safety, health, and welfare paramount.",""],
+  ["e2","Ethics","c","E","An engineer discovers a design flaw after construction begins. The MOST ethical action:","A. Correct in next phase|B. Notify client and stop if dangerous|C. Document and proceed|D. Tell contractor only","B","Engineers must notify responsible parties and halt work posing safety risks.",""],
+  ["e3","Ethics","c","M","An engineer can seal plans prepared by another when:","A. Both hold PE in same state|B. Engineer reviews and takes full responsibility|C. Client authorizes it|D. Plans are minor","B","A PE may seal work they reviewed and took professional responsibility for — not rubber-stamp.",""],
+  ["e4","Ethics","c","M","Which is NOT a conflict of interest requiring disclosure?","A. Stock in specified supplier|B. Related to bidding contractor|C. Same university as client|D. On board regulating project","C","Attending the same school is not a financial or fiduciary conflict.",""],
+  ["e5","Ethics","c","E","Advertising engineering services falsely or misleadingly is:","A. Permitted if it attracts clients|B. A violation of professional ethics|C. Prohibited only for public work|D. Allowed with client consent","B","NSPE prohibits false, misleading, or deceptive advertising.",""],
+  ["e6","Ethics","c","M","'Responsible charge' means:","A. Financial liability|B. Direct control and personal supervision|C. Reviewing drawings before sealing|D. Signing contracts","B","Responsible charge = direct control and supervision — not just reviewing final product.",""],
+  ["e7","Ethics","c","E","An engineer shall not reveal confidential client info without:","A. Payment|B. Client consent unless required by law|C. State board approval|D. Senior review","B","Confidentiality maintained unless client consents or law requires disclosure.",""],
+  ["e8","Ethics","c","M","A PE allowing a non-licensed person to use their seal faces:","A. Written warning only|B. License revocation and legal penalties|C. OK if person is EIT|D. OK for small projects","B","Seal misuse: revocation, fines, and criminal charges.",""],
+  ["e9","Ethics","c","M","'Sustainable development' in engineering ethics means:","A. Minimizing cost|B. Meeting present needs without compromising future generations|C. Using only recycled materials|D. Designing for 100-year life","B","Brundtland definition: present needs without compromising future generations.",""],
+  ["e10","Ethics","c","H","If engineer believes project violates safety but employer disagrees, first action:","A. Report to authorities|B. Resign|C. Notify employer in writing|D. Proceed and note objection","C","Document formally with employer first; escalate only if unresolved.",""],
+  // GEOTECHNICAL
+  ["g1","Geotechnical","c","E","Effective stress in soil equals:","A. Total stress minus pore pressure|B. Total stress plus pore pressure|C. Stress at failure|D. Stress at surface","A","σ' = σ − u. Controls shear strength and consolidation.",""],
+  ["g2","Geotechnical","c","E","USCS: soil with more than 50% passing No. 200 sieve is:","A. Gravel|B. Sand|C. Fine-grained|D. Organic","C","USCS: >50% passing #200 = fine-grained (silt or clay).",""],
+  ["g3","Geotechnical","c","M","Active earth pressure develops when retaining wall:","A. Pushed into soil|B. Moves away from backfill|C. Completely rigid|D. Founded on rock","B","Active pressure forms when wall moves away, allowing lateral soil expansion.",""],
+  ["g4","Geotechnical","c","E","Proctor compaction test determines:","A. Shear strength vs depth|B. Dry unit weight vs moisture content|C. Permeability vs void ratio|D. Settlement vs time","B","Proctor finds optimum moisture content for maximum dry unit weight.",""],
+  ["g5","Geotechnical","c","M","OCR > 1 means the soil:","A. Never been loaded|B. Previously subjected to greater effective stress|C. At maximum past pressure|D. Has high liquid limit","B","OCR = σ'p/σ'v0 > 1 → overconsolidated.",""],
+  ["g6","Geotechnical","c","H","Critical hydraulic gradient in soil occurs when:","A. Flow exceeds erosion velocity|B. Effective stress equals zero — piping/heave|C. Permeability > 10⁻² cm/s|D. Pore pressure = atmospheric","B","ic = γ'/γw. Upward gradient = ic → effective stress → 0 → piping.",""],
+  ["g7","Geotechnical","c","E","PI = 0 means the soil is:","A. Highly plastic clay|B. Non-plastic|C. Expansive clay|D. Organic","B","PI = LL − PL = 0 → no plastic range.",""],
+  ["g8","Geotechnical","c","M","Liquefaction risk is highest in:","A. Dense gravel|B. Loose saturated sand under seismic loading|C. Stiff clay|D. Dry cohesionless soil","B","Liquefaction: loose, saturated, cohesionless soils under cyclic loading.",""],
+  ["g9","Geotechnical","n","E","Total unit weight = 120 pcf, water content = 20%. Dry unit weight:","A. 96 pcf|B. 100 pcf|C. 110 pcf|D. 144 pcf","B","γd = γ/(1+w) = 120/1.20 = 100 pcf","γd = γ/(1+w)"],
+  ["g10","Geotechnical","n","M","Ka for φ = 30°:","A. 0.17|B. 0.33|C. 0.50|D. 0.67","B","Ka = tan²(45−15) = tan²(30) = 0.333","Ka = tan²(45 − φ/2)"],
+  ["g11","Geotechnical","n","M","Effective vertical stress: top 5 ft γ=110 pcf (above WT), bottom 5 ft γsat=125 pcf, γw=62.4 pcf:","A. 312 psf|B. 550 psf|C. 862 psf|D. 1093 psf","C","σv=1175, u=312, σ'=863 psf","σ'v = σv − u"],
+  ["g12","Geotechnical","n","H","Footing: c=500 psf, φ=0, γ=115 pcf, D=2 ft, Nc=5.7, Nq=1. Ultimate bearing capacity:","A. 2850 psf|B. 3080 psf|C. 4000 psf|D. 5700 psf","B","qu = 500×5.7 + 115×2 = 3080 psf","qu = cNc + γDNq"],
+  ["g13","Geotechnical","c","M","SPT N-value measures:","A. Unconfined strength|B. Blow count as measure of soil resistance|C. Permeability|D. Moisture content","B","SPT N-value = blows per foot — estimates relative density and strength.",""],
+  ["g14","Geotechnical","c","M","A flow net is used to determine:","A. Bearing capacity|B. Seepage quantity and pore pressures|C. Consolidation rate|D. Slope stability","B","Flow nets graphically solve seepage — find flow quantity and pore pressures.",""],
+  // STRUCTURAL
+  ["s1","Structural","c","E","Max moment in simply supported beam with UDL at:","A. Supports|B. Quarter points|C. Midspan|D. Third points","C","M_max = wL²/8 at midspan.",""],
+  ["s2","Structural","c","M","Stirrups in RC beams resist:","A. Flexure|B. Diagonal tension (shear)|C. Deflection|D. Corrosion","B","Stirrups = transverse reinforcement resisting shear (diagonal tension).",""],
+  ["s3","Structural","c","E","Hooke's Law σ = Eε means:","A. Stress inversely proportional to strain|B. Stress proportional to strain within elastic range|C. Stress equals yield stress|D. Stress independent of modulus","B","Linear elastic behavior within proportional limit.",""],
+  ["s4","Structural","c","E","E for structural steel is approximately:","A. 10000 ksi|B. 15000 ksi|C. 29000 ksi|D. 57000 ksi","C","E_steel = 29,000 ksi (200 GPa).",""],
+  ["s5","Structural","c","M","Truss members carry only:","A. Shear and bending|B. Axial forces|C. Torsion|D. All of the above","B","Ideal truss members: pinned ends, axial only.",""],
+  ["s6","Structural","c","E","Factor of safety (FS) is:","A. Design load / applied load|B. Resistance / demand|C. Ultimate / elastic limit|D. Yield / ultimate stress","B","FS = Resistance/Demand. FS > 1 means capacity exceeds demand.",""],
+  ["s7","Structural","c","M","Creep in concrete is:","A. Sudden failure|B. Long-term deformation under sustained load|C. Thermal cracking|D. Foundation settlement","B","Creep = time-dependent deformation under sustained compressive stress.",""],
+  ["s8","Structural","n","E","SS beam: L=20 ft, w=2 kip/ft. Max moment:","A. 50 kip-ft|B. 100 kip-ft|C. 200 kip-ft|D. 400 kip-ft","B","M = wL²/8 = 2×400/8 = 100 kip-ft","M = wL²/8"],
+  ["s9","Structural","n","M","Beam b=10 in, h=18 in. Moment of inertia:","A. 2430 in⁴|B. 4860 in⁴|C. 8748 in⁴|D. 1215 in⁴","B","I = bh³/12 = 10×18³/12 = 4860 in⁴","I = bh³/12"],
+  ["s10","Structural","n","M","M=100 kip-ft, I=4860 in⁴, c=9 in. Bending stress:","A. 1.1 ksi|B. 2.2 ksi|C. 4.4 ksi|D. 0.55 ksi","B","σ = Mc/I = (100×12×9)/4860 ≈ 2.22 ksi","σ = Mc/I"],
+  ["s11","Structural","c","H","Fixed-end beam carries higher loads than SS beam because:","A. Fixed ends increase span|B. Negative moments at ends reduce midspan moment|C. Fixed ends prevent all deflection|D. Material strengthens at connections","B","Fixed ends develop negative moments reducing midspan moment from wL²/8 to wL²/24.",""],
+  ["s12","Structural","c","M","Pin support provides:","A. H + V + moment|B. H + V only|C. V only|D. Moment only","B","Pin: Rx and Ry, no moment. Roller: Ry only. Fixed: Rx, Ry, and moment.",""],
+  // TRANSPORTATION
+  ["t1","Transportation","c","E","Stopping Sight Distance (SSD) is the distance to:","A. Change lanes|B. Perceive hazard and stop before reaching it|C. Complete U-turn|D. Accelerate to speed","B","SSD = perception-reaction distance + braking distance.",""],
+  ["t2","Transportation","c","M","Superelevation on a horizontal curve counteracts:","A. Increases thickness|B. Centrifugal force|C. Reduces drainage|D. Minimizes earthwork","B","Superelevation (banking) tilts roadway to counter centripetal acceleration.",""],
+  ["t3","Transportation","c","E","AASHTO Green Book covers:","A. Pavement materials|B. Geometric design of highways|C. Signal timing|D. Structural pavement design","B","AASHTO Green Book = geometric design of highways and streets.",""],
+  ["t4","Transportation","c","M","LOS F represents:","A. Free flow|B. Stable flow at capacity|C. Forced flow — breakdown/stop-and-go|D. Unstable flow near capacity","C","LOS F = forced or breakdown flow — demand exceeds capacity.",""],
+  ["t5","Transportation","n","E","Speed = 60 mph, reaction time = 2.5 s. Reaction distance:","A. 88 ft|B. 132 ft|C. 176 ft|D. 220 ft","D","d = 88 fps × 2.5 s = 220 ft  (60 mph = 88 ft/s)","d = v × t"],
+  ["t6","Transportation","n","M","V=60 mph, e=0.08, f=0.12. Minimum radius R:","A. 500 ft|B. 1000 ft|C. 1200 ft|D. 2000 ft","C","R = V²/[15(e+f)] = 3600/3 = 1200 ft","R = V²/[15(e+f)]"],
+  ["t7","Transportation","n","M","Flow=1200 veh/hr, speed=40 mph. Traffic density:","A. 15 veh/mi|B. 30 veh/mi|C. 48000 veh/mi|D. 1 veh/mi","B","k = q/u = 1200/40 = 30 veh/mi","k = q/u"],
+  ["t8","Transportation","c","M","AADT is:","A. Peak hour volume|B. Total annual volume / 365|C. Design hour volume|D. Max monthly volume","B","AADT = total annual two-directional traffic / 365 days.",""],
+  // WATER RESOURCES
+  ["w1","Water Resources","c","E","Manning's equation calculates:","A. Groundwater flow|B. Open channel flow velocity|C. Pipe pressure loss|D. Wave height","B","Manning's V=(1/n)R^(2/3)S^(1/2) applies to open channel flow.",""],
+  ["w2","Water Resources","c","E","Q = VA (continuity) states:","A. Pressure × area = constant|B. Flow rate = velocity × area|C. Energy conserved|D. Head loss ∝ velocity","B","Q = VA: volume flow rate = velocity × cross-sectional area.",""],
+  ["w3","Water Resources","c","M","Rational Method Q = CiA estimates:","A. Groundwater recharge|B. Peak stormwater runoff|C. Evapotranspiration|D. Base flow","B","C=runoff coeff, i=intensity, A=area — peak runoff for small watersheds.",""],
+  ["w4","Water Resources","c","H","A hydraulic jump transitions flow from:","A. Subcritical to supercritical|B. Supercritical to subcritical|C. Laminar to turbulent|D. Pressurized to open channel","B","Hydraulic jump: abrupt Fr>1 to Fr<1 transition with energy loss.",""],
+  ["w5","Water Resources","c","E","100-year storm annual probability of exceedance:","A. 1%|B. 10%|C. 0.1%|D. 100%","A","T=1/P → 100-yr storm: P=1% annual probability.",""],
+  ["w6","Water Resources","c","E","BOD measures:","A. Dissolved oxygen in stream|B. Oxygen consumed by biological activity|C. Water hardness|D. pH","B","BOD = oxygen consumed by microorganisms decomposing organic matter.",""],
+  ["w7","Water Resources","n","E","Pipe D=12 in, V=4 fps. Flow rate Q:","A. 3.14 cfs|B. 6.28 cfs|C. 12.6 cfs|D. 1.57 cfs","A","A=π(0.5)²=0.785 ft². Q=4×0.785=3.14 cfs","Q = V×A, A = πD²/4"],
+  ["w8","Water Resources","n","M","Manning's n=0.013, R=1.5 ft, S=0.001. Velocity V:","A. 2.1 fps|B. 3.5 fps|C. 4.7 fps|D. 6.1 fps","C","V=(1.486/0.013)×1.5^0.667×0.001^0.5 ≈ 4.7 fps","V=(1.486/n)R^(2/3)S^(1/2)"],
+  // CONSTRUCTION
+  ["c1","Construction","c","E","Critical path in CPM:","A. Costs the most|B. Determines shortest project completion with zero float|C. Has most float|D. Uses most labor","B","Critical path = longest path = minimum project duration. Zero float.",""],
+  ["c2","Construction","c","M","Total float is:","A. Time saved by overtime|B. Max delay without delaying project completion|C. Extra budget|D. Activity duration","B","Float = LS−ES. How much activity can slip without affecting end date.",""],
+  ["c3","Construction","c","E","A performance bond guarantees:","A. Payment to subs|B. Project completion by contractor|C. Bid price validity|D. Material quality","B","Performance bond guarantees contractor completes the project.",""],
+  ["c4","Construction","c","M","Contract type with MOST risk on contractor:","A. Cost plus fixed fee|B. Cost plus percentage|C. Lump sum|D. Unit price","C","Lump sum: contractor absorbs all cost overruns — maximum contractor risk.",""],
+  ["c5","Construction","c","E","OSHA fall protection in construction required at:","A. 4 ft|B. 6 ft|C. 8 ft|D. 10 ft","B","OSHA: 6 ft in construction, 4 ft in general industry.",""],
+  ["c6","Construction","c","M","Compaction specified as % of:","A. In-situ density|B. Max dry unit weight from Proctor test|C. Saturated unit weight|D. Specific gravity","B","Compaction spec: e.g. 95% of max dry unit weight from Proctor.",""],
+  ["c7","Construction","c","H","CPI in Earned Value Management:","A. PV/AC|B. EV/AC|C. AC/PV|D. EV/PV","B","CPI=EV/AC. >1=under budget. <1=over budget.",""],
+  ["c8","Construction","c","E","Sheeting and shoring in excavations primarily:","A. Improves bearing capacity|B. Prevents cave-ins and protects workers|C. Dewaters excavation|D. Compacts subgrade","B","OSHA requires protective systems to prevent cave-ins.",""],
+  // ENVIRONMENTAL
+  ["ev1","Environmental","c","E","Primary wastewater treatment removes:","A. Dissolved nutrients|B. Suspended solids by settling|C. Pathogens|D. BOD","B","Primary treatment = sedimentation to remove suspended solids.",""],
+  ["ev2","Environmental","c","M","Activated sludge is:","A. Primary treatment|B. Tertiary treatment|C. Secondary biological treatment|D. Disinfection","C","Activated sludge uses microorganisms to degrade dissolved organics.",""],
+  ["ev3","Environmental","c","E","NPDES permits cover:","A. Underground storage tanks|B. Point source discharges to navigable waters|C. Air emissions|D. Hazardous waste","B","NPDES regulates point source discharges under the Clean Water Act.",""],
+  ["ev4","Environmental","c","H","Eutrophication most commonly caused by:","A. Excess dissolved oxygen|B. Excess nitrogen and phosphorus|C. Suspended sediment|D. pH reduction","B","Excess N and P cause algal blooms, depleting DO.",""],
+  ["ev5","Environmental","c","E","Chlorination of drinking water:","A. Removes hardness|B. Disinfects and kills pathogens|C. Adjusts pH|D. Removes iron","B","Chlorination = primary disinfection method for drinking water.",""],
+  // SURVEYING
+  ["sv1","Surveying","c","E","A benchmark is:","A. A measured horizontal distance|B. A point of known elevation used as reference|C. A property corner|D. A GPS point","B","Benchmark = permanent reference point of known elevation.",""],
+  ["sv2","Surveying","n","E","HI=105.42 ft, foresight=3.21 ft. Unknown elevation:","A. 102.21 ft|B. 108.63 ft|C. 105.42 ft|D. 108.21 ft","A","Elev = HI − FS = 105.42 − 3.21 = 102.21 ft","Elev = HI − Foresight"],
+  ["sv3","Surveying","c","M","A Total Station combines:","A. Level and rod|B. Electronic theodolite and EDM|C. GPS and compass|D. Planimeter and level","B","Total Station = electronic theodolite + EDM.",""],
+  ["sv4","Surveying","n","M","Bearing N 45° E as azimuth:","A. 45°|B. 135°|C. 225°|D. 315°","A","N 45° E = azimuth 45°. NW=360°−bearing; SE=180°−bearing.","NE=bearing; SE=180°−b; SW=180°+b; NW=360°−b"],
+  ["sv5","Surveying","c","E","A backsight is taken on:","A. Unknown point|B. Known elevation point|C. Turning point ahead|D. Benchmark only","B","Backsight (BS) on known elevation establishes HI.",""],
+  // PROJECT MANAGEMENT
+  ["pm1","Project Management","c","E","Gantt chart shows:","A. Project costs|B. Task durations on a timeline|C. Critical path|D. Team performance","B","Gantt = tasks as horizontal bars against time axis.",""],
+  ["pm2","Project Management","c","M","SPI > 1.0 means:","A. Over budget|B. Behind schedule|C. Ahead of schedule|D. At risk","C","SPI=EV/PV. SPI>1=ahead of schedule.",""],
+  ["pm3","Project Management","c","E","Triple constraint in project management:","A. Cost, Schedule, Scope|B. Safety, Quality, Cost|C. Resources, Risk, Schedule|D. Design, Build, Operate","A","Iron triangle: Cost, Schedule, Scope.",""],
+  ["pm4","Project Management","c","M","WBS organizes project by:","A. Calendar dates|B. Hierarchical decomposition of deliverables|C. Resource assignments|D. Risk levels","B","WBS = hierarchical tree of deliverables.",""],
+  ["pm5","Project Management","c","H","Risk mitigation means:","A. Accepting all risks|B. Transferring risk to owner|C. Reducing probability or impact|D. Eliminating all uncertainty","C","Mitigation reduces likelihood or consequence of risk.",""],
+  // UNITS & CONVERSIONS
+  ["u1","Units & Conversions","c","E","Difference between lbf and lbm:","A. Identical units|B. lbf = force; lbm = mass|C. lbm used in SI|D. lbf is larger by 32.2","B","lbf = force unit. lbm = mass unit. Numerically equal only at standard gravity.",""],
+  ["u2","Units & Conversions","c","M","In F=ma, m in lbm, a in ft/s², to get F in lbf:","A. Multiply by 32.2|B. Divide by gc = 32.174|C. No conversion|D. Multiply by 144","B","F(lbf) = m(lbm)×a/gc. Forgetting gc is the classic error.",""],
+  ["u3","Units & Conversions","c","E","1 kip equals:","A. 100 lb|B. 1000 lb|C. 10000 lb|D. 100 kN","B","kip = kilopound = 1,000 lbf.",""],
+  ["u4","Units & Conversions","c","E","1 psi equals how many psf?","A. 12|B. 72|C. 144|D. 288","C","1 psi = 144 psf. (1 lb/in² × 144 in²/ft²)",""],
+  ["u5","Units & Conversions","c","E","1 acre equals:","A. 10000 ft²|B. 43560 ft²|C. 100000 ft²|D. 5280 ft²","B","1 acre = 43,560 ft².",""],
+  ["u6","Units & Conversions","c","M","1 cfs ≈ how many gpm?","A. 60|B. 225|C. 449|D. 7.48","C","1 cfs = 7.48 gal/ft³ × 60 s/min = 448.8 ≈ 449 gpm.",""],
+  ["u7","Units & Conversions","c","E","Specific weight of water in US Customary:","A. 62.4 pcf|B. 1000 pcf|C. 8.34 pcf|D. 32.2 pcf","A","γ_water = 62.4 pcf. SI: 9.81 kN/m³.",""],
+  ["u8","Units & Conversions","c","M","1 slug equals approximately:","A. 1 lbm|B. 14.6 lbm|C. 32.2 lbm|D. 2.2 lbm","C","1 slug = 32.174 lbm. Consistent mass unit for F=ma in lbf, ft, s.",""],
+  // STATICS
+  ["st1","Statics","c","E","For static equilibrium, required conditions:","A. ΣF=0 only|B. ΣM=0 only|C. Both ΣF=0 and ΣM=0|D. ΣF=ma","C","Static equilibrium requires sum of forces AND moments both equal zero.",""],
+  ["st2","Statics","c","E","A free body diagram (FBD) shows:","A. Internal forces only|B. All external forces and reactions|C. Deformations|D. Material properties","B","FBD isolates a body and shows all external forces, reactions, and moments.",""],
+  ["st3","Statics","n","E","10-ft SS beam, 100-lb point load at midspan. Each reaction:","A. 100 lb|B. 50 lb|C. 25 lb|D. 200 lb","B","By symmetry: R1=R2=100/2=50 lb","ΣFy = 0"],
+  ["st4","Statics","n","M","10-ft beam, pin at A, roller at B. 200-lb load at 4 ft from A. Reaction at B:","A. 80 lb|B. 120 lb|C. 100 lb|D. 160 lb","A","ΣMA=0: RB×10=200×4 → RB=80 lb","ΣM_A = 0"],
+  ["st5","Statics","c","E","A roller support provides:","A. H+V+moment|B. Only perpendicular reaction|C. H+V only|D. Moment only","B","Roller = one reaction perpendicular to surface. No horizontal, no moment.",""],
+  ["st6","Statics","n","M","Moment of 50-lb force at perpendicular distance 4 ft:","A. 12.5 lb-ft|B. 54 lb-ft|C. 200 lb-ft|D. 46 lb-ft","C","M = F × d = 50 × 4 = 200 lb-ft","M = F × d"],
+  ["st7","Statics","n","H","F1=60 lb at 0°, F2=80 lb at 90°. Resultant:","A. 100 lb|B. 140 lb|C. 72 lb|D. 20 lb","A","R=√(60²+80²)=√10000=100 lb","R = √(Fx²+Fy²)"],
+  // MECHANICS
+  ["m1","Mechanics of Materials","c","E","Axial strain ε is:","A. Force/area|B. Deformation/original length|C. Stress × modulus|D. Volume change","B","ε = δ/L. Dimensionless.",""],
+  ["m2","Mechanics of Materials","c","E","Poisson's ratio ν relates:","A. Shear stress to shear strain|B. Lateral strain to axial strain|C. Stress to temperature|D. Modulus to density","B","ν = −εlateral/εaxial. Steel ≈ 0.3.",""],
+  ["m3","Mechanics of Materials","c","M","Shear stress distribution in rectangular beam:","A. Uniform|B. Linear, zero at centroid|C. Parabolic, max at neutral axis|D. Zero throughout","C","τ=VQ/Ib → parabolic, max at neutral axis, zero at top/bottom.",""],
+  ["m4","Mechanics of Materials","c","E","UTS (ultimate tensile strength) is:","A. Stress at first yield|B. Max engineering stress on stress-strain curve|C. Stress at fracture|D. Modulus of elasticity","B","UTS = peak of stress-strain curve — max load / original area.",""],
+  ["m5","Mechanics of Materials","n","M","Shaft: T=5 kip-in, r=1 in, J=π/2 in⁴. Max shear stress:","A. 2.5 ksi|B. 3.18 ksi|C. 5.0 ksi|D. 10.0 ksi","B","τ=Tr/J=5×1/(π/2)=3.18 ksi","τ = Tr/J"],
+  ["m6","Mechanics of Materials","c","H","Fatigue failure typically occurs at:","A. Above UTS|B. Above yield stress|C. Below yield after many cycles|D. Only under impact","C","Fatigue failure occurs below yield stress after many repeated cycles.",""],
+  ["m7","Mechanics of Materials","c","M","Thermal stress in a constrained member when:","A. Load applied|B. Temperature changes but expansion prevented|C. Member yields|D. Moisture changes","B","σ_thermal = EαΔT when thermal expansion is fully restrained.",""],
+  // PROBABILITY
+  ["p1","Probability & Statistics","c","E","Probability of an impossible event:","A. 1|B. 0.5|C. 0|D. Undefined","C","Impossible event P=0. Certain event P=1.",""],
+  ["p2","Probability & Statistics","c","E","The mean of a dataset is:","A. Most frequent value|B. Middle value when sorted|C. Sum / count|D. Max minus min","C","Mean = Σx/n. Median = middle. Mode = most frequent.",""],
+  ["p3","Probability & Statistics","c","M","Standard deviation measures:","A. Central tendency|B. Spread around the mean|C. Skewness|D. Probability","B","σ = √(variance) = measure of dispersion around the mean.",""],
+  ["p4","Probability & Statistics","c","M","For independent events A and B, P(A and B) =","A. P(A)+P(B)|B. P(A)×P(B)|C. P(A)−P(B)|D. P(A)/P(B)","B","Independent events: P(A∩B) = P(A)×P(B).",""],
+  ["p5","Probability & Statistics","n","M","Dataset: 2,4,4,6,6,8. Mean and median:","A. Mean=4 Median=5|B. Mean=5 Median=5|C. Mean=5 Median=4|D. Mean=6 Median=6","B","Mean=30/6=5. Median=(4+6)/2=5.","Mean = Σx/n"],
+  ["p6","Probability & Statistics","c","M","Median preferred over mean when data has:","A. Normal distribution|B. Extreme outliers or skewed distribution|C. Small sample size|D. Discrete values only","B","Median is resistant to outliers — preferred for skewed data.",""]
+];
+// QB format: [id, cat, mode(c/n), diff(E/M/H), question, "A..|B..|C..|D..", answer, explanation, formula]
+
+var FORMULAS = [
+  {cat:"Hydraulics",f:"Q = V × A",n:"Flow rate"},
+  {cat:"Hydraulics",f:"V = (1.486/n)R^(2/3)S^(1/2)",n:"Manning's (US)"},
+  {cat:"Hydraulics",f:"hf = f(L/D)(V²/2g)",n:"Darcy-Weisbach"},
+  {cat:"Hydraulics",f:"Fr = V/√(gD)",n:"Froude number"},
+  {cat:"Geotechnical",f:"σ' = σ − u",n:"Effective stress"},
+  {cat:"Geotechnical",f:"Ka = tan²(45 − φ/2)",n:"Active earth pressure"},
+  {cat:"Geotechnical",f:"qu = cNc + γDNq + 0.5γBNγ",n:"Bearing capacity"},
+  {cat:"Geotechnical",f:"γd = γ/(1+w)",n:"Dry unit weight"},
+  {cat:"Structural",f:"M = wL²/8",n:"Max moment SS UDL"},
+  {cat:"Structural",f:"δ = 5wL⁴/384EI",n:"Midspan deflection"},
+  {cat:"Structural",f:"σ = Mc/I",n:"Bending stress"},
+  {cat:"Structural",f:"I = bh³/12",n:"Moment of inertia"},
+  {cat:"Structural",f:"Pe = π²EI/(KL)²",n:"Euler buckling"},
+  {cat:"Statics",f:"ΣF = 0,  ΣM = 0",n:"Equilibrium"},
+  {cat:"Mechanics",f:"δ = PL/(AE)",n:"Axial deformation"},
+  {cat:"Mechanics",f:"τ = Tr/J",n:"Torsional shear stress"},
+  {cat:"Transportation",f:"R = V²/[15(e+f)]",n:"Min curve radius"},
+  {cat:"Transportation",f:"k = q/u",n:"Traffic density"},
+  {cat:"Units",f:"1 psi = 144 psf",n:"Pressure"},
+  {cat:"Units",f:"1 kip = 1000 lbf",n:"Force"},
+  {cat:"Units",f:"1 cfs = 448.8 gpm",n:"Flow"},
+  {cat:"Units",f:"1 acre = 43560 ft²",n:"Area"},
+  {cat:"Units",f:"γ_water = 62.4 pcf = 9.81 kN/m³",n:"Water unit weight"},
+  {cat:"Units",f:"F(lbf) = m(lbm) × a / 32.174",n:"lbm to lbf (gc)"},
+  {cat:"Probability",f:"Mean = Σx/n",n:"Arithmetic mean"},
+  {cat:"Probability",f:"P(A∩B) = P(A) × P(B)",n:"Independent events"}
+];
+
+var CATS = ["All","Ethics","Geotechnical","Structural","Transportation","Water Resources","Construction","Environmental","Surveying","Project Management","Units & Conversions","Statics","Mechanics of Materials","Probability & Statistics"];
+var DIFFS = ["Mixed","Easy","Medium","Hard"];
+var TIMERS = [{l:"None",v:0},{l:"30s",v:30},{l:"45s",v:45},{l:"60s",v:60}];
+var COUNTS = [5,10,15,20];
+
+// ── STORAGE ───────────────────────────────────────────────────────────────────
+function ls(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lss(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function getStats(){ try{ return JSON.parse(ls('stats')||'{}'); }catch(e){ return {}; } }
+function addStat(cat,ok){ var s=getStats(); var p=s[cat]||{c:0,t:0}; s[cat]={c:p.c+(ok?1:0),t:p.t+1}; lss('stats',JSON.stringify(s)); }
+function getSessions(){ try{ return JSON.parse(ls('sess')||'[]'); }catch(e){ return []; } }
+function addSession(sc,tot,mode,cat){ var h=getSessions(); h.unshift({sc:sc,tot:tot,mode:mode,cat:cat,d:new Date().toLocaleDateString()}); lss('sess',JSON.stringify(h.slice(0,8))); }
+function getNotes(){ try{ return JSON.parse(ls('notes')||'{}'); }catch(e){ return {}; } }
+function saveNote(id,v){ var n=getNotes(); n[id]=v; lss('notes',JSON.stringify(n)); }
+function installSeen(){ return ls('inst')==='1'; }
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+var S={tab:'quiz',screen:'home',mode:'c',cat:'All',diff:'Mixed',count:10,timer:0,
+       qs:[],cur:0,sel:null,ans:[],stats:{},streak:0,best:0,flagged:[],conf:{},
+       tLeft:0,tId:null,modal:null,err:''};
+
+function pool(){
+  var r=QB.slice();
+  if(S.cat!=='All') r=r.filter(function(q){return q[1]===S.cat;});
+  if(S.mode!=='both') r=r.filter(function(q){return q[2]===S.mode;});
+  if(S.diff!=='Mixed') r=r.filter(function(q){return q[3]===S.diff[0];});
+  r.sort(function(){return Math.random()-0.5;});
+  return r.slice(0,S.count);
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function esc(s){ return String(s).replace(/'/g,"&#39;").replace(/"/g,"&quot;"); }
+
+function render(){
+  var a=document.getElementById('app');
+  if(!a) return;
+  var h='';
+
+  // modal
+  if(S.modal==='exit'){
+    h='<div class="modal"><div class="mbox"><p style="font-size:16px;font-weight:600;color:var(--tx,#e5e5e5);margin-bottom:8px;">Exit Quiz?</p><p style="font-size:13px;color:#888;margin-bottom:20px;">Your progress will be lost.</p><div style="display:flex;gap:8px;"><button class="btn2" style="flex:1;" onclick="S.modal=null;render()">Keep Going</button><button class="btn" style="margin-bottom:0;flex:1;" onclick="S.modal=null;S.screen=\'home\';clearInterval(S.tId);render()">Exit</button></div></div></div>';
+    a.innerHTML=h; return;
+  }
+  if(S.modal==='note'){
+    var qid=S.qs[S.cur]?S.qs[S.cur][0]:'';
+    var nv=getNotes()[qid]||'';
+    h='<div class="modal"><div class="mbox"><p style="font-size:15px;font-weight:600;color:var(--tx,#e5e5e5);margin-bottom:10px;">My Note</p><textarea id="ni" style="width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#111;color:#e5e5e5;font-size:13px;font-family:inherit;resize:none;outline:none;min-height:80px;">'+esc(nv)+'</textarea><div style="display:flex;gap:8px;margin-top:10px;"><button class="btn2" style="flex:1;" onclick="S.modal=null;render()">Cancel</button><button class="btn" style="flex:1;margin-bottom:0;" onclick="saveNote(\''+esc(qid)+'\',document.getElementById(\'ni\').value);S.modal=null;render()">Save</button></div></div></div>';
+    a.innerHTML=h; return;
+  }
+
+  if(S.screen==='home'){
+    h+='<div style="text-align:center;margin-bottom:18px;"><div style="width:50px;height:50px;border-radius:14px;background:#1a1600;border:1px solid #3a3000;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:20px;">📐</div><h1 style="font-size:21px;font-weight:600;">FE Civil Mastery</h1><p style="font-size:13px;color:#888;margin-top:3px;">Smart prep for the Civil FE exam</p></div>';
+    if(!installSeen()) h+='<div style="background:#1a1600;border:1px solid #3a3000;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="font-size:18px;">📲</span><div style="flex:1;"><p style="font-size:12px;font-weight:600;color:#f5c518;">Add to Home Screen</p><p style="font-size:11px;color:#888;">Safari Share → "Add to Home Screen"</p></div><button onclick="lss(\'inst\',\'1\');render()" style="background:none;border:none;color:#555;font-size:20px;cursor:pointer;line-height:1;">×</button></div>';
+    h+='<div class="tabs"><button class="'+(S.tab==='quiz'?'on':'')+'" onclick="S.tab=\'quiz\';render()">Quiz</button><button class="'+(S.tab==='offline'?'on':'')+'" onclick="S.tab=\'offline\';render()">Offline</button><button class="'+(S.tab==='formulas'?'on':'')+'" onclick="S.tab=\'formulas\';render()">Formulas</button><button class="'+(S.tab==='stats'?'on':'')+'" onclick="S.tab=\'stats\';render()">Stats</button></div>';
+
+    if(S.tab==='quiz'){
+      if(S.err) h+='<div style="background:#2b0d0d;border:1px solid #7f1d1d;border-radius:10px;padding:11px 13px;margin-bottom:12px;color:#fca5a5;font-size:13px;">'+S.err+'</div>';
+      h+='<div class="seg"><button class="'+(S.mode==='c'?'on':'')+'" onclick="S.mode=\'c\';render()">Conceptual <span style="font-size:10px;padding:1px 5px;border-radius:99px;background:'+(S.mode==='c'?'rgba(0,0,0,.15)':'#2a2a2a')+';margin-left:4px;">No math</span></button><button class="'+(S.mode==='n'?'on':'')+'" onclick="S.mode=\'n\';render()">Computational <span style="font-size:10px;padding:1px 5px;border-radius:99px;background:'+(S.mode==='n'?'rgba(0,0,0,.15)':'#2a2a2a')+';margin-left:4px;">Calc</span></button></div>';
+      h+='<div class="card"><span class="lbl">Topic</span><div style="position:relative"><select onchange="S.cat=this.value;render()">'+CATS.map(function(c){return '<option'+(c===S.cat?' selected':'')+'>'+c+'</option>';}).join('')+'</select><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#555;pointer-events:none;font-size:10px;">▼</span></div></div>';
+      h+='<div class="card"><span class="lbl">Difficulty</span><div class="g4">'+DIFFS.map(function(d){return '<button class="sb'+(S.diff===d?' on':'')+'" onclick="S.diff=\''+d+'\';render()">'+d+'</button>';}).join('')+'</div></div>';
+      h+='<div class="card"><span class="lbl">Questions</span><div class="g4">'+COUNTS.map(function(n){return '<button class="sb'+(S.count===n?' on':'')+'" onclick="S.count='+n+';render()">'+n+'</button>';}).join('')+'</div></div>';
+      h+='<div class="card"><span class="lbl">Timer per question</span><div class="g4">'+TIMERS.map(function(t){return '<button class="sb'+(S.timer===t.v?' on':'')+'" onclick="S.timer='+t.v+';render()">'+t.l+'</button>';}).join('')+'</div></div>';
+      h+='<p style="font-size:12px;color:#555;text-align:center;margin-bottom:10px;">📦 '+QB.length+' offline questions ready</p>';
+      h+='<button class="btn" onclick="startQuiz()">Start Quiz →</button>';
+    }
+
+    if(S.tab==='offline'){
+      h+='<div class="card"><p style="font-size:14px;font-weight:600;margin-bottom:6px;">Built-in Question Bank</p><p style="font-size:13px;color:#888;line-height:1.6;margin-bottom:12px;">Your app has <strong style="color:#f5c518;">'+QB.length+' questions</strong> built in — no internet needed.</p><div class="hr"></div>';
+      CATS.filter(function(c){return c!=='All';}).forEach(function(c){
+        var n=QB.filter(function(q){return q[1]===c;}).length;
+        h+='<div class="wr"><span style="font-size:13px;">'+c+'</span><span style="font-size:12px;color:#f5c518;font-weight:600;">'+n+'q</span></div>';
+      });
+      h+='</div><div class="card"><p style="font-size:14px;font-weight:600;margin-bottom:8px;">📲 Add to iPhone</p><p style="font-size:13px;color:#888;line-height:1.7;">1. Open in <strong>Safari</strong><br>2. Tap <strong style="color:#f5c518;">Share ↑</strong><br>3. Tap <strong style="color:#f5c518;">"Add to Home Screen"</strong><br>4. Tap <strong style="color:#f5c518;">Add</strong></p></div>';
+    }
+
+    if(S.tab==='formulas'){
+      h+='<h2 style="font-size:16px;font-weight:600;margin-bottom:4px;">Formula Reference</h2><p style="font-size:13px;color:#888;margin-bottom:14px;">Key FE equations — works offline</p>';
+      var fc=[]; FORMULAS.forEach(function(f){if(fc.indexOf(f.cat)<0)fc.push(f.cat);});
+      fc.forEach(function(cat){
+        h+='<p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px;">'+cat+'</p>';
+        FORMULAS.filter(function(f){return f.cat===cat;}).forEach(function(f){
+          h+='<div class="fcard"><p style="font-family:monospace;font-size:14px;color:#f5c518;margin-bottom:3px;">'+f.f+'</p><p style="font-size:12px;color:#888;">'+f.n+'</p></div>';
+        });
+      });
+    }
+
+    if(S.tab==='stats'){
+      var st=getStats(), sess=getSessions();
+      h+='<h2 style="font-size:16px;font-weight:600;margin-bottom:4px;">My Stats</h2><p style="font-size:13px;color:#888;margin-bottom:14px;">Cumulative performance</p>';
+      var kk=Object.keys(st);
+      if(!kk.length){ h+='<div class="card"><p style="font-size:13px;color:#888;text-align:center;">No data yet. Complete a quiz first.</p></div>'; }
+      else {
+        var tc=0,tt=0; kk.forEach(function(k){tc+=st[k].c;tt+=st[k].t;});
+        h+='<div class="card" style="text-align:center;margin-bottom:12px;"><div class="big">'+tc+'<span style="font-size:22px;color:#555;">/'+tt+'</span></div><p style="color:#888;font-size:14px;margin-top:4px;">'+Math.round(tc/tt*100)+'% overall</p></div>';
+        h+='<p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">By category</p>';
+        kk.sort(function(a,b){return(st[a].c/st[a].t)-(st[b].c/st[b].t);}).forEach(function(k){
+          var p=Math.round(st[k].c/st[k].t*100),col=p>=70?'#22c55e':p>=50?'#f5c518':'#ef4444';
+          h+='<div class="wr"><span style="font-size:13px;flex:1;">'+k+'</span><div class="wbar"><div style="height:4px;width:'+p+'%;background:'+col+';border-radius:99px;"></div></div><span style="font-size:12px;color:'+col+';font-weight:600;margin-left:8px;min-width:30px;">'+p+'%</span></div>';
+        });
+        if(sess.length){
+          h+='<p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px;">Recent Sessions</p>';
+          sess.slice(0,5).forEach(function(s){
+            var p=Math.round(s.sc/s.tot*100),col=p>=70?'#22c55e':p>=50?'#f5c518':'#ef4444';
+            h+='<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #1a1a1a;"><span style="font-size:13px;">'+s.cat+'</span><span style="font-size:12px;color:#555;">'+s.d+'</span><span style="font-size:13px;color:'+col+';font-weight:600;">'+s.sc+'/'+s.tot+'</span></div>';
+          });
+        }
+      }
+    }
+  }
+
+  else if(S.screen==='loading'){
+    h='<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;gap:16px;"><div class="spin"></div><p style="color:#666;font-size:14px;">Generating questions…</p></div>';
+  }
+
+  else if(S.screen==='quiz'){
+    var q=S.qs[S.cur];
+    if(!q){S.screen='home';render();return;}
+    var opts=q[5].split('|');
+    var timedOut=S.sel==='__to__';
+    var notes=getNotes(), hasNote=!!notes[q[0]];
+    var prog=S.cur/S.qs.length*100;
+    h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
+    h+='<div style="display:flex;gap:5px;align-items:center;"><span style="display:inline-block;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:600;background:#1a1600;color:#f5c518;border:1px solid #3a3000;">'+(S.mode==='c'?'Concept':'Calc')+'</span>'+(S.flagged.indexOf(S.cur)>=0?'<span style="font-size:11px;color:#ef4444;">🚩</span>':'')+(hasNote?'<span style="font-size:11px;color:#f5c518;">📝</span>':'')+'</div>';
+    h+='<div style="display:flex;gap:8px;align-items:center;">'+(S.streak>=2?'<span class="streak">🔥'+S.streak+'</span>':'')+(S.timer>0&&S.sel===null?'<span class="tmr'+(S.tLeft<=10?' red':'')+'" id="tmr">'+S.tLeft+'s</span>':'')+'<span style="font-size:13px;color:#888;font-weight:500;">'+(S.cur+1)+'/'+S.qs.length+'</span></div></div>';
+    h+='<div class="bar"><div class="barfill" style="width:'+prog+'%;"></div></div>';
+    if(q[8]) h+='<div class="fbox"><span style="font-size:9px;color:#555;font-family:sans-serif;text-transform:uppercase;letter-spacing:.08em;">Formula</span><br>'+q[8]+'</div>';
+    h+='<div class="card" style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;gap:8px;"><p style="font-size:15px;font-weight:500;line-height:1.65;flex:1;">'+q[4]+'</p><div style="display:flex;flex-direction:column;gap:6px;"><button onclick="toggleFlag()" style="background:none;border:none;cursor:pointer;font-size:15px;opacity:.5;">🚩</button><button onclick="S.modal=\'note\';render()" style="background:none;border:none;cursor:pointer;font-size:14px;opacity:.5;">📝</button></div></div></div>';
+    if(timedOut) h+='<div style="background:#2b0d0d;border:1px solid #7f1d1d;border-radius:10px;padding:11px;margin-bottom:10px;color:#fca5a5;font-size:13px;">⏱ Time\'s up! Correct: '+q[6]+'</div>';
+    opts.forEach(function(opt){
+      var letter=opt.charAt(0),cls='opt';
+      if(S.sel!==null&&!timedOut){if(letter===q[6])cls+=' ok';else if(opt===S.sel)cls+=' ng';}
+      else if(opt===S.sel)cls+=' sel';
+      h+='<button class="'+cls+'" '+(S.sel!==null?'disabled':'')+' onclick="pick(\''+esc(opt)+'\')">'+opt+'</button>';
+    });
+    if(S.sel&&!timedOut) h+='<div class="explain">💡 '+q[7]+'</div>';
+    if(S.sel!==null&&!S.conf[S.cur]){
+      h+='<p style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:8px;">Confident? <span style="font-weight:400;opacity:.6;">(optional)</span></p>';
+      h+='<div class="conf"><button style="border-color:#22c55e55;color:#22c55e;" onclick="conf(\'Got it\')">Got it</button><button style="border-color:#f5c51855;color:#f5c518;" onclick="conf(\'Shaky\')">Shaky</button><button style="border-color:#ef444455;color:#ef4444;" onclick="conf(\'Missed\')">Missed</button></div>';
+    }
+    if(S.sel!==null) h+='<button class="btn" onclick="next()">'+(S.cur+1<S.qs.length?'Next →':'See Results →')+'</button>';
+    h+='<button style="width:100%;padding:10px;border-radius:12px;border:1px solid #2a2a2a;background:transparent;color:#888;font-size:13px;cursor:pointer;margin-top:0;" onclick="S.modal=\'exit\';render()">← Home</button>';
+  }
+
+  else if(S.screen==='results'){
+    var tot=S.ans.length, ok=S.ans.filter(function(a){return a.ok;}).length;
+    var pct=Math.round(ok/tot*100);
+    h+='<div style="text-align:center;margin-bottom:22px;"><div style="font-size:28px;margin-bottom:10px;">'+(pct>=70?'🎉':pct>=50?'📚':'💪')+'</div><div class="big">'+ok+'<span style="font-size:22px;color:#555;">/'+tot+'</span></div><p style="color:#888;font-size:14px;margin:6px 0 10px;">'+pct+'%</p><span style="display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:600;'+(pct>=70?'background:#0d2b1d;color:#86efac;':'background:#2b0d0d;color:#fca5a5;')+'">'+(pct>=70?'Pass ✓':'Keep Studying')+'</span>'+(S.best>=3?'<p style="font-size:12px;color:#f5c518;margin-top:8px;">🔥 Best streak: '+S.best+'</p>':'')+'</div>';
+    h+='<div class="card" style="margin-bottom:12px;"><p style="font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">By category</p>';
+    var sk=Object.keys(S.stats);
+    sk.sort(function(a,b){return(S.stats[a].c/S.stats[a].t)-(S.stats[b].c/S.stats[b].t);}).forEach(function(cat){
+      var v=S.stats[cat],p=Math.round(v.c/v.t*100),col=p>=70?'#22c55e':p>=50?'#f5c518':'#ef4444';
+      h+='<div class="wr"><span style="font-size:13px;flex:1;">'+cat+'</span><div class="wbar"><div style="height:4px;width:'+p+'%;background:'+col+';border-radius:99px;"></div></div><span style="font-size:12px;color:'+col+';font-weight:600;margin-left:8px;">'+p+'%</span></div>';
+    });
+    h+='</div>';
+    h+='<details style="margin-bottom:14px;"><summary style="font-size:13px;font-weight:600;cursor:pointer;padding:10px 0;list-style:none;color:#e5e5e5;">▶ Review all ('+tot+')</summary><div style="margin-top:10px;">';
+    S.ans.forEach(function(a,i){
+      var cr=S.conf[i]||'', col=cr==='Got it'?'#22c55e':cr==='Shaky'?'#f5c518':'#ef4444';
+      h+='<div class="'+(a.ok?'rok':'rng')+'"><div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="font-size:11px;color:#555;">Q'+(i+1)+' · '+a.cat+(S.flagged.indexOf(i)>=0?' 🚩':'')+'</span><div style="display:flex;gap:5px;">'+(cr?'<span style="font-size:10px;color:'+col+';">'+cr+'</span>':'')+'<span style="font-size:11px;font-weight:600;color:'+(a.to?'#f5c518':a.ok?'#22c55e':'#ef4444')+';">'+(a.to?'⏱':a.ok?'✓':'✗')+'</span></div></div>'+(a.f?'<p style="font-family:monospace;font-size:12px;color:#f5c518;margin-bottom:4px;">'+a.f+'</p>':'')+'<p style="font-size:13px;margin-bottom:4px;line-height:1.5;">'+a.q+'</p>'+((!a.ok&&a.sel)?'<p style="font-size:12px;color:#ef4444;margin-bottom:3px;">Your: '+a.sel+'</p>':'')+'<p style="font-size:12px;color:#22c55e;">✓ '+a.ans+' — '+a.exp+'</p></div>';
+    });
+    h+='</div></details>';
+    h+='<div style="display:flex;gap:8px;"><button class="btn2" onclick="S.tab=\'stats\';S.screen=\'home\';render()">Stats</button><button class="btn2" onclick="S.screen=\'home\';S.tab=\'quiz\';render()">← Home</button><button class="btn" style="flex:1;margin-bottom:0;" onclick="startQuiz()">Retake ↺</button></div>';
+  }
+
+  a.innerHTML=h;
+}
+
+// ── ACTIONS ───────────────────────────────────────────────────────────────────
+function startQuiz(){
+  S.err='';S.ans=[];S.cur=0;S.sel=null;S.streak=0;S.best=0;S.flagged=[];S.conf={};S.stats={};
+  S.qs=pool();
+  if(!S.qs.length){S.err='No questions match. Try different settings.';render();return;}
+  S.screen='quiz'; render(); startTimer();
+}
+
+function startTimer(){
+  clearInterval(S.tId);
+  if(!S.timer) return;
+  S.tLeft=S.timer;
+  S.tId=setInterval(function(){
+    S.tLeft--;
+    var el=document.getElementById('tmr');
+    if(el){el.textContent=S.tLeft+'s';if(S.tLeft<=10)el.className='tmr red';}
+    if(S.tLeft<=0){clearInterval(S.tId);S.sel='__to__';render();}
+  },1000);
+}
+
+function pick(opt){
+  if(S.sel!==null) return;
+  clearInterval(S.tId);
+  S.sel=opt; render();
+}
+
+function conf(c){ S.conf[S.cur]=c; render(); }
+
+function toggleFlag(){
+  var i=S.flagged.indexOf(S.cur);
+  if(i>=0)S.flagged.splice(i,1);else S.flagged.push(S.cur);
+  render();
+}
+
+function next(){
+  var q=S.qs[S.cur];
+  var sel=S.sel==='__to__'?null:S.sel;
+  var ok=sel?sel.charAt(0)===q[6]:false;
+  var ns=ok?S.streak+1:0; S.streak=ns; if(ns>S.best)S.best=ns;
+  var cat=q[1]; var pv=S.stats[cat]||{c:0,t:0}; S.stats[cat]={c:pv.c+(ok?1:0),t:pv.t+1};
+  addStat(cat,ok);
+  S.ans.push({q:q[4],ans:q[6],exp:q[7],f:q[8],cat:cat,sel:sel,ok:ok,to:S.sel==='__to__'});
+  if(S.cur+1<S.qs.length){S.cur++;S.sel=null;render();startTimer();}
+  else{addSession(S.ans.filter(function(a){return a.ok;}).length,S.ans.length,S.mode,S.cat);S.screen='results';render();}
+}
+
+// ── BOOT ──────────────────────────────────────────────────────────────────────
+window.onerror=function(msg){
+  var a=document.getElementById('app');
+  if(a)a.innerHTML='<div style="padding:40px 20px;text-align:center;"><p style="color:#f5c518;font-size:16px;margin-bottom:8px;">⚠️ Error</p><p style="color:#888;font-size:13px;margin-bottom:20px;">'+msg+'</p><button onclick="location.reload()" style="padding:12px 24px;background:#f5c518;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;">Reload</button></div>';
+  return true;
+};
+render();
+</script>
+</body>
+</html>
